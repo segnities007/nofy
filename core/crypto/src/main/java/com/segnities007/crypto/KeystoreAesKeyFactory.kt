@@ -4,7 +4,6 @@ import android.os.Build
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.security.keystore.StrongBoxUnavailableException
-import android.util.Log
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 
@@ -20,9 +19,7 @@ object KeystoreAesKeyFactory {
                     preferStrongBox = true,
                     configure = configure
                 )
-            } catch (_: StrongBoxUnavailableException) {
-                Log.i(TAG, "StrongBox unavailable for alias=$keyAlias. Falling back.")
-            }
+            } catch (_: StrongBoxUnavailableException) { }
         }
 
         return generate(
@@ -57,8 +54,6 @@ object KeystoreAesKeyFactory {
         keyGenerator.init(builder.build())
         return keyGenerator.generateKey()
     }
-
-    private const val TAG = "KeystoreAesKeyFactory"
     private const val ANDROID_KEYSTORE = "AndroidKeyStore"
     private const val AES_KEY_SIZE_BITS = 256
 }

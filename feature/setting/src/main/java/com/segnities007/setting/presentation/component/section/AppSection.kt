@@ -51,7 +51,8 @@ internal fun AppSection(
                     text = stringResource(R.string.settings_app_reset_button),
                     onClick = onRequestReset,
                     modifier = Modifier.fillMaxWidth(),
-                    enabled = !isResetting
+                    enabled = !isResetting,
+                    rejectObscuredTouches = true
                 )
             }
         }

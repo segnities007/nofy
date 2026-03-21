@@ -103,15 +103,20 @@ class AuthRepositoryImpl(
         }
     }
 
-    override suspend fun reset(): Result<Unit> {
+    override suspend fun reset(currentPassword: String): Result<Unit> {
         return runCatching {
+            verifyPasswordForPasswordEntry(currentPassword)
+            performReset()
+        }.recoverCatching(::recoverFromPasswordEntryFailure)
+    }
+
+    private fun performReset() {
             dataCipher.lockSession()
             authLocalDataSource.clearAuthState()
             registeredState.value = false
             biometricEnabledState.value = false
             lockedState.value = true
             databaseController.deleteDatabaseFiles()
-        }
     }
 
     override suspend fun setBiometricEnabled(enabled: Boolean): Result<Unit> {

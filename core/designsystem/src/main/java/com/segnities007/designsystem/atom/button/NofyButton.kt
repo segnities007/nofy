@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.segnities007.designsystem.input.consumeObscuredTouches
 import com.segnities007.designsystem.atom.text.NofyText
 import com.segnities007.designsystem.theme.NofyTheme
 import com.segnities007.designsystem.theme.NofyThemeTokens
@@ -17,11 +18,17 @@ fun NofyButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true
+    enabled: Boolean = true,
+    rejectObscuredTouches: Boolean = false,
+    onObscuredTouch: (() -> Unit)? = null
 ) {
     Button(
         onClick = onClick,
         modifier = modifier
+            .consumeObscuredTouches(
+                enabled = rejectObscuredTouches,
+                onBlocked = onObscuredTouch
+            )
             .fillMaxWidth()
             .height(58.dp),
         enabled = enabled,

@@ -11,6 +11,6 @@ sealed interface SettingIntent {
     data class ChangeNewPassword(val value: String) : SettingIntent
     data class ChangeConfirmPassword(val value: String) : SettingIntent
     data object SavePassword : SettingIntent
-    data object ResetApp : SettingIntent
+    data class ResetApp(val currentPassword: String) : SettingIntent
     data object Lock : SettingIntent
 }

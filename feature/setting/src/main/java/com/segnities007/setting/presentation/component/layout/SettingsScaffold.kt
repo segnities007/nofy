@@ -92,9 +92,9 @@ internal fun SettingsScaffold(
 
         if (isResetDialogVisible) {
             SettingsResetDialog(
-                onConfirm = {
+                onConfirm = { currentPassword ->
                     isResetDialogVisible = false
-                    onIntent(SettingIntent.ResetApp)
+                    onIntent(SettingIntent.ResetApp(currentPassword))
                 },
                 onDismiss = {
                     isResetDialogVisible = false

@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">nofy</string>
+    <string name="security_block_title">この端末環境では起動できません</string>
+    <string name="security_block_body">Nofy は高リスクな実行環境が検出された場合、暗号化ノートとローカル認証情報を保護するためアクセスを遮断します。</string>
+    <string name="security_block_footer">危険要因を解消してからアプリを再起動してください。release build は root 化、改変、デバッグ接続中の環境では動作しません。</string>
+    <string name="security_block_close">アプリを閉じる</string>
+    <string name="security_reason_debugger">デバッガがプロセスに接続されています。</string>
+    <string name="security_reason_debuggable">インストール済みアプリが想定外に debuggable です。</string>
+    <string name="security_reason_test_keys">端末ファームウェアが test-keys で署名されています。</string>
+    <string name="security_reason_root_artifact">root 関連のバイナリまたは Magisk の痕跡を検出しました。</string>
+    <string name="security_reason_root_manager">既知の root 管理アプリを検出しました。</string>
 </resources>

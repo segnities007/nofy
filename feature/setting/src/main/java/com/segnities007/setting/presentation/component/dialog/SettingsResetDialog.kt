@@ -7,16 +7,18 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import com.segnities007.designsystem.molecule.dialog.NofyDestructiveConfirmDialog
+import com.segnities007.designsystem.molecule.textfield.NofyPasswordField
 import com.segnities007.designsystem.theme.NofyPreview
 import com.segnities007.designsystem.theme.NofyPreviewSurface
 import com.segnities007.setting.R
 
 @Composable
 internal fun SettingsResetDialog(
-    onConfirm: () -> Unit,
+    onConfirm: (String) -> Unit,
     onDismiss: () -> Unit
 ) {
     var confirmationValue by rememberSaveable { mutableStateOf("") }
+    var currentPassword by rememberSaveable { mutableStateOf("") }
 
     NofyDestructiveConfirmDialog(
         title = stringResource(R.string.settings_app_reset_dialog_title),
@@ -35,9 +37,18 @@ internal fun SettingsResetDialog(
         expectedConfirmation = stringResource(R.string.settings_app_reset_dialog_confirmation_phrase),
         confirmLabel = stringResource(R.string.settings_app_reset_dialog_confirm),
         dismissLabel = stringResource(R.string.settings_app_reset_dialog_dismiss),
+        confirmEnabled = confirmationValue == stringResource(R.string.settings_app_reset_dialog_confirmation_phrase) &&
+            currentPassword.isNotBlank(),
         onConfirmationValueChange = { confirmationValue = it },
-        onConfirm = onConfirm,
-        onDismiss = onDismiss
+        onConfirm = { onConfirm(currentPassword) },
+        onDismiss = onDismiss,
+        extraContent = {
+            NofyPasswordField(
+                value = currentPassword,
+                onValueChange = { currentPassword = it },
+                label = stringResource(R.string.settings_app_reset_dialog_password_label)
+            )
+        }
     )
 }
 

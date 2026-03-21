@@ -181,7 +181,7 @@ private object PreviewAuthRepository : AuthRepository {
 
     override suspend fun clearBiometricSecret(): Result<Unit> = Result.success(Unit)
 
-    override suspend fun reset(): Result<Unit> = Result.success(Unit)
+    override suspend fun reset(currentPassword: String): Result<Unit> = Result.success(Unit)
 
     override suspend fun setBiometricEnabled(enabled: Boolean): Result<Unit> = Result.success(Unit)
 

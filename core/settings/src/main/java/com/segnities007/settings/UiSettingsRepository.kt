@@ -8,4 +8,6 @@ interface UiSettingsRepository {
     suspend fun setThemeMode(themeMode: ThemeMode)
 
     suspend fun setFontScale(fontScale: Float)
+
+    suspend fun reset()
 }

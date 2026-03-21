@@ -1,9 +1,9 @@
 <libraries>
   <library
       name=":@@:shared:auth::debug"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/6e333bae08cda15eb4e90a238258b93a/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/6e333bae08cda15eb4e90a238258b93a/transformed/out/jars/libs/R.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/87e1594797d6fd29e0227e7b15f981a2/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/87e1594797d6fd29e0227e7b15f981a2/transformed/out/jars/libs/R.jar"
       resolved="nofy.shared:auth:unspecified"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/6e333bae08cda15eb4e90a238258b93a/transformed/out"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/87e1594797d6fd29e0227e7b15f981a2/transformed/out"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -40,9 +40,9 @@
       proguardRules="proguard.txt"/>
   <library
       name=":@@:platform:crypto::debug"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/21e31895cf69cee518ee1873d72898d5/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/21e31895cf69cee518ee1873d72898d5/transformed/out/jars/libs/R.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/540ad02e7b2db7868c24bf0b32eaddd7/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/540ad02e7b2db7868c24bf0b32eaddd7/transformed/out/jars/libs/R.jar"
       resolved="nofy.platform:crypto:unspecified"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/21e31895cf69cee518ee1873d72898d5/transformed/out"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/540ad02e7b2db7868c24bf0b32eaddd7/transformed/out"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -66,9 +66,9 @@
       proguardRules="proguard.txt"/>
   <library
       name=":@@:platform:storage::debug"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/1de0595cf09c93bbb84dd136dab565c7/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/1de0595cf09c93bbb84dd136dab565c7/transformed/out/jars/libs/R.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/9fe910238127f87994cc66dce70d1749/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/9fe910238127f87994cc66dce70d1749/transformed/out/jars/libs/R.jar"
       resolved="nofy.platform:storage:unspecified"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/1de0595cf09c93bbb84dd136dab565c7/transformed/out"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/9fe910238127f87994cc66dce70d1749/transformed/out"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -1036,9 +1036,9 @@
       proguardRules="proguard.txt"/>
   <library
       name=":@@:shared:settings::debug"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/8a6ee6cb588be7a1dc601dbcc6ef0e8e/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/8a6ee6cb588be7a1dc601dbcc6ef0e8e/transformed/out/jars/libs/R.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/1fe62f623df1cb93401169570799054d/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/1fe62f623df1cb93401169570799054d/transformed/out/jars/libs/R.jar"
       resolved="nofy.shared:settings:unspecified"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/8a6ee6cb588be7a1dc601dbcc6ef0e8e/transformed/out"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/1fe62f623df1cb93401169570799054d/transformed/out"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"

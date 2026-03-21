@@ -4,7 +4,6 @@ import android.os.Build
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.security.keystore.StrongBoxUnavailableException
-import android.util.Log
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 
@@ -20,9 +19,7 @@ object KeystoreHmacKeyFactory {
                     preferStrongBox = true,
                     configure = configure
                 )
-            } catch (_: StrongBoxUnavailableException) {
-                Log.i(TAG, "StrongBox unavailable for HMAC alias=$keyAlias. Falling back.")
-            }
+            } catch (_: StrongBoxUnavailableException) { }
         }
 
         return generate(
@@ -55,8 +52,6 @@ object KeystoreHmacKeyFactory {
         keyGenerator.init(builder.build())
         return keyGenerator.generateKey()
     }
-
-    private const val TAG = "KeystoreHmacKeyFactory"
     private const val ANDROID_KEYSTORE = "AndroidKeyStore"
     private const val HMAC_KEY_SIZE_BITS = 256
 }

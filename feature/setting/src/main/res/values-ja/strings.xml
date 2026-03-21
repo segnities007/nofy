@@ -34,6 +34,7 @@
     <string name="settings_app_reset_dialog_confirmation_label">続行するには RESET と入力</string>
     <string name="settings_app_reset_dialog_confirmation_hint">%1$s を正確に入力するとリセットできます。</string>
     <string name="settings_app_reset_dialog_confirmation_phrase">RESET</string>
+    <string name="settings_app_reset_dialog_password_label">現在のパスワード</string>
     <string name="settings_app_reset_dialog_confirm">アプリをリセット</string>
     <string name="settings_app_reset_dialog_dismiss">キャンセル</string>
     <string name="settings_toast_biometric_updated">生体認証の設定を更新しました</string>
@@ -41,8 +42,12 @@
     <string name="settings_toast_passwords_do_not_match">新しいパスワードが一致しません</string>
     <string name="settings_toast_password_too_short">新しいパスワードはもっと長くしてください</string>
     <string name="settings_toast_password_too_common">推測されやすい新しいパスワードは使えません</string>
+    <string name="settings_toast_current_password_invalid">現在のパスワードが正しくありません</string>
+    <string name="settings_toast_too_many_attempts">パスワード試行回数が多すぎます。しばらく待ってから再試行してください</string>
     <string name="settings_toast_password_updated">パスワードを更新しました。安全のため生体認証ログインを無効化しました。</string>
     <string name="settings_toast_password_update_failed">パスワード更新に失敗しました</string>
+    <string name="settings_toast_reset_password_required">アプリをリセットするには現在のパスワードを入力してください</string>
+    <string name="settings_toast_reset_invalid_password">現在のパスワードが正しくないため、リセットを中止しました</string>
     <string name="settings_toast_reset_failed">リセットに失敗しました</string>
     <string name="settings_toast_lock_failed">アプリをロックできませんでした</string>
 </resources>

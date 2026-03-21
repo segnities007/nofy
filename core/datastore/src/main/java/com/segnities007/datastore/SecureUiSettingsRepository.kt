@@ -15,12 +15,7 @@ class SecureUiSettingsRepository(
     private val settingsLocalDataSource: SettingsLocalDataSource
 ) : UiSettingsRepository {
 
-    private val _settings = MutableStateFlow(
-        UiSettings(
-            themeMode = ThemeMode.fromStorage(settingsLocalDataSource.getThemeMode()),
-            fontScale = settingsLocalDataSource.getFontScale()
-        ).sanitized()
-    )
+    private val _settings = MutableStateFlow(loadSettings())
 
     override val settings: StateFlow<UiSettings> = _settings.asStateFlow()
 
@@ -35,5 +30,17 @@ class SecureUiSettingsRepository(
         )
         settingsLocalDataSource.saveFontScale(sanitizedScale)
         _settings.update { it.copy(fontScale = sanitizedScale) }
+    }
+
+    override suspend fun reset() {
+        settingsLocalDataSource.clearSettings()
+        _settings.value = loadSettings()
+    }
+
+    private fun loadSettings(): UiSettings {
+        return UiSettings(
+            themeMode = ThemeMode.fromStorage(settingsLocalDataSource.getThemeMode()),
+            fontScale = settingsLocalDataSource.getFontScale()
+        ).sanitized()
     }
 }

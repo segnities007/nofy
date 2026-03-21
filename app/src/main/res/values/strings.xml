@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">nofy</string>
+    <string name="security_block_title">This device environment is not trusted</string>
+    <string name="security_block_body">Nofy blocks access when the app appears to be running in a high-risk environment. This helps protect encrypted notes and local credentials on this device.</string>
+    <string name="security_block_footer">Remove the risky condition and relaunch the app. Release builds do not run on rooted, tampered, or actively debugged environments.</string>
+    <string name="security_block_close">Close App</string>
+    <string name="security_reason_debugger">A debugger is attached to the process.</string>
+    <string name="security_reason_debuggable">The installed app is unexpectedly debuggable.</string>
+    <string name="security_reason_test_keys">The device firmware is signed with test keys.</string>
+    <string name="security_reason_root_artifact">Root-related binaries or Magisk artifacts were detected.</string>
+    <string name="security_reason_root_manager">A known root management package was detected.</string>
 </resources>

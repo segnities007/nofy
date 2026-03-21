@@ -58,7 +58,8 @@ private fun LoginFormCard(
             text = stringResource(R.string.login_button_text),
             onClick = { onIntent(LoginIntent.Login) },
             modifier = Modifier.fillMaxWidth(),
-            enabled = !uiState.isLoading
+            enabled = !uiState.isLoading,
+            rejectObscuredTouches = true
         )
         if (uiState.isBiometricAvailable && uiState.isBiometricEnabled) {
             NofyTextButton(

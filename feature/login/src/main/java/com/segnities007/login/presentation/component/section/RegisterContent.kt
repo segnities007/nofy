@@ -64,7 +64,8 @@ private fun RegisterFormCard(
             text = stringResource(R.string.register_button_text),
             onClick = { onIntent(RegisterIntent.Register) },
             modifier = Modifier.fillMaxWidth(),
-            enabled = !uiState.isLoading
+            enabled = !uiState.isLoading,
+            rejectObscuredTouches = true
         )
     }
 }

@@ -17,6 +17,11 @@ class SettingsLocalDataSource(
         return store.getFloat(KEY_FONT_SCALE, defaultValue)
     }
 
+    fun clearSettings() {
+        store.remove(KEY_THEME_MODE)
+        store.remove(KEY_FONT_SCALE)
+    }
+
     private companion object {
         const val KEY_THEME_MODE = "theme_mode"
         const val KEY_FONT_SCALE = "font_scale"

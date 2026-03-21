@@ -84,7 +84,8 @@ internal fun SecuritySection(
                     text = stringResource(R.string.settings_security_update_password),
                     onClick = { onIntent(SettingIntent.SavePassword) },
                     modifier = Modifier.fillMaxWidth(),
-                    enabled = uiState.canUpdatePassword
+                    enabled = uiState.canUpdatePassword,
+                    rejectObscuredTouches = true
                 )
             }
         }

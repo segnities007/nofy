@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -34,9 +35,11 @@ fun NofyDestructiveConfirmDialog(
     expectedConfirmation: String,
     confirmLabel: String,
     dismissLabel: String,
+    confirmEnabled: Boolean = confirmationValue == expectedConfirmation,
     onConfirmationValueChange: (String) -> Unit,
     onConfirm: () -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    extraContent: @Composable ColumnScope.() -> Unit = {}
 ) {
     Dialog(
         onDismissRequest = onDismiss,
@@ -72,8 +75,10 @@ fun NofyDestructiveConfirmDialog(
                 value = confirmationValue,
                 onValueChange = onConfirmationValueChange,
                 label = confirmationLabel,
-                singleLine = true
+                singleLine = true,
+                rejectObscuredTouches = true
             )
+            extraContent()
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End
@@ -86,7 +91,8 @@ fun NofyDestructiveConfirmDialog(
             NofyButton(
                 text = confirmLabel,
                 onClick = onConfirm,
-                enabled = confirmationValue == expectedConfirmation
+                enabled = confirmEnabled,
+                rejectObscuredTouches = true
             )
         }
     }

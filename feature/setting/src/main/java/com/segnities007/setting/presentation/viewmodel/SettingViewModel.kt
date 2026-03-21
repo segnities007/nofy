@@ -60,7 +60,7 @@ class SettingViewModel(
             is SettingIntent.ChangeNewPassword -> updateNewPassword(intent.value)
             is SettingIntent.ChangeConfirmPassword -> updateConfirmPassword(intent.value)
             SettingIntent.SavePassword -> changePassword()
-            SettingIntent.ResetApp -> resetApp()
+            is SettingIntent.ResetApp -> resetApp(intent.currentPassword)
             SettingIntent.Lock -> lock()
         }
     }
@@ -101,10 +101,15 @@ class SettingViewModel(
         }
     }
 
-    private fun resetApp() {
+    private fun resetApp(currentPassword: String) {
+        val password = validatedResetPasswordOrNull(currentPassword) ?: return
+        submitReset(password)
+    }
+
+    private fun submitReset(currentPassword: String) {
         viewModelScope.launch {
             startReset()
-            val result = authRepository.reset()
+            val result = executeReset(currentPassword)
             reduceReset(result)
         }
     }
@@ -137,6 +142,17 @@ class SettingViewModel(
             currentPassword = state.currentPassword,
             newPassword = state.newPassword
         )
+    }
+
+    private fun validatedResetPasswordOrNull(currentPassword: String): String? {
+        if (currentPassword.isNotBlank()) {
+            return currentPassword
+        }
+
+        viewModelScope.launch {
+            emitToast(R.string.settings_toast_reset_password_required)
+        }
+        return null
     }
 
     private fun startBiometricUpdate() {
@@ -195,18 +211,29 @@ class SettingViewModel(
         setResetting(true)
     }
 
+    private suspend fun executeReset(currentPassword: String): Result<Unit> {
+        val authResetResult = authRepository.reset(currentPassword)
+        if (authResetResult.isFailure) {
+            return authResetResult
+        }
+
+        return runCatching {
+            uiSettingsRepository.reset()
+        }
+    }
+
     private suspend fun reduceReset(result: Result<Unit>) {
         if (result.isSuccess) {
             emitEffect(SettingEffect.NavigateToSignUp)
             return
         }
 
-        handleResetFailure()
+        handleResetFailure(result)
     }
 
-    private suspend fun handleResetFailure() {
+    private suspend fun handleResetFailure(result: Result<Unit>) {
         finishReset()
-        emitToast(R.string.settings_toast_reset_failed)
+        emitToast(resolveResetFailureMessage(result))
     }
 
     private fun finishReset() {
@@ -232,7 +259,17 @@ class SettingViewModel(
         return when (val error = result.exceptionOrNull()) {
             is AuthException.PasswordTooShort -> R.string.settings_toast_password_too_short
             AuthException.PasswordTooCommon -> R.string.settings_toast_password_too_common
+            AuthException.InvalidPassword -> R.string.settings_toast_current_password_invalid
+            is AuthException.LockedOut -> R.string.settings_toast_too_many_attempts
             else -> R.string.settings_toast_password_update_failed
+        }
+    }
+
+    private fun resolveResetFailureMessage(result: Result<Unit>): Int {
+        return when (val error = result.exceptionOrNull()) {
+            AuthException.InvalidPassword -> R.string.settings_toast_reset_invalid_password
+            is AuthException.LockedOut -> R.string.settings_toast_too_many_attempts
+            else -> R.string.settings_toast_reset_failed
         }
     }
 

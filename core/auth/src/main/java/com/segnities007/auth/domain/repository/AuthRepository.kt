@@ -17,7 +17,7 @@ interface AuthRepository {
     suspend fun saveBiometricSecret(encryptedSecret: ByteArray, iv: ByteArray): Result<Unit>
     suspend fun getBiometricSecret(): Pair<ByteArray, ByteArray>?
     suspend fun clearBiometricSecret(): Result<Unit>
-    suspend fun reset(): Result<Unit>
+    suspend fun reset(currentPassword: String): Result<Unit>
     suspend fun setBiometricEnabled(enabled: Boolean): Result<Unit>
     suspend fun changePassword(currentPassword: String, newPassword: String): Result<Unit>
 }

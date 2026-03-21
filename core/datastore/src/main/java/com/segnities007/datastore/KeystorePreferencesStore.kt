@@ -1,10 +1,7 @@
 package com.segnities007.datastore
 
 import android.content.Context
-import android.security.keystore.KeyGenParameterSpec
-import android.security.keystore.KeyProperties
 import android.util.Base64
-import android.util.Log
 import com.segnities007.crypto.KeystoreAesKeyFactory
 import java.nio.charset.StandardCharsets
 import java.security.KeyStore
@@ -90,7 +87,6 @@ class KeystorePreferencesStore(
         val payload = try {
             decrypt(stored)
         } catch (error: Exception) {
-            Log.w(TAG, "Failed to decrypt secure preference: $logicalKey", error)
             sharedPreferences.edit().remove(entryKey).apply()
             return null
         }
@@ -134,7 +130,6 @@ class KeystorePreferencesStore(
     }
 
     private companion object {
-        const val TAG = "KeystorePrefsStore"
         const val AES_TRANSFORMATION = "AES/GCM/NoPadding"
         const val SHA_256 = "SHA-256"
         const val GCM_TAG_LENGTH_BITS = 128

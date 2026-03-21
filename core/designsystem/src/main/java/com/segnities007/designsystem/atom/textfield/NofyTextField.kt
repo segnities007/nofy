@@ -1,6 +1,7 @@
 package com.segnities007.designsystem.atom.textfield
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -8,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
+import com.segnities007.designsystem.input.consumeObscuredTouches
 import com.segnities007.designsystem.theme.NofyTheme
 import com.segnities007.designsystem.theme.NofyThemeTokens
 
@@ -18,7 +20,10 @@ fun NofyTextField(
     label: String,
     modifier: Modifier = Modifier,
     visualTransformation: VisualTransformation = VisualTransformation.None,
-    singleLine: Boolean = true
+    singleLine: Boolean = true,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    rejectObscuredTouches: Boolean = false,
+    onObscuredTouch: (() -> Unit)? = null
 ) {
     OutlinedTextField(
         value = value,
@@ -29,10 +34,16 @@ fun NofyTextField(
                 style = NofyThemeTokens.typography.bodyMedium
             )
         },
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .consumeObscuredTouches(
+                enabled = rejectObscuredTouches,
+                onBlocked = onObscuredTouch
+            )
+            .fillMaxWidth(),
         textStyle = NofyThemeTokens.typography.bodyLarge,
         visualTransformation = visualTransformation,
         singleLine = singleLine,
+        keyboardOptions = keyboardOptions,
         shape = NofyThemeTokens.shapes.large,
         colors = OutlinedTextFieldDefaults.colors(
             focusedContainerColor = NofyThemeTokens.colorScheme.surfaceContainerHigh,
