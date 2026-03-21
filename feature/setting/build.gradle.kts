@@ -7,10 +7,15 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:designsystem"))
-    implementation(project(":core:navigation"))
-    implementation(project(":core:auth")) // 認証APIを利用
-    implementation(project(":core:settings"))
+    implementation(platform(libs.koin.bom))
+    implementation(project(":feature:setting:api"))
+    implementation(project(":feature:login:api"))
+    implementation(project(":platform:designsystem"))
+    implementation(project(":platform:navigation"))
+    implementation(project(":shared:auth")) // 認証APIを利用
+    implementation(project(":shared:settings"))
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

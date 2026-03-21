@@ -1,7 +1,6 @@
 package com.segnities007.designsystem.atom.textfield
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -9,8 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.segnities007.designsystem.theme.NofyTheme
+import com.segnities007.designsystem.theme.NofyThemeTokens
 
 @Composable
 fun NofyTextField(
@@ -24,16 +23,22 @@ fun NofyTextField(
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
-        label = { Text(text = label) },
+        label = {
+            Text(
+                text = label,
+                style = NofyThemeTokens.typography.bodyMedium
+            )
+        },
         modifier = modifier.fillMaxWidth(),
+        textStyle = NofyThemeTokens.typography.bodyLarge,
         visualTransformation = visualTransformation,
         singleLine = singleLine,
-        shape = RoundedCornerShape(24.dp),
+        shape = NofyThemeTokens.shapes.large,
         colors = OutlinedTextFieldDefaults.colors(
-            focusedContainerColor = androidx.compose.material3.MaterialTheme.colorScheme.surfaceContainerHigh,
-            unfocusedContainerColor = androidx.compose.material3.MaterialTheme.colorScheme.surfaceContainerLow,
-            focusedBorderColor = androidx.compose.material3.MaterialTheme.colorScheme.primary.copy(alpha = 0.6f),
-            unfocusedBorderColor = androidx.compose.material3.MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.55f)
+            focusedContainerColor = NofyThemeTokens.colorScheme.surfaceContainerHigh,
+            unfocusedContainerColor = NofyThemeTokens.colorScheme.surfaceContainerLow,
+            focusedBorderColor = NofyThemeTokens.colorScheme.primary.copy(alpha = 0.6f),
+            unfocusedBorderColor = NofyThemeTokens.colorScheme.outlineVariant.copy(alpha = 0.55f)
         )
     )
 }

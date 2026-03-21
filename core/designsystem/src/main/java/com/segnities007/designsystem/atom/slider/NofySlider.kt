@@ -22,13 +22,15 @@ fun NofySlider(
     value: Float,
     onValueChange: (Float) -> Unit,
     modifier: Modifier = Modifier,
-    valueRange: ClosedFloatingPointRange<Float>
+    valueRange: ClosedFloatingPointRange<Float>,
+    steps: Int = 0
 ) {
     Slider(
         value = value,
         onValueChange = onValueChange,
         modifier = modifier,
-        valueRange = valueRange
+        valueRange = valueRange,
+        steps = steps
     )
 }
 

@@ -36,17 +36,23 @@ android {
 }
 
 dependencies {
-    implementation(project(":feature:login"))
-    implementation(project(":feature:note"))
-    implementation(project(":feature:setting"))
+    implementation(platform(libs.koin.bom))
+    implementation(project(":feature:login:api"))
+    implementation(project(":feature:login:impl"))
+    implementation(project(":feature:note:api"))
+    implementation(project(":feature:note:impl"))
+    implementation(project(":feature:setting:api"))
+    implementation(project(":feature:setting:impl"))
     
-    implementation(project(":core:designsystem"))
-    implementation(project(":core:navigation"))
-    implementation(project(":core:crypto"))
-    implementation(project(":core:database"))
-    implementation(project(":core:datastore"))
-    implementation(project(":core:settings"))
-    implementation(project(":core:auth"))
+    implementation(project(":platform:designsystem"))
+    implementation(project(":platform:navigation"))
+    implementation(project(":platform:biometric"))
+    implementation(project(":platform:crypto"))
+    implementation(project(":platform:database"))
+    implementation(project(":platform:storage"))
+    implementation(project(":shared:settings"))
+    implementation(project(":shared:auth"))
+    implementation(libs.koin.android)
     
     implementation(libs.androidx.navigation3.runtime)
     implementation(libs.androidx.navigation3.ui)

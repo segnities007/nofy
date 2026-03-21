@@ -7,10 +7,12 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:settings"))
+    implementation(platform(libs.koin.bom))
+    implementation(project(":shared:settings"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.security.crypto)
+    implementation(libs.koin.core)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

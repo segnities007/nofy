@@ -1,5 +1,6 @@
 plugins {
     id("nofy.android.feature")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -7,11 +8,22 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:designsystem"))
-    implementation(project(":core:navigation"))
-    implementation(project(":core:database"))
-    implementation(project(":core:crypto"))
-    implementation(project(":core:auth"))
+    implementation(platform(libs.koin.bom))
+    implementation(project(":feature:note:api"))
+    implementation(project(":feature:login:api"))
+    implementation(project(":feature:setting:api"))
+    implementation(project(":platform:designsystem"))
+    implementation(project(":platform:navigation"))
+    implementation(project(":platform:database"))
+    implementation(project(":platform:crypto"))
+    implementation(project(":shared:auth"))
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    implementation(libs.sqlcipher)
+    implementation(libs.sqlite.ktx)
+    ksp(libs.room.compiler)
     
     implementation(libs.androidx.navigation3.runtime)
     implementation(libs.androidx.appcompat)

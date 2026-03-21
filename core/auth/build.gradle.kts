@@ -7,10 +7,12 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:crypto"))
-    implementation(project(":core:database"))
-    implementation(project(":core:datastore"))
-    implementation(project(":core:biometric"))
+    implementation(platform(libs.koin.bom))
+    implementation(project(":platform:crypto"))
+    implementation(project(":platform:database"))
+    implementation(project(":platform:storage"))
+    implementation(project(":platform:biometric"))
+    implementation(libs.koin.core)
     
     implementation(libs.androidx.biometric)
     
