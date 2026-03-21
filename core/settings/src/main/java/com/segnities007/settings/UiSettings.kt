@@ -8,6 +8,6 @@ data class UiSettings(
     val fontScale: Float = 1f
 ) {
     fun sanitized(): UiSettings {
-        return copy(fontScale = fontScale.coerceIn(MinFontScale, MaxFontScale))
+        return copy(fontScale = snapToSupportedFontScale(fontScale.coerceIn(MinFontScale, MaxFontScale)))
     }
 }

@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,7 +26,7 @@ import com.segnities007.designsystem.theme.NofyThemeTokens
 fun NofyCardSurface(
     modifier: Modifier = Modifier,
     containerColor: Color = NofyThemeTokens.colorScheme.surfaceContainer,
-    shape: Shape = RoundedCornerShape(28.dp),
+    shape: Shape = NofyThemeTokens.shapes.large,
     contentPadding: PaddingValues = PaddingValues(20.dp),
     tonalElevation: androidx.compose.ui.unit.Dp = 2.dp,
     shadowElevation: androidx.compose.ui.unit.Dp = 0.dp,

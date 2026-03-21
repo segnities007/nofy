@@ -7,11 +7,16 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:designsystem"))
-    implementation(project(":core:biometric"))
-    implementation(project(":core:navigation"))
-    implementation(project(":core:auth"))
-    implementation(project(":core:crypto"))
+    implementation(platform(libs.koin.bom))
+    implementation(project(":feature:login:api"))
+    implementation(project(":feature:note:api"))
+    implementation(project(":platform:designsystem"))
+    implementation(project(":platform:biometric"))
+    implementation(project(":platform:navigation"))
+    implementation(project(":shared:auth"))
+    implementation(project(":platform:crypto"))
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
     
     implementation(libs.androidx.navigation3.runtime)
     implementation(libs.androidx.appcompat)

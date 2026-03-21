@@ -1,54 +1,45 @@
 package com.segnities007.note.data.repository
 
 import com.segnities007.crypto.DataCipher
-import com.segnities007.database.DatabaseProvider
-import com.segnities007.database.entity.NoteEntity
+import com.segnities007.note.data.local.NoteLocalDataSource
+import com.segnities007.note.data.local.NoteLocalRecord
 import com.segnities007.note.domain.error.NoteRepositoryException
 import com.segnities007.note.domain.model.Note
 import com.segnities007.note.domain.repository.NoteRepository
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 
 /**
  * 物理的暗号化(SQLCipher)とフィールド暗号化(AES-GCM)を統合したリポジトリ。
  * AGENTS.mdのSecurity by Designに基づき、多層防御を実装。
  */
-@OptIn(ExperimentalCoroutinesApi::class)
-class NoteRepositoryImpl(
-    private val databaseProvider: DatabaseProvider,
+internal class NoteRepositoryImpl(
+    private val noteLocalDataSource: NoteLocalDataSource,
     private val dataCipher: DataCipher
 ) : NoteRepository {
 
-    private fun getNoteDao() = databaseProvider.noteDaoOrNull()
-
     override fun getNotes(): Flow<List<Note>> {
-        return databaseProvider.noteDaoFlow().flatMapLatest { noteDao ->
-            noteDao?.getAllNotes()?.map { entities ->
-                entities.map { decryptEntity(it) }
-            } ?: flowOf(emptyList())
+        return noteLocalDataSource.observeRecords().map { records ->
+            records.map(::decryptRecord)
         }
     }
 
     override suspend fun getNoteById(id: Long): Note? {
-        return getNoteDao()?.getNoteById(id)?.let { decryptEntity(it) }
+        return noteLocalDataSource.getRecordById(id)?.let(::decryptRecord)
     }
 
     override suspend fun saveNote(note: Note): Result<Note> {
-        val dao = getNoteDao() ?: return Result.failure(NoteRepositoryException.DatabaseLocked)
         return try {
             val (encrypted, iv) = dataCipher.encrypt(note.content)
             val updatedAt = System.currentTimeMillis()
-            val entity = NoteEntity(
+            val record = NoteLocalRecord(
                 id = note.id,
                 encryptedContent = encrypted,
                 iv = iv,
                 createdAt = note.createdAt,
                 updatedAt = updatedAt
             )
-            val savedId = dao.insertNote(entity)
+            val savedId = noteLocalDataSource.saveRecord(record).getOrThrow()
             Result.success(
                 note.copy(
                     id = if (note.id == 0L) savedId else note.id,
@@ -61,31 +52,20 @@ class NoteRepositoryImpl(
     }
 
     override suspend fun deleteNote(id: Long): Result<Unit> {
-        val dao = getNoteDao() ?: return Result.failure(NoteRepositoryException.DatabaseLocked)
-        return try {
-            val entity = dao.getNoteById(id)
-            if (entity != null) {
-                dao.deleteNote(entity)
-                Result.success(Unit)
-            } else {
-                Result.failure(NoteRepositoryException.NoteNotFound)
-            }
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+        return noteLocalDataSource.deleteRecord(id)
     }
 
-    private fun decryptEntity(entity: NoteEntity): Note {
+    private fun decryptRecord(record: NoteLocalRecord): Note {
         val content = try {
-            dataCipher.decrypt(entity.encryptedContent, entity.iv)
+            dataCipher.decrypt(record.encryptedContent, record.iv)
         } catch (e: Exception) {
-            throw NoteRepositoryException.DecryptionFailed(entity.id, e)
+            throw NoteRepositoryException.DecryptionFailed(record.id, e)
         }
         return Note(
-            id = entity.id,
+            id = record.id,
             content = content,
-            createdAt = entity.createdAt,
-            updatedAt = entity.updatedAt
+            createdAt = record.createdAt,
+            updatedAt = record.updatedAt
         )
     }
 }

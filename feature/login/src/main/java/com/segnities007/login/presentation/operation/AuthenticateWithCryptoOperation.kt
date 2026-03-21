@@ -1,7 +1,7 @@
 package com.segnities007.login.presentation.operation
 
 import androidx.biometric.BiometricPrompt
-import com.segnities007.login.presentation.LoginBiometricHandler
+import com.segnities007.login.presentation.biometric.LoginBiometricHandler
 import kotlin.coroutines.resume
 import kotlinx.coroutines.suspendCancellableCoroutine
 

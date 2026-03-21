@@ -4,19 +4,19 @@ import android.util.Base64
 import com.segnities007.auth.domain.error.AuthException
 import com.segnities007.auth.domain.repository.AuthRepository
 import com.segnities007.crypto.PasswordHasher
-import com.segnities007.database.DatabaseProvider
-import com.segnities007.datastore.SecureAuthStorage
+import com.segnities007.database.SecureDatabaseController
+import com.segnities007.datastore.AuthLocalDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class AuthRepositoryImpl(
-    private val secureAuthStorage: SecureAuthStorage,
+    private val authLocalDataSource: AuthLocalDataSource,
     private val passwordHasher: PasswordHasher,
-    private val databaseProvider: DatabaseProvider
+    private val databaseController: SecureDatabaseController
 ) : AuthRepository {
-    private val registeredState = MutableStateFlow(secureAuthStorage.getPasswordHash() != null)
-    private val biometricEnabledState = MutableStateFlow(secureAuthStorage.isBiometricEnabled())
+    private val registeredState = MutableStateFlow(authLocalDataSource.getPasswordHash() != null)
+    private val biometricEnabledState = MutableStateFlow(authLocalDataSource.isBiometricEnabled())
 
     override fun isRegistered(): Flow<Boolean> {
         return registeredState.asStateFlow()
@@ -28,7 +28,7 @@ class AuthRepositoryImpl(
 
     override suspend fun lock(): Result<Unit> {
         return runCatching {
-            databaseProvider.lock()
+            databaseController.lock()
         }
     }
 
@@ -55,13 +55,13 @@ class AuthRepositoryImpl(
         return runCatching {
             val secretString = Base64.encodeToString(encryptedSecret, Base64.DEFAULT)
             val ivString = Base64.encodeToString(iv, Base64.DEFAULT)
-            secureAuthStorage.saveBiometricSecret(secretString, ivString)
+            authLocalDataSource.saveBiometricSecret(secretString, ivString)
             biometricEnabledState.value = true
         }
     }
 
     override suspend fun getBiometricSecret(): Pair<ByteArray, ByteArray>? {
-        val pair = secureAuthStorage.getBiometricSecret() ?: return null
+        val pair = authLocalDataSource.getBiometricSecret() ?: return null
         return try {
             val secret = Base64.decode(pair.first, Base64.DEFAULT)
             val iv = Base64.decode(pair.second, Base64.DEFAULT)
@@ -73,15 +73,15 @@ class AuthRepositoryImpl(
 
     override suspend fun reset(): Result<Unit> {
         return runCatching {
-            secureAuthStorage.clear()
+            authLocalDataSource.clearAuthState()
             registeredState.value = false
             biometricEnabledState.value = false
-            databaseProvider.deleteDatabaseFiles()
+            databaseController.deleteDatabaseFiles()
         }
     }
 
     override suspend fun setBiometricEnabled(enabled: Boolean): Result<Unit> {
-        secureAuthStorage.setBiometricEnabled(enabled)
+        authLocalDataSource.setBiometricEnabled(enabled)
         biometricEnabledState.value = enabled
         return Result.success(Unit)
     }
@@ -94,13 +94,13 @@ class AuthRepositoryImpl(
     }
 
     private fun ensureNotRegistered() {
-        if (secureAuthStorage.getPasswordHash() != null) {
+        if (authLocalDataSource.getPasswordHash() != null) {
             throw AuthException.AlreadyRegistered
         }
     }
 
     private fun ensurePasswordMatches(password: String) {
-        val storedHash = secureAuthStorage.getPasswordHash()
+        val storedHash = authLocalDataSource.getPasswordHash()
             ?: throw AuthException.NotRegistered
 
         if (!passwordHasher.verifyPassword(password, storedHash)) {
@@ -110,22 +110,22 @@ class AuthRepositoryImpl(
 
     private fun storePasswordHash(password: String) {
         val hash = passwordHasher.hashPassword(password)
-        secureAuthStorage.savePasswordHash(hash)
+        authLocalDataSource.savePasswordHash(hash)
         registeredState.value = true
     }
 
     private fun unlockDatabase(password: String) {
-        databaseProvider.unlock(password.toByteArray())
+        databaseController.unlock(password.toByteArray())
     }
 
     private fun applyPasswordChange(newPassword: String) {
         storePasswordHash(newPassword)
 
         // Existing biometric credentials are tied to the old password and must be re-enrolled.
-        secureAuthStorage.clearBiometricSecret()
+        authLocalDataSource.clearBiometricSecret()
         biometricEnabledState.value = false
 
-        databaseProvider.lock()
+        databaseController.lock()
         unlockDatabase(newPassword)
     }
 }

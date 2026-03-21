@@ -29,9 +29,11 @@ android {
 }
 
 dependencies {
+    implementation(platform(libs.koin.bom))
     implementation(libs.argon2kt)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.koin.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

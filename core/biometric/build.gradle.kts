@@ -29,11 +29,13 @@ android {
 }
 
 dependencies {
+    implementation(platform(libs.koin.bom))
     api(libs.androidx.biometric)
     api(libs.androidx.fragment.ktx)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.koin.core)
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

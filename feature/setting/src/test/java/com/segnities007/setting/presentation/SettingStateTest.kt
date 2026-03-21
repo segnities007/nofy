@@ -1,4 +1,4 @@
-package com.segnities007.setting.presentation
+package com.segnities007.setting.presentation.contract
 
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue

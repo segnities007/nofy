@@ -33,7 +33,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:settings"))
+    implementation(project(":shared:settings"))
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
