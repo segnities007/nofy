@@ -1,7 +1,7 @@
 package com.segnities007.datastore
 
 class AuthLocalDataSource(
-    private val store: EncryptedPreferencesStore
+    private val store: KeystorePreferencesStore
 ) {
     fun savePasswordHash(hash: String) {
         store.putString(KEY_PASSWORD_HASH, hash)
@@ -41,8 +41,26 @@ class AuthLocalDataSource(
             KEY_PASSWORD_HASH,
             KEY_BIOMETRIC_SECRET,
             KEY_BIOMETRIC_IV,
-            KEY_BIOMETRIC_ENABLED
+            KEY_BIOMETRIC_ENABLED,
+            KEY_FAILED_PASSWORD_ATTEMPTS,
+            KEY_PASSWORD_LOCKOUT_UNTIL_MILLIS
         )
+    }
+
+    fun saveFailedPasswordAttempts(count: Int) {
+        store.putInt(KEY_FAILED_PASSWORD_ATTEMPTS, count)
+    }
+
+    fun getFailedPasswordAttempts(): Int = store.getInt(KEY_FAILED_PASSWORD_ATTEMPTS)
+
+    fun savePasswordLockoutUntilMillis(untilMillis: Long) {
+        store.putLong(KEY_PASSWORD_LOCKOUT_UNTIL_MILLIS, untilMillis)
+    }
+
+    fun getPasswordLockoutUntilMillis(): Long = store.getLong(KEY_PASSWORD_LOCKOUT_UNTIL_MILLIS)
+
+    fun clearPasswordAttemptState() {
+        store.remove(KEY_FAILED_PASSWORD_ATTEMPTS, KEY_PASSWORD_LOCKOUT_UNTIL_MILLIS)
     }
 
     private companion object {
@@ -50,5 +68,7 @@ class AuthLocalDataSource(
         const val KEY_BIOMETRIC_SECRET = "biometric_secret"
         const val KEY_BIOMETRIC_IV = "biometric_iv"
         const val KEY_BIOMETRIC_ENABLED = "biometric_enabled"
+        const val KEY_FAILED_PASSWORD_ATTEMPTS = "failed_password_attempts"
+        const val KEY_PASSWORD_LOCKOUT_UNTIL_MILLIS = "password_lockout_until_millis"
     }
 }

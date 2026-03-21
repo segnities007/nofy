@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.segnities007.auth-mergeReleaseResources-42:/values-large-v4/values-large-v4.xml",
+            "outputFile": "com.segnities007.auth-mergeReleaseResources-38:/values-large-v4/values-large-v4.xml",
             "map": [
                 {
-                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/9d02b6b13495649ec8e078d301d5848f/transformed/appcompat-1.7.1/res/values-large-v4/values-large-v4.xml",
+                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/c5ebcbecac2d6282e88916206b05dc61/transformed/appcompat-1.7.1/res/values-large-v4/values-large-v4.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10",
                         "startColumns": "4,4,4,4,4,4,4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/b4b4a88121f704e5b8e91c4058b6d754/transformed/material-1.13.0/res/values-large-v4/values-large-v4.xml",
+                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/411b069d02493dfd27f3937da1b0b514/transformed/material-1.13.0/res/values-large-v4/values-large-v4.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
@@ -33,10 +33,10 @@
             ]
         },
         {
-            "outputFile": "com.segnities007.auth-release-44:/values-large-v4/values-large-v4.xml",
+            "outputFile": "com.segnities007.auth-release-40:/values-large-v4/values-large-v4.xml",
             "map": [
                 {
-                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/9d02b6b13495649ec8e078d301d5848f/transformed/appcompat-1.7.1/res/values-large-v4/values-large-v4.xml",
+                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/c5ebcbecac2d6282e88916206b05dc61/transformed/appcompat-1.7.1/res/values-large-v4/values-large-v4.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10",
                         "startColumns": "4,4,4,4,4,4,4,4,4",
@@ -46,7 +46,7 @@
                     }
                 },
                 {
-                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/b4b4a88121f704e5b8e91c4058b6d754/transformed/material-1.13.0/res/values-large-v4/values-large-v4.xml",
+                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/411b069d02493dfd27f3937da1b0b514/transformed/material-1.13.0/res/values-large-v4/values-large-v4.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",

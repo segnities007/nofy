@@ -60,7 +60,7 @@ private fun LoginFormCard(
             modifier = Modifier.fillMaxWidth(),
             enabled = !uiState.isLoading
         )
-        if (uiState.isBiometricAvailable) {
+        if (uiState.isBiometricAvailable && uiState.isBiometricEnabled) {
             NofyTextButton(
                 text = stringResource(R.string.biometric_title),
                 onClick = { onIntent(LoginIntent.BiometricLogin) },

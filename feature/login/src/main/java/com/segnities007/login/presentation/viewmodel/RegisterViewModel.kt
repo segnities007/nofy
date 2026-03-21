@@ -14,6 +14,7 @@ import com.segnities007.login.presentation.contract.RegisterIntent
 import com.segnities007.login.presentation.contract.RegisterState
 import com.segnities007.login.presentation.operation.AuthenticateWithCryptoOperation
 import com.segnities007.login.presentation.operation.BiometricAuthenticationResult
+import com.segnities007.login.presentation.operation.BiometricEnrollmentPreparationResult
 import com.segnities007.login.presentation.operation.BiometricEnrollmentRequest
 import com.segnities007.login.presentation.operation.BiometricSecretEncryptionResult
 import com.segnities007.login.presentation.operation.EncryptedBiometricSecret
@@ -72,20 +73,28 @@ internal class RegisterViewModel(
     ) {
         when (result) {
             PasswordRegistrationResult.Success -> continueBiometricEnrollment(password)
+            is PasswordRegistrationResult.TooShort -> handlePasswordTooShort(result.minimumLength)
+            PasswordRegistrationResult.TooCommon -> handlePasswordTooCommon()
             PasswordRegistrationResult.Failure -> handleRegistrationFailure()
         }
     }
 
     private suspend fun continueBiometricEnrollment(password: String) {
-        val request = executeBiometricEnrollmentPreparation(password)
+        val request = executeBiometricEnrollmentPreparation(password) ?: return
         val authentication = executeBiometricEnrollmentAuthentication(request.cryptoObject) ?: return
         val secret = executeBiometricSecretEncryption(request, authentication) ?: return
         val result = executeBiometricSecretPersistence(secret)
         reduceBiometricSecretPersistence(result)
     }
 
-    private fun executeBiometricEnrollmentPreparation(password: String): BiometricEnrollmentRequest {
-        return prepareBiometricEnrollmentOperation(password)
+    private suspend fun executeBiometricEnrollmentPreparation(password: String): BiometricEnrollmentRequest? {
+        return when (val result = prepareBiometricEnrollmentOperation(password)) {
+            is BiometricEnrollmentPreparationResult.Ready -> result.request
+            BiometricEnrollmentPreparationResult.Failure -> {
+                emitLoginNavigation(R.string.register_success_without_biometric)
+                null
+            }
+        }
     }
 
     private suspend fun executeBiometricEnrollmentAuthentication(
@@ -152,6 +161,19 @@ internal class RegisterViewModel(
     private suspend fun handleRegistrationFailure() {
         stopLoading()
         emitEffect(RegisterEffect.ShowToastRes(R.string.register_error_failed))
+    }
+
+    private suspend fun handlePasswordTooShort(minimumLength: Int) {
+        stopLoading()
+        emitEffect(RegisterEffect.ShowToastResArgs(
+            messageRes = R.string.register_error_password_too_short,
+            formatArgs = listOf(minimumLength)
+        ))
+    }
+
+    private suspend fun handlePasswordTooCommon() {
+        stopLoading()
+        emitEffect(RegisterEffect.ShowToastRes(R.string.register_error_password_too_common))
     }
 
     private fun startLoading() {

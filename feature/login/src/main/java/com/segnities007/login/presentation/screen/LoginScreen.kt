@@ -82,6 +82,7 @@ private fun ObserveLoginEffects(
         effect.collect { handledEffect ->
             when (handledEffect) {
                 LoginEffect.NavigateToNotes -> onLoginSuccess()
+                is LoginEffect.ShowLockout -> showLockoutToast(context, handledEffect.remainingMillis)
                 is LoginEffect.ShowToastMessage -> showToast(context, handledEffect.message)
                 is LoginEffect.ShowToastRes -> showToast(context, handledEffect.messageRes)
             }
@@ -116,6 +117,17 @@ private fun showToast(
     message: String
 ) {
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+}
+
+private fun showLockoutToast(
+    context: Context,
+    remainingMillis: Long
+) {
+    val remainingSeconds = ((remainingMillis + 999L) / 1_000L).coerceAtLeast(1L)
+    showToast(
+        context,
+        context.getString(R.string.login_error_too_many_attempts, remainingSeconds)
+    )
 }
 
 @NofyPreview

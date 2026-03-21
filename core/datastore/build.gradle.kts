@@ -8,10 +8,10 @@ android {
 
 dependencies {
     implementation(platform(libs.koin.bom))
+    implementation(project(":platform:crypto"))
     implementation(project(":shared:settings"))
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.security.crypto)
     implementation(libs.koin.core)
 
     testImplementation(libs.junit)

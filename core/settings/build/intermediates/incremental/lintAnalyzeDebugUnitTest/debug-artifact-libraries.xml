@@ -1,9 +1,9 @@
 <libraries>
   <library
-      name=":@@:core:settings::debug"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/0f9e3a123d5e5d96aaddbfaf148a9c64/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/0f9e3a123d5e5d96aaddbfaf148a9c64/transformed/out/jars/libs/R.jar"
-      resolved="nofy.core:settings:unspecified"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/0f9e3a123d5e5d96aaddbfaf148a9c64/transformed/out"
+      name=":@@:shared:settings::debug"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/8a6ee6cb588be7a1dc601dbcc6ef0e8e/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/8a6ee6cb588be7a1dc601dbcc6ef0e8e/transformed/out/jars/libs/R.jar"
+      resolved="nofy.shared:settings:unspecified"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/8a6ee6cb588be7a1dc601dbcc6ef0e8e/transformed/out"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"

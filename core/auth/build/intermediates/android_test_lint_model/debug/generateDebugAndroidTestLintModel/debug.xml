@@ -24,6 +24,6 @@
   <artifact
       type="INSTRUMENTATION_TEST"
       applicationId="com.segnities007.auth.test"
-      desugaredMethodsFiles="/home/segnities007/.gradle/caches/9.3.1/transforms/c9697919e3a48a19c5b36b57e4fef7f6/transformed/D8BackportedDesugaredMethods.txt">
+      desugaredMethodsFiles="/home/segnities007/.gradle/caches/9.3.1/transforms/0d1ca71db4b46bbd350f8a9aa3d95e7b/transformed/D8BackportedDesugaredMethods.txt">
   </artifact>
 </variant>

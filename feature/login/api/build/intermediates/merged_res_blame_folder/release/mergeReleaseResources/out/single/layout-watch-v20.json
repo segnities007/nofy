@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.segnities007.login.api-release-36:/layout-watch-v20/abc_alert_dialog_button_bar_material.xml",
+        "source": "com.segnities007.login.api-appcompat-1.7.1-26:/layout-watch-v20/abc_alert_dialog_button_bar_material.xml"
+    },
+    {
+        "merged": "com.segnities007.login.api-release-36:/layout-watch-v20/abc_alert_dialog_title_material.xml",
+        "source": "com.segnities007.login.api-appcompat-1.7.1-26:/layout-watch-v20/abc_alert_dialog_title_material.xml"
+    }
+]

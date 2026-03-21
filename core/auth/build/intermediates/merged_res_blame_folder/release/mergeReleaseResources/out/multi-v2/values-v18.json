@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.segnities007.auth-release-44:/values-v18/values-v18.xml",
+            "outputFile": "com.segnities007.auth-release-40:/values-v18/values-v18.xml",
             "map": [
                 {
-                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/9d02b6b13495649ec8e078d301d5848f/transformed/appcompat-1.7.1/res/values-v18/values-v18.xml",
+                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/c5ebcbecac2d6282e88916206b05dc61/transformed/appcompat-1.7.1/res/values-v18/values-v18.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -16,10 +16,10 @@
             ]
         },
         {
-            "outputFile": "com.segnities007.auth-mergeReleaseResources-42:/values-v18/values-v18.xml",
+            "outputFile": "com.segnities007.auth-mergeReleaseResources-38:/values-v18/values-v18.xml",
             "map": [
                 {
-                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/9d02b6b13495649ec8e078d301d5848f/transformed/appcompat-1.7.1/res/values-v18/values-v18.xml",
+                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/c5ebcbecac2d6282e88916206b05dc61/transformed/appcompat-1.7.1/res/values-v18/values-v18.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

@@ -1,0 +1,16 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/segnities007/AndroidStudioProjects/nofy/feature/setting/api/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest4591663055491779317.xml:2:13-83
+INJECTED from /home/segnities007/AndroidStudioProjects/nofy/feature/setting/api/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest4591663055491779317.xml:2:13-83
+	package
+		INJECTED from /home/segnities007/AndroidStudioProjects/nofy/feature/setting/api/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest4591663055491779317.xml
+	xmlns:android
+		ADDED from /home/segnities007/AndroidStudioProjects/nofy/feature/setting/api/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest4591663055491779317.xml:2:23-81
+uses-sdk
+INJECTED from /home/segnities007/AndroidStudioProjects/nofy/feature/setting/api/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest4591663055491779317.xml reason: use-sdk injection requested
+INJECTED from /home/segnities007/AndroidStudioProjects/nofy/feature/setting/api/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest4591663055491779317.xml
+INJECTED from /home/segnities007/AndroidStudioProjects/nofy/feature/setting/api/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest4591663055491779317.xml
+	android:targetSdkVersion
+		INJECTED from /home/segnities007/AndroidStudioProjects/nofy/feature/setting/api/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest4591663055491779317.xml
+	android:minSdkVersion
+		INJECTED from /home/segnities007/AndroidStudioProjects/nofy/feature/setting/api/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest4591663055491779317.xml

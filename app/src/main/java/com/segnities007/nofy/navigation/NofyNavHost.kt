@@ -1,6 +1,7 @@
 package com.segnities007.nofy.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
@@ -15,8 +16,11 @@ import com.segnities007.designsystem.atom.text.NofyText
 import com.segnities007.designsystem.theme.NofyPreview
 import com.segnities007.designsystem.theme.NofyPreviewSurface
 import com.segnities007.login.api.LoginRoute
+import com.segnities007.note.api.NoteRoute
 import com.segnities007.navigation.AppNavigator
 import com.segnities007.navigation.NavigationEntryInstaller
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
@@ -28,10 +32,19 @@ fun NofyNavHost(
     modifier: Modifier = Modifier
 ) {
     val initialRoute by rememberInitialRoute(authRepository)
+    val authNavigationState by rememberAuthNavigationState(authRepository)
     val currentRoute = initialRoute ?: return // Wait for initialization
 
     val backStack = rememberNavBackStack(currentRoute)
     val navigator = remember(backStack) { BackStackNavigator(backStack) }
+
+    LaunchedEffect(authNavigationState) {
+        val state = authNavigationState ?: return@LaunchedEffect
+        resolveForcedRoute(
+            isRegistered = state.isRegistered,
+            isLocked = state.isLocked
+        )?.let(backStack::replaceWith)
+    }
     
     NavDisplay(
         backStack = backStack,
@@ -52,8 +65,18 @@ fun NofyNavHost(
 private fun rememberInitialRoute(
     authRepository: AuthRepository
 ) = produceState<NavKey?>(initialValue = null, authRepository) {
-    val isRegistered = authRepository.isRegistered().first()
-    value = if (isRegistered) LoginRoute.Login else LoginRoute.SignUp
+    val state = authRepository.observeAuthNavigationState().first()
+    value = resolveInitialRoute(
+        isRegistered = state.isRegistered,
+        isLocked = state.isLocked
+    )
+}
+
+@Composable
+private fun rememberAuthNavigationState(
+    authRepository: AuthRepository
+) = produceState<AuthNavigationState?>(initialValue = null, authRepository) {
+    authRepository.observeAuthNavigationState().collect { value = it }
 }
 
 private class BackStackNavigator(
@@ -89,6 +112,28 @@ private fun MutableList<NavKey>.popIfPossible() {
     }
 }
 
+internal fun resolveInitialRoute(
+    isRegistered: Boolean,
+    isLocked: Boolean
+): NavKey {
+    return when {
+        !isRegistered -> LoginRoute.SignUp
+        isLocked -> LoginRoute.Login
+        else -> NoteRoute.NoteList
+    }
+}
+
+internal fun resolveForcedRoute(
+    isRegistered: Boolean,
+    isLocked: Boolean
+): NavKey? {
+    return when {
+        !isRegistered -> LoginRoute.SignUp
+        isLocked -> LoginRoute.Login
+        else -> null
+    }
+}
+
 @NofyPreview
 @Composable
 private fun NofyNavHostPreview() {
@@ -117,6 +162,8 @@ private object PreviewAuthRepository : AuthRepository {
 
     override fun isBiometricEnabled(): Flow<Boolean> = flowOf(false)
 
+    override fun isLocked(): Flow<Boolean> = flowOf(true)
+
     override suspend fun lock(): Result<Unit> = Result.success(Unit)
 
     override suspend fun unlock(password: String): Result<Unit> = Result.success(Unit)
@@ -132,6 +179,8 @@ private object PreviewAuthRepository : AuthRepository {
 
     override suspend fun getBiometricSecret(): Pair<ByteArray, ByteArray>? = null
 
+    override suspend fun clearBiometricSecret(): Result<Unit> = Result.success(Unit)
+
     override suspend fun reset(): Result<Unit> = Result.success(Unit)
 
     override suspend fun setBiometricEnabled(enabled: Boolean): Result<Unit> = Result.success(Unit)
@@ -140,4 +189,18 @@ private object PreviewAuthRepository : AuthRepository {
         currentPassword: String,
         newPassword: String
     ): Result<Unit> = Result.success(Unit)
+}
+
+private data class AuthNavigationState(
+    val isRegistered: Boolean,
+    val isLocked: Boolean
+)
+
+private fun AuthRepository.observeAuthNavigationState(): Flow<AuthNavigationState> {
+    return combine(isRegistered(), isLocked()) { isRegistered, isLocked ->
+        AuthNavigationState(
+            isRegistered = isRegistered,
+            isLocked = isLocked
+        )
+    }
 }

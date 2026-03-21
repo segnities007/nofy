@@ -6,7 +6,8 @@ import com.segnities007.login.presentation.contract.RegisterState
 internal fun previewLoginState(): LoginState {
     return LoginState(
         password = "secure-password",
-        isBiometricAvailable = true
+        isBiometricAvailable = true,
+        isBiometricEnabled = true
     )
 }
 

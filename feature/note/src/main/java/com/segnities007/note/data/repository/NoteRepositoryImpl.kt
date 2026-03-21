@@ -1,6 +1,7 @@
 package com.segnities007.note.data.repository
 
 import com.segnities007.crypto.DataCipher
+import com.segnities007.crypto.DataCipherException
 import com.segnities007.note.data.local.NoteLocalDataSource
 import com.segnities007.note.data.local.NoteLocalRecord
 import com.segnities007.note.domain.error.NoteRepositoryException
@@ -46,6 +47,8 @@ internal class NoteRepositoryImpl(
                     updatedAt = updatedAt
                 )
             )
+        } catch (e: DataCipherException.SessionLocked) {
+            Result.failure(NoteRepositoryException.DatabaseLocked)
         } catch (e: Exception) {
             Result.failure(e)
         }
@@ -58,6 +61,8 @@ internal class NoteRepositoryImpl(
     private fun decryptRecord(record: NoteLocalRecord): Note {
         val content = try {
             dataCipher.decrypt(record.encryptedContent, record.iv)
+        } catch (_: DataCipherException.SessionLocked) {
+            throw NoteRepositoryException.DatabaseLocked
         } catch (e: Exception) {
             throw NoteRepositoryException.DecryptionFailed(record.id, e)
         }

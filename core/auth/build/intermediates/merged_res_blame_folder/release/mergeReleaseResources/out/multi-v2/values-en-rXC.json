@@ -1,27 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.segnities007.auth-mergeReleaseResources-42:/values-en-rXC/values-en-rXC.xml",
+            "outputFile": "com.segnities007.auth-release-40:/values-en-rXC/values-en-rXC.xml",
             "map": [
                 {
-                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/ebcce91ae05c838ba821155bef87fe45/transformed/biometric-1.1.0/res/values-en-rXC/values-en-rXC.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,264,457,676,908,1149,1379,1600,1833,2035,2264,2505",
-                        "endColumns": "208,192,218,231,240,229,220,232,201,228,240,221",
-                        "endOffsets": "259,452,671,903,1144,1374,1595,1828,2030,2259,2500,2722"
-                    },
-                    "to": {
-                        "startLines": "36,37,38,39,40,41,42,43,44,45,46,47",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "6955,7164,7357,7576,7808,8049,8279,8500,8733,8935,9164,9405",
-                        "endColumns": "208,192,218,231,240,229,220,232,201,228,240,221",
-                        "endOffsets": "7159,7352,7571,7803,8044,8274,8495,8728,8930,9159,9400,9622"
-                    }
-                },
-                {
-                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/9d02b6b13495649ec8e078d301d5848f/transformed/appcompat-1.7.1/res/values-en-rXC/values-en-rXC.xml",
+                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/c5ebcbecac2d6282e88916206b05dc61/transformed/appcompat-1.7.1/res/values-en-rXC/values-en-rXC.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -38,7 +21,24 @@
                     }
                 },
                 {
-                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/8ed7a446edb437e15fc456acb956823f/transformed/core-1.18.0/res/values-en-rXC/values-en-rXC.xml",
+                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/8bfd6b4bdf1a31a6e1b9b59d36f73d4a/transformed/biometric-1.1.0/res/values-en-rXC/values-en-rXC.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,264,457,676,908,1149,1379,1600,1833,2035,2264,2505",
+                        "endColumns": "208,192,218,231,240,229,220,232,201,228,240,221",
+                        "endOffsets": "259,452,671,903,1144,1374,1595,1828,2030,2259,2500,2722"
+                    },
+                    "to": {
+                        "startLines": "36,37,38,39,40,41,42,43,44,45,46,47",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "6955,7164,7357,7576,7808,8049,8279,8500,8733,8935,9164,9405",
+                        "endColumns": "208,192,218,231,240,229,220,232,201,228,240,221",
+                        "endOffsets": "7159,7352,7571,7803,8044,8274,8495,8728,8930,9159,9400,9622"
+                    }
+                },
+                {
+                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/c555cd6625f450a5986b0aa5af9c2510/transformed/core-1.18.0/res/values-en-rXC/values-en-rXC.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -57,27 +57,10 @@
             ]
         },
         {
-            "outputFile": "com.segnities007.auth-release-44:/values-en-rXC/values-en-rXC.xml",
+            "outputFile": "com.segnities007.auth-mergeReleaseResources-38:/values-en-rXC/values-en-rXC.xml",
             "map": [
                 {
-                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/ebcce91ae05c838ba821155bef87fe45/transformed/biometric-1.1.0/res/values-en-rXC/values-en-rXC.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,264,457,676,908,1149,1379,1600,1833,2035,2264,2505",
-                        "endColumns": "208,192,218,231,240,229,220,232,201,228,240,221",
-                        "endOffsets": "259,452,671,903,1144,1374,1595,1828,2030,2259,2500,2722"
-                    },
-                    "to": {
-                        "startLines": "36,37,38,39,40,41,42,43,44,45,46,47",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "6955,7164,7357,7576,7808,8049,8279,8500,8733,8935,9164,9405",
-                        "endColumns": "208,192,218,231,240,229,220,232,201,228,240,221",
-                        "endOffsets": "7159,7352,7571,7803,8044,8274,8495,8728,8930,9159,9400,9622"
-                    }
-                },
-                {
-                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/9d02b6b13495649ec8e078d301d5848f/transformed/appcompat-1.7.1/res/values-en-rXC/values-en-rXC.xml",
+                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/c5ebcbecac2d6282e88916206b05dc61/transformed/appcompat-1.7.1/res/values-en-rXC/values-en-rXC.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -94,7 +77,24 @@
                     }
                 },
                 {
-                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/8ed7a446edb437e15fc456acb956823f/transformed/core-1.18.0/res/values-en-rXC/values-en-rXC.xml",
+                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/8bfd6b4bdf1a31a6e1b9b59d36f73d4a/transformed/biometric-1.1.0/res/values-en-rXC/values-en-rXC.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,264,457,676,908,1149,1379,1600,1833,2035,2264,2505",
+                        "endColumns": "208,192,218,231,240,229,220,232,201,228,240,221",
+                        "endOffsets": "259,452,671,903,1144,1374,1595,1828,2030,2259,2500,2722"
+                    },
+                    "to": {
+                        "startLines": "36,37,38,39,40,41,42,43,44,45,46,47",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "6955,7164,7357,7576,7808,8049,8279,8500,8733,8935,9164,9405",
+                        "endColumns": "208,192,218,231,240,229,220,232,201,228,240,221",
+                        "endOffsets": "7159,7352,7571,7803,8044,8274,8495,8728,8930,9159,9400,9622"
+                    }
+                },
+                {
+                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/c555cd6625f450a5986b0aa5af9c2510/transformed/core-1.18.0/res/values-en-rXC/values-en-rXC.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",

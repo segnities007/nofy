@@ -24,7 +24,6 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/build-logic" />
             <option value="$PROJECT_DIR$/build-logic/convention" />
-            <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/core/auth" />
             <option value="$PROJECT_DIR$/core/biometric" />
             <option value="$PROJECT_DIR$/core/crypto" />
@@ -35,8 +34,16 @@
             <option value="$PROJECT_DIR$/core/settings" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/login" />
+            <option value="$PROJECT_DIR$/feature/login-group" />
+            <option value="$PROJECT_DIR$/feature/login/api" />
             <option value="$PROJECT_DIR$/feature/note" />
+            <option value="$PROJECT_DIR$/feature/note-group" />
+            <option value="$PROJECT_DIR$/feature/note/api" />
             <option value="$PROJECT_DIR$/feature/setting" />
+            <option value="$PROJECT_DIR$/feature/setting-group" />
+            <option value="$PROJECT_DIR$/feature/setting/api" />
+            <option value="$PROJECT_DIR$/platform-group" />
+            <option value="$PROJECT_DIR$/shared-group" />
           </set>
         </option>
       </GradleProjectSettings>

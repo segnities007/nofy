@@ -1,5 +1,6 @@
 package com.segnities007.login.domain.usecase
 
+import com.segnities007.auth.domain.error.AuthException
 import com.segnities007.auth.domain.repository.AuthRepository
 
 internal class UnlockWithPasswordUseCase(
@@ -21,11 +22,17 @@ internal class UnlockWithBiometricUseCase(
 internal sealed interface LoginSubmissionResult {
     data object Success : LoginSubmissionResult
     data object Failure : LoginSubmissionResult
+    data class LockedOut(val remainingMillis: Long) : LoginSubmissionResult
 }
 
 private fun Result<Unit>.toLoginSubmissionResult(): LoginSubmissionResult {
-    return if (isSuccess) {
-        LoginSubmissionResult.Success
+    if (isSuccess) {
+        return LoginSubmissionResult.Success
+    }
+
+    val error = exceptionOrNull()
+    return if (error is AuthException.LockedOut) {
+        LoginSubmissionResult.LockedOut(error.remainingMillis)
     } else {
         LoginSubmissionResult.Failure
     }

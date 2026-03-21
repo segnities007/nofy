@@ -69,6 +69,11 @@ private fun ObserveRegisterEffects(
         effect.collect { handledEffect ->
             when (handledEffect) {
                 is RegisterEffect.ShowToastRes -> showToast(context, handledEffect.messageRes)
+                is RegisterEffect.ShowToastResArgs -> showToast(
+                    context = context,
+                    messageRes = handledEffect.messageRes,
+                    formatArgs = handledEffect.formatArgs
+                )
                 is RegisterEffect.NavigateToLogin -> {
                     handledEffect.messageRes?.let { messageRes ->
                         showToast(context, messageRes)
@@ -87,6 +92,18 @@ private fun showToast(
     Toast.makeText(
         context,
         context.getString(messageRes),
+        Toast.LENGTH_SHORT
+    ).show()
+}
+
+private fun showToast(
+    context: Context,
+    @StringRes messageRes: Int,
+    formatArgs: List<Any>
+) {
+    Toast.makeText(
+        context,
+        context.getString(messageRes, *formatArgs.toTypedArray()),
         Toast.LENGTH_SHORT
     ).show()
 }

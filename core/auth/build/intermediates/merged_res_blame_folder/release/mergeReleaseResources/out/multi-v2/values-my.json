@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.segnities007.auth-mergeReleaseResources-42:/values-my/values-my.xml",
+            "outputFile": "com.segnities007.auth-mergeReleaseResources-38:/values-my/values-my.xml",
             "map": [
                 {
-                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/ebcce91ae05c838ba821155bef87fe45/transformed/biometric-1.1.0/res/values-my/values-my.xml",
+                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/8bfd6b4bdf1a31a6e1b9b59d36f73d4a/transformed/biometric-1.1.0/res/values-my/values-my.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
@@ -21,24 +21,7 @@
                     }
                 },
                 {
-                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/8ed7a446edb437e15fc456acb956823f/transformed/core-1.18.0/res/values-my/values-my.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,158,262,365,467,572,678,797",
-                        "endColumns": "102,103,102,101,104,105,118,100",
-                        "endOffsets": "153,257,360,462,567,673,792,893"
-                    },
-                    "to": {
-                        "startLines": "37,38,39,40,41,42,43,133",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "3456,3559,3663,3766,3868,3973,4079,11923",
-                        "endColumns": "102,103,102,101,104,105,118,100",
-                        "endOffsets": "3554,3658,3761,3863,3968,4074,4193,12019"
-                    }
-                },
-                {
-                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/b4b4a88121f704e5b8e91c4058b6d754/transformed/material-1.13.0/res/values-my/values-my.xml",
+                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/411b069d02493dfd27f3937da1b0b514/transformed/material-1.13.0/res/values-my/values-my.xml",
                     "from": {
                         "startLines": "2,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -57,7 +40,7 @@
                     }
                 },
                 {
-                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/9d02b6b13495649ec8e078d301d5848f/transformed/appcompat-1.7.1/res/values-my/values-my.xml",
+                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/c5ebcbecac2d6282e88916206b05dc61/transformed/appcompat-1.7.1/res/values-my/values-my.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -71,15 +54,32 @@
                         "startOffsets": "335,448,555,671,758,867,990,1069,1147,1238,1331,1426,1520,1620,1713,1808,1902,1993,2084,2169,2284,2393,2492,2618,2725,2833,2993,11592",
                         "endColumns": "112,106,115,86,108,122,78,77,90,92,94,93,99,92,94,93,90,90,84,114,108,98,125,106,107,159,102,85",
                         "endOffsets": "443,550,666,753,862,985,1064,1142,1233,1326,1421,1515,1615,1708,1803,1897,1988,2079,2164,2279,2388,2487,2613,2720,2828,2988,3091,11673"
+                    }
+                },
+                {
+                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/c555cd6625f450a5986b0aa5af9c2510/transformed/core-1.18.0/res/values-my/values-my.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,158,262,365,467,572,678,797",
+                        "endColumns": "102,103,102,101,104,105,118,100",
+                        "endOffsets": "153,257,360,462,567,673,792,893"
+                    },
+                    "to": {
+                        "startLines": "37,38,39,40,41,42,43,133",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "3456,3559,3663,3766,3868,3973,4079,11923",
+                        "endColumns": "102,103,102,101,104,105,118,100",
+                        "endOffsets": "3554,3658,3761,3863,3968,4074,4193,12019"
                     }
                 }
             ]
         },
         {
-            "outputFile": "com.segnities007.auth-release-44:/values-my/values-my.xml",
+            "outputFile": "com.segnities007.auth-release-40:/values-my/values-my.xml",
             "map": [
                 {
-                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/ebcce91ae05c838ba821155bef87fe45/transformed/biometric-1.1.0/res/values-my/values-my.xml",
+                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/8bfd6b4bdf1a31a6e1b9b59d36f73d4a/transformed/biometric-1.1.0/res/values-my/values-my.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
@@ -96,24 +96,7 @@
                     }
                 },
                 {
-                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/8ed7a446edb437e15fc456acb956823f/transformed/core-1.18.0/res/values-my/values-my.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,158,262,365,467,572,678,797",
-                        "endColumns": "102,103,102,101,104,105,118,100",
-                        "endOffsets": "153,257,360,462,567,673,792,893"
-                    },
-                    "to": {
-                        "startLines": "37,38,39,40,41,42,43,133",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "3456,3559,3663,3766,3868,3973,4079,11923",
-                        "endColumns": "102,103,102,101,104,105,118,100",
-                        "endOffsets": "3554,3658,3761,3863,3968,4074,4193,12019"
-                    }
-                },
-                {
-                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/b4b4a88121f704e5b8e91c4058b6d754/transformed/material-1.13.0/res/values-my/values-my.xml",
+                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/411b069d02493dfd27f3937da1b0b514/transformed/material-1.13.0/res/values-my/values-my.xml",
                     "from": {
                         "startLines": "2,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -132,7 +115,7 @@
                     }
                 },
                 {
-                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/9d02b6b13495649ec8e078d301d5848f/transformed/appcompat-1.7.1/res/values-my/values-my.xml",
+                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/c5ebcbecac2d6282e88916206b05dc61/transformed/appcompat-1.7.1/res/values-my/values-my.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -146,6 +129,23 @@
                         "startOffsets": "335,448,555,671,758,867,990,1069,1147,1238,1331,1426,1520,1620,1713,1808,1902,1993,2084,2169,2284,2393,2492,2618,2725,2833,2993,11592",
                         "endColumns": "112,106,115,86,108,122,78,77,90,92,94,93,99,92,94,93,90,90,84,114,108,98,125,106,107,159,102,85",
                         "endOffsets": "443,550,666,753,862,985,1064,1142,1233,1326,1421,1515,1615,1708,1803,1897,1988,2079,2164,2279,2388,2487,2613,2720,2828,2988,3091,11673"
+                    }
+                },
+                {
+                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/c555cd6625f450a5986b0aa5af9c2510/transformed/core-1.18.0/res/values-my/values-my.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,158,262,365,467,572,678,797",
+                        "endColumns": "102,103,102,101,104,105,118,100",
+                        "endOffsets": "153,257,360,462,567,673,792,893"
+                    },
+                    "to": {
+                        "startLines": "37,38,39,40,41,42,43,133",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "3456,3559,3663,3766,3868,3973,4079,11923",
+                        "endColumns": "102,103,102,101,104,105,118,100",
+                        "endOffsets": "3554,3658,3761,3863,3968,4074,4193,12019"
                     }
                 }
             ]

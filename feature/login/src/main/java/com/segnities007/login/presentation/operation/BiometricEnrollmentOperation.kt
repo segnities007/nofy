@@ -6,13 +6,19 @@ import com.segnities007.crypto.BiometricCipher
 internal class PrepareBiometricEnrollmentOperation(
     private val biometricCipher: BiometricCipher
 ) {
-    operator fun invoke(password: String): BiometricEnrollmentRequest {
-        return BiometricEnrollmentRequest(
-            password = password,
-            cryptoObject = BiometricPrompt.CryptoObject(
-                biometricCipher.getEncryptCipher()
+    operator fun invoke(password: String): BiometricEnrollmentPreparationResult {
+        return try {
+            BiometricEnrollmentPreparationResult.Ready(
+                request = BiometricEnrollmentRequest(
+                    password = password,
+                    cryptoObject = BiometricPrompt.CryptoObject(
+                        biometricCipher.getEncryptCipher()
+                    )
+                )
             )
-        )
+        } catch (_: BiometricCipher.CredentialUnavailableException) {
+            BiometricEnrollmentPreparationResult.Failure
+        }
     }
 }
 
@@ -43,6 +49,14 @@ internal data class BiometricEnrollmentRequest(
     val password: String,
     val cryptoObject: BiometricPrompt.CryptoObject
 )
+
+internal sealed interface BiometricEnrollmentPreparationResult {
+    data class Ready(
+        val request: BiometricEnrollmentRequest
+    ) : BiometricEnrollmentPreparationResult
+
+    data object Failure : BiometricEnrollmentPreparationResult
+}
 
 internal data class EncryptedBiometricSecret(
     val encryptedSecret: ByteArray,

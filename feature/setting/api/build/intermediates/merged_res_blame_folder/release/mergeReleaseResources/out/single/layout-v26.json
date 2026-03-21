@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.segnities007.setting.api-release-36:/layout-v26/mtrl_calendar_month.xml",
+        "source": "com.segnities007.setting.api-material-1.13.0-9:/layout-v26/mtrl_calendar_month.xml"
+    },
+    {
+        "merged": "com.segnities007.setting.api-release-36:/layout-v26/abc_screen_toolbar.xml",
+        "source": "com.segnities007.setting.api-appcompat-1.7.1-26:/layout-v26/abc_screen_toolbar.xml"
+    }
+]

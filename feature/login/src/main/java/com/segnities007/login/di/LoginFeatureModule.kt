@@ -1,6 +1,8 @@
 package com.segnities007.login.di
 
 import com.segnities007.biometric.BiometricAuthenticator
+import com.segnities007.login.domain.usecase.ClearBiometricSecretUseCase
+import com.segnities007.login.domain.usecase.ObserveBiometricEnabledUseCase
 import com.segnities007.login.domain.usecase.RegisterPasswordUseCase
 import com.segnities007.login.domain.usecase.SaveBiometricSecretUseCase
 import com.segnities007.login.domain.usecase.UnlockWithBiometricUseCase
@@ -24,6 +26,8 @@ val loginFeatureModule = module {
     singleOf(::LoginNavigationEntryInstaller) bind NavigationEntryInstaller::class
     factory { UnlockWithPasswordUseCase(get()) }
     factory { UnlockWithBiometricUseCase(get()) }
+    factory { ObserveBiometricEnabledUseCase(get()) }
+    factory { ClearBiometricSecretUseCase(get()) }
     factory { RegisterPasswordUseCase(get()) }
     factory { SaveBiometricSecretUseCase(get()) }
     factory { PrepareBiometricUnlockOperation(get(), get()) }
@@ -33,6 +37,8 @@ val loginFeatureModule = module {
     viewModel { (biometricHandler: LoginBiometricHandler) ->
         LoginViewModel(
             unlockWithPasswordUseCase = get(),
+            observeBiometricEnabledUseCase = get(),
+            clearBiometricSecretUseCase = get(),
             prepareBiometricUnlockOperation = get(),
             authenticateWithCryptoOperation = AuthenticateWithCryptoOperation(biometricHandler),
             decryptBiometricPasswordOperation = get(),

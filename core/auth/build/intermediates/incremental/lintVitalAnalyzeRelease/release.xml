@@ -6,7 +6,7 @@
     mergedManifest="build/intermediates/merged_manifest/release/processReleaseManifest/AndroidManifest.xml"
     proguardFiles="build/intermediates/default_proguard_files/global/proguard-android-optimize.txt-9.1.0"
     partialResultsDir="build/intermediates/lint_vital_partial_results/release/lintVitalAnalyzeRelease/out"
-    desugaredMethodsFiles="/home/segnities007/.gradle/caches/9.3.1/transforms/c9697919e3a48a19c5b36b57e4fef7f6/transformed/D8BackportedDesugaredMethods.txt">
+    desugaredMethodsFiles="/home/segnities007/.gradle/caches/9.3.1/transforms/0d1ca71db4b46bbd350f8a9aa3d95e7b/transformed/D8BackportedDesugaredMethods.txt">
   <buildFeatures/>
   <sourceProviders>
     <sourceProvider
@@ -25,6 +25,6 @@
       type="MAIN"
       applicationId="com.segnities007.auth"
       generatedSourceFolders="build/generated/ap_generated_sources/release/out"
-      desugaredMethodsFiles="/home/segnities007/.gradle/caches/9.3.1/transforms/c9697919e3a48a19c5b36b57e4fef7f6/transformed/D8BackportedDesugaredMethods.txt">
+      desugaredMethodsFiles="/home/segnities007/.gradle/caches/9.3.1/transforms/0d1ca71db4b46bbd350f8a9aa3d95e7b/transformed/D8BackportedDesugaredMethods.txt">
   </artifact>
 </variant>

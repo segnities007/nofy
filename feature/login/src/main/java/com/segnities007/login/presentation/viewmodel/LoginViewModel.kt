@@ -5,7 +5,9 @@ import androidx.biometric.BiometricPrompt
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.segnities007.login.R
+import com.segnities007.login.domain.usecase.ClearBiometricSecretUseCase
 import com.segnities007.login.domain.usecase.LoginSubmissionResult
+import com.segnities007.login.domain.usecase.ObserveBiometricEnabledUseCase
 import com.segnities007.login.domain.usecase.UnlockWithBiometricUseCase
 import com.segnities007.login.domain.usecase.UnlockWithPasswordUseCase
 import com.segnities007.login.presentation.contract.LoginEffect
@@ -27,6 +29,8 @@ import kotlinx.coroutines.launch
 
 internal class LoginViewModel(
     private val unlockWithPasswordUseCase: UnlockWithPasswordUseCase,
+    private val observeBiometricEnabledUseCase: ObserveBiometricEnabledUseCase,
+    private val clearBiometricSecretUseCase: ClearBiometricSecretUseCase,
     private val prepareBiometricUnlockOperation: PrepareBiometricUnlockOperation,
     private val authenticateWithCryptoOperation: AuthenticateWithCryptoOperation,
     private val decryptBiometricPasswordOperation: DecryptBiometricPasswordOperation,
@@ -37,6 +41,10 @@ internal class LoginViewModel(
 
     private val _effect = MutableSharedFlow<LoginEffect>(extraBufferCapacity = 1)
     val effect = _effect.asSharedFlow()
+
+    init {
+        observeBiometricEnabled()
+    }
 
     fun onIntent(intent: LoginIntent) {
         when (intent) {
@@ -79,6 +87,7 @@ internal class LoginViewModel(
         when (result) {
             LoginSubmissionResult.Success -> emitEffect(LoginEffect.NavigateToNotes)
             LoginSubmissionResult.Failure -> emitToast(R.string.login_error_unlock_failed)
+            is LoginSubmissionResult.LockedOut -> emitLockout(result.remainingMillis)
         }
     }
 
@@ -95,6 +104,11 @@ internal class LoginViewModel(
         return when (val result = prepareBiometricUnlockOperation()) {
             BiometricUnlockPreparationResult.MissingSecret -> {
                 emitToast(R.string.login_error_biometric_not_set)
+                null
+            }
+
+            BiometricUnlockPreparationResult.CredentialUnavailable -> {
+                disableUnavailableBiometricLogin()
                 null
             }
 
@@ -125,6 +139,11 @@ internal class LoginViewModel(
             )
         ) {
             is BiometricPasswordDecryptionResult.Success -> result.password
+            BiometricPasswordDecryptionResult.CredentialUnavailable -> {
+                disableUnavailableBiometricLogin()
+                null
+            }
+
             BiometricPasswordDecryptionResult.Failure -> {
                 emitToast(R.string.login_error_biometric_unlock_failed)
                 null
@@ -149,6 +168,7 @@ internal class LoginViewModel(
         when (result) {
             LoginSubmissionResult.Success -> emitEffect(LoginEffect.NavigateToNotes)
             LoginSubmissionResult.Failure -> emitToast(R.string.login_error_biometric_unlock_failed)
+            is LoginSubmissionResult.LockedOut -> emitLockout(result.remainingMillis)
         }
     }
 
@@ -168,6 +188,10 @@ internal class LoginViewModel(
         _uiState.update { it.copy(isBiometricAvailable = isAvailable) }
     }
 
+    private fun updateBiometricEnabled(isEnabled: Boolean) {
+        _uiState.update { it.copy(isBiometricEnabled = isEnabled) }
+    }
+
     private fun setLoading(isLoading: Boolean) {
         _uiState.update { it.copy(isLoading = isLoading) }
     }
@@ -180,9 +204,24 @@ internal class LoginViewModel(
         _effect.emit(effect)
     }
 
+    private suspend fun emitLockout(remainingMillis: Long) {
+        emitEffect(LoginEffect.ShowLockout(remainingMillis))
+    }
+
+    private suspend fun disableUnavailableBiometricLogin() {
+        clearBiometricSecretUseCase()
+        emitToast(R.string.login_error_biometric_reenroll_required)
+    }
+
     private fun emitError(@StringRes messageRes: Int) {
         viewModelScope.launch {
             emitToast(messageRes)
+        }
+    }
+
+    private fun observeBiometricEnabled() {
+        viewModelScope.launch {
+            observeBiometricEnabledUseCase().collect(::updateBiometricEnabled)
         }
     }
 }

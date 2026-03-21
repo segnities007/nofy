@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
+import net.sqlcipher.database.SQLiteDatabase
 
 internal class NoteDatabaseProvider(
     private val context: Context
@@ -22,6 +23,31 @@ internal class NoteDatabaseProvider(
         }
     }
 
+    override fun changePassphrase(currentPassphrase: String, newPassphrase: String) {
+        lock()
+
+        if (!databaseFile.exists()) {
+            unlock(newPassphrase.toByteArray())
+            return
+        }
+
+        SQLiteDatabase.loadLibs(context)
+        val sqlCipherDatabase = SQLiteDatabase.openDatabase(
+            databaseFile.path,
+            currentPassphrase.toCharArray(),
+            null,
+            SQLiteDatabase.OPEN_READWRITE
+        )
+
+        try {
+            sqlCipherDatabase.changePassword(newPassphrase.toCharArray())
+        } finally {
+            sqlCipherDatabase.close()
+        }
+
+        unlock(newPassphrase.toByteArray())
+    }
+
     override fun lock() {
         database.value?.close()
         database.value = null
@@ -31,4 +57,7 @@ internal class NoteDatabaseProvider(
         lock()
         NoteDatabase.delete(context)
     }
+
+    private val databaseFile
+        get() = context.getDatabasePath(NoteDatabase.DATABASE_NAME)
 }

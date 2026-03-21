@@ -17,7 +17,7 @@ internal abstract class NoteDatabase : RoomDatabase() {
     abstract fun noteDao(): NoteDao
 
     companion object {
-        private const val DATABASE_NAME = "nofy_secure.db"
+        internal const val DATABASE_NAME = "nofy_secure.db"
 
         val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(db: SupportSQLiteDatabase) {

@@ -1,7 +1,7 @@
 package com.segnities007.datastore
 
 class SettingsLocalDataSource(
-    private val store: EncryptedPreferencesStore
+    private val store: KeystorePreferencesStore
 ) {
     fun saveThemeMode(themeMode: String) {
         store.putString(KEY_THEME_MODE, themeMode)

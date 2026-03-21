@@ -3,6 +3,7 @@ package com.segnities007.setting.presentation.viewmodel
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.segnities007.auth.domain.error.AuthException
 import com.segnities007.auth.domain.repository.AuthRepository
 import com.segnities007.settings.ThemeMode
 import com.segnities007.settings.UiSettings
@@ -166,7 +167,7 @@ class SettingViewModel(
             return
         }
 
-        handlePasswordChangeFailure()
+        handlePasswordChangeFailure(result)
     }
 
     private suspend fun handlePasswordChangeSuccess() {
@@ -181,9 +182,9 @@ class SettingViewModel(
         emitToast(R.string.settings_toast_password_updated)
     }
 
-    private suspend fun handlePasswordChangeFailure() {
+    private suspend fun handlePasswordChangeFailure(result: Result<Unit>) {
         finishPasswordChange()
-        emitToast(R.string.settings_toast_password_update_failed)
+        emitToast(resolvePasswordChangeFailureMessage(result))
     }
 
     private fun finishPasswordChange() {
@@ -224,6 +225,14 @@ class SettingViewModel(
     private fun notifyPasswordMismatch() {
         viewModelScope.launch {
             emitToast(R.string.settings_toast_passwords_do_not_match)
+        }
+    }
+
+    private fun resolvePasswordChangeFailureMessage(result: Result<Unit>): Int {
+        return when (val error = result.exceptionOrNull()) {
+            is AuthException.PasswordTooShort -> R.string.settings_toast_password_too_short
+            AuthException.PasswordTooCommon -> R.string.settings_toast_password_too_common
+            else -> R.string.settings_toast_password_update_failed
         }
     }
 
