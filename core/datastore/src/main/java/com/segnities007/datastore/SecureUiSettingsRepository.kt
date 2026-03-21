@@ -1,0 +1,36 @@
+package com.segnities007.datastore
+
+import com.segnities007.settings.MaxFontScale
+import com.segnities007.settings.MinFontScale
+import com.segnities007.settings.ThemeMode
+import com.segnities007.settings.UiSettings
+import com.segnities007.settings.UiSettingsRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+
+class SecureUiSettingsRepository(
+    private val secureAuthStorage: SecureAuthStorage
+) : UiSettingsRepository {
+
+    private val _settings = MutableStateFlow(
+        UiSettings(
+            themeMode = ThemeMode.fromStorage(secureAuthStorage.getThemeMode()),
+            fontScale = secureAuthStorage.getFontScale()
+        ).sanitized()
+    )
+
+    override val settings: StateFlow<UiSettings> = _settings.asStateFlow()
+
+    override suspend fun setThemeMode(themeMode: ThemeMode) {
+        secureAuthStorage.saveThemeMode(themeMode.storageValue)
+        _settings.update { it.copy(themeMode = themeMode) }
+    }
+
+    override suspend fun setFontScale(fontScale: Float) {
+        val sanitizedScale = fontScale.coerceIn(MinFontScale, MaxFontScale)
+        secureAuthStorage.saveFontScale(sanitizedScale)
+        _settings.update { it.copy(fontScale = sanitizedScale) }
+    }
+}

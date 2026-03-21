@@ -1,0 +1,8 @@
+com.segnities007.auth-pngs-0 /home/segnities007/AndroidStudioProjects/nofy/core/auth/build/generated/res/pngs/release
+com.segnities007.auth-updated_navigation_xml-1 /home/segnities007/AndroidStudioProjects/nofy/core/auth/build/generated/updated_navigation_xml/release
+com.segnities007.auth-mergeReleaseResources-2 /home/segnities007/AndroidStudioProjects/nofy/core/auth/build/intermediates/incremental/release/mergeReleaseResources/merged.dir
+com.segnities007.auth-mergeReleaseResources-3 /home/segnities007/AndroidStudioProjects/nofy/core/auth/build/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+com.segnities007.auth-release-4 /home/segnities007/AndroidStudioProjects/nofy/core/auth/build/intermediates/merged_res/release/mergeReleaseResources
+com.segnities007.auth-release-5 /home/segnities007/AndroidStudioProjects/nofy/core/auth/build/intermediates/packaged_res/release/packageReleaseResources
+com.segnities007.auth-main-6 /home/segnities007/AndroidStudioProjects/nofy/core/auth/src/main/res
+com.segnities007.auth-release-7 /home/segnities007/AndroidStudioProjects/nofy/core/auth/src/release/res

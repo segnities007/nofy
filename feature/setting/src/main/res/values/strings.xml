@@ -1,0 +1,36 @@
+<resources>
+    <string name="settings_title">Settings</string>
+    <string name="settings_tab_appearance">Appearance</string>
+    <string name="settings_tab_security">Security</string>
+    <string name="settings_tab_app">App</string>
+    <string name="settings_cd_back_to_notes">Back to notes</string>
+    <string name="settings_cd_lock_app">Lock app</string>
+    <string name="settings_theme_heading">Theme</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_dark">Dark</string>
+    <string name="settings_theme_green_light">Green Light</string>
+    <string name="settings_theme_green_dark">Green Dark</string>
+    <string name="settings_font_size_heading">Font Size</string>
+    <string name="settings_font_size_value">Font Size %1$d%%</string>
+    <string name="settings_language_heading">Languages</string>
+    <string name="settings_language_body">English and Japanese resources are available. The app follows the device or app language preference.</string>
+    <string name="settings_security_biometric">Enable Biometric Login</string>
+    <string name="settings_security_password_heading">Change Password</string>
+    <string name="settings_security_current_password">Current Password</string>
+    <string name="settings_security_new_password">New Password</string>
+    <string name="settings_security_confirm_password">Confirm New Password</string>
+    <string name="settings_security_password_note">Changing the password disables biometric login until it is re-enrolled.</string>
+    <string name="settings_security_update_password">Update Password</string>
+    <string name="settings_app_storage_heading">Security</string>
+    <string name="settings_app_storage_body">Notes, password data, and UI preferences are stored securely on-device.</string>
+    <string name="settings_app_reset_heading">Danger Zone</string>
+    <string name="settings_app_reset_body">Resetting the app removes all encrypted data and returns to the login screen.</string>
+    <string name="settings_app_reset_button">Reset App</string>
+    <string name="settings_toast_biometric_updated">Biometric settings updated</string>
+    <string name="settings_toast_biometric_update_failed">Failed to update biometric settings</string>
+    <string name="settings_toast_passwords_do_not_match">New passwords do not match</string>
+    <string name="settings_toast_password_updated">Password updated. Biometric login was disabled for security.</string>
+    <string name="settings_toast_password_update_failed">Failed to update password</string>
+    <string name="settings_toast_reset_failed">Reset failed</string>
+    <string name="settings_toast_lock_failed">Failed to lock app</string>
+</resources>
