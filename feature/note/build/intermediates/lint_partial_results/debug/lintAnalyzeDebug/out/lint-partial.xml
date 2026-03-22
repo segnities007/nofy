@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<incidents format="6" by="lint 9.1.0" type="partial_results">
+    <map id="UnusedResources">
+        <entry
+            name="model"
+            string="string[note_title_untitled(U),note_delete_dialog_title(U),note_delete_dialog_message(U),note_delete_dialog_message_named(U),note_delete_action(U),note_cancel_action(U),note_placeholder(U),note_preview_empty(U),note_error_title(U),note_error_body(U),note_retry_action(U),note_cd_delete_page(U),note_cd_lock(U),note_cd_previous_page(U),note_cd_toggle_preview(U),note_cd_open_settings(U),note_cd_next_page(U),note_page_counter(U),note_toast_page_deleted(U),note_toast_load_failed(U),note_toast_untrusted_environment(U),note_toast_save_failed(U),note_toast_delete_failed(U),note_toast_lock_failed(U)];;;;"/>
+    </map>
+
+</incidents>

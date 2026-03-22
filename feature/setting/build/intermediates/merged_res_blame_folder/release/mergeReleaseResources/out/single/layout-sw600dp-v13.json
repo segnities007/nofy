@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.segnities007.setting.impl-release-63:/layout-sw600dp-v13/design_layout_snackbar.xml",
+        "source": "com.segnities007.setting.impl-material-1.13.0-14:/layout-sw600dp-v13/design_layout_snackbar.xml"
+    },
+    {
+        "merged": "com.segnities007.setting.impl-release-63:/layout-sw600dp-v13/mtrl_layout_snackbar.xml",
+        "source": "com.segnities007.setting.impl-material-1.13.0-14:/layout-sw600dp-v13/mtrl_layout_snackbar.xml"
+    }
+]

@@ -24,26 +24,26 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/build-logic" />
             <option value="$PROJECT_DIR$/build-logic/convention" />
-            <option value="$PROJECT_DIR$/core/auth" />
-            <option value="$PROJECT_DIR$/core/biometric" />
-            <option value="$PROJECT_DIR$/core/crypto" />
-            <option value="$PROJECT_DIR$/core/database" />
-            <option value="$PROJECT_DIR$/core/datastore" />
-            <option value="$PROJECT_DIR$/core/designsystem" />
-            <option value="$PROJECT_DIR$/core/navigation" />
-            <option value="$PROJECT_DIR$/core/settings" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/login" />
-            <option value="$PROJECT_DIR$/feature/login-group" />
             <option value="$PROJECT_DIR$/feature/login/api" />
+            <option value="$PROJECT_DIR$/feature/login/impl" />
             <option value="$PROJECT_DIR$/feature/note" />
-            <option value="$PROJECT_DIR$/feature/note-group" />
             <option value="$PROJECT_DIR$/feature/note/api" />
+            <option value="$PROJECT_DIR$/feature/note/impl" />
             <option value="$PROJECT_DIR$/feature/setting" />
-            <option value="$PROJECT_DIR$/feature/setting-group" />
             <option value="$PROJECT_DIR$/feature/setting/api" />
-            <option value="$PROJECT_DIR$/platform-group" />
-            <option value="$PROJECT_DIR$/shared-group" />
+            <option value="$PROJECT_DIR$/feature/setting/impl" />
+            <option value="$PROJECT_DIR$/platform" />
+            <option value="$PROJECT_DIR$/platform/biometric" />
+            <option value="$PROJECT_DIR$/platform/crypto" />
+            <option value="$PROJECT_DIR$/platform/database" />
+            <option value="$PROJECT_DIR$/platform/designsystem" />
+            <option value="$PROJECT_DIR$/platform/navigation" />
+            <option value="$PROJECT_DIR$/platform/storage" />
+            <option value="$PROJECT_DIR$/shared" />
+            <option value="$PROJECT_DIR$/shared/auth" />
+            <option value="$PROJECT_DIR$/shared/settings" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<incidents format="6" by="lint 9.1.0" type="partial_results">
+    <map id="UnusedResources">
+        <location id="R.drawable.ic_login_logo"
+            file="${:feature:login:impl*debug*MAIN*sourceProvider*0*resDir*0}/drawable/ic_login_logo.xml"
+            line="1"
+            column="1"
+            startOffset="0"
+            endLine="12"
+            endColumn="10"
+            endOffset="668"/>
+        <location id="R.string.login_form_body"
+            file="${:feature:login:impl*debug*MAIN*sourceProvider*0*resDir*0}/values/strings.xml"
+            line="5"
+            column="13"
+            startOffset="184"
+            endLine="5"
+            endColumn="35"
+            endOffset="206"/>
+        <entry
+            name="model"
+            string="drawable[ic_login_logo(D)],string[login_password_label(U),login_button_text(U),login_form_title(U),login_form_body(D),biometric_title(U),biometric_subtitle(U),biometric_authorize_title(U),biometric_authorize_subtitle(U),biometric_failed(U),register_title(U),register_password_label(U),register_confirm_password_label(U),register_button_text(U),register_body(U),register_biometric_title(U),register_biometric_subtitle(U),login_error_empty_password(U),login_error_unlock_failed(U),login_error_untrusted_environment(U),login_error_too_many_attempts(U),login_error_biometric_not_set(U),login_error_biometric_unlock_failed(U),login_error_biometric_reenroll_required(U),register_error_empty_password(U),register_error_passwords_do_not_match(U),register_error_password_too_short(U),register_error_password_too_common(U),register_error_untrusted_environment(U),register_error_failed(U),register_success_with_biometric(U),register_success_without_biometric(U)];;;;"/>
+    </map>
+
+</incidents>

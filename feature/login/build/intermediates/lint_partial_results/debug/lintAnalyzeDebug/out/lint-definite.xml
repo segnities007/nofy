@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<incidents format="6" by="lint 9.1.0" type="incidents">
+
+    <incident
+        id="PluralsCandidate"
+        severity="warning"
+        message="Formatting %d followed by words (&quot;seconds&quot;): This should probably be a plural rather than a string">
+        <location
+            file="${:feature:login:impl*debug*MAIN*sourceProvider*0*resDir*0}/values/strings.xml"
+            line="21"
+            column="5"
+            startOffset="1502"
+            endLine="21"
+            endColumn="104"
+            endOffset="1601"/>
+    </incident>
+
+    <incident
+        id="PluralsCandidate"
+        severity="warning"
+        message="Formatting %d followed by words (&quot;characters&quot;): This should probably be a plural rather than a string">
+        <location
+            file="${:feature:login:impl*debug*MAIN*sourceProvider*0*resDir*0}/values/strings.xml"
+            line="27"
+            column="5"
+            startOffset="2087"
+            endLine="27"
+            endColumn="112"
+            endOffset="2194"/>
+    </incident>
+
+</incidents>

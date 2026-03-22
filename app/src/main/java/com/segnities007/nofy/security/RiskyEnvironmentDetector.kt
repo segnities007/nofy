@@ -65,15 +65,15 @@ internal class RiskyEnvironmentDetector(
     }
 
     private fun hasRootArtifact(): Boolean {
-        return knownRootArtifacts.any(::existsSafely)
+        return RiskyEnvironmentHeuristics.knownRootArtifacts.any(::existsSafely)
     }
 
     private fun hasKnownRootManager(): Boolean {
-        return knownRootPackages.any(::isPackageInstalled)
+        return RiskyEnvironmentHeuristics.knownRootPackages.any(::isPackageInstalled)
     }
 
     private fun hasHookFrameworkPackage(): Boolean {
-        return knownHookPackages.any(::isPackageInstalled)
+        return RiskyEnvironmentHeuristics.knownHookPackages.any(::isPackageInstalled)
     }
 
     private fun existsSafely(path: String): Boolean {
@@ -82,35 +82,35 @@ internal class RiskyEnvironmentDetector(
 
     private fun hasTracerPid(): Boolean {
         val status = runCatching {
-            File(PROC_SELF_STATUS_PATH).readText()
+            File(RiskyEnvironmentHeuristics.PROC_SELF_STATUS_PATH).readText()
         }.getOrNull() ?: return false
         return parseTracerPid(status)?.let { it > 0 } == true
     }
 
     private fun hasInjectedHookLibrary(): Boolean {
         return fileContainsAnyIndicator(
-            path = PROC_SELF_MAPS_PATH,
-            indicators = suspiciousMapIndicators
+            path = RiskyEnvironmentHeuristics.PROC_SELF_MAPS_PATH,
+            indicators = RiskyEnvironmentHeuristics.suspiciousMapIndicators
         )
     }
 
     private fun hasFridaServerPort(): Boolean {
-        return knownFridaPorts.any { port ->
-            parseListeningTcpPorts(readTextSafely(PROC_NET_TCP_PATH)).contains(port) ||
-                parseListeningTcpPorts(readTextSafely(PROC_NET_TCP6_PATH)).contains(port)
+        return RiskyEnvironmentHeuristics.knownFridaPorts.any { port ->
+            parseListeningTcpPorts(readTextSafely(RiskyEnvironmentHeuristics.PROC_NET_TCP_PATH)).contains(port) ||
+                parseListeningTcpPorts(readTextSafely(RiskyEnvironmentHeuristics.PROC_NET_TCP6_PATH)).contains(port)
         }
     }
 
     private fun hasSuspiciousEnvironmentVariable(): Boolean {
-        return !System.getenv(LD_PRELOAD_ENV).isNullOrBlank()
+        return !System.getenv(RiskyEnvironmentHeuristics.LD_PRELOAD_ENV).isNullOrBlank()
     }
 
     private fun hasWritableSystemPartition(): Boolean {
-        return readLinesSafely(PROC_MOUNTS_PATH).any(::isWritableSensitiveMountLine)
+        return readLinesSafely(RiskyEnvironmentHeuristics.PROC_MOUNTS_PATH).any(::isWritableSensitiveMountLine)
     }
 
     private fun isSelinuxPermissive(): Boolean {
-        return readTextSafely(SELINUX_ENFORCE_PATH)
+        return readTextSafely(RiskyEnvironmentHeuristics.SELINUX_ENFORCE_PATH)
             .trim()
             .equals("0")
     }
@@ -148,110 +148,4 @@ internal class RiskyEnvironmentDetector(
             indicators.any(normalizedLine::contains)
         }
     }
-
-    internal companion object {
-        private const val PROC_SELF_STATUS_PATH = "/proc/self/status"
-        private const val PROC_SELF_MAPS_PATH = "/proc/self/maps"
-        private const val PROC_NET_TCP_PATH = "/proc/net/tcp"
-        private const val PROC_NET_TCP6_PATH = "/proc/net/tcp6"
-        private const val PROC_MOUNTS_PATH = "/proc/mounts"
-        private const val SELINUX_ENFORCE_PATH = "/sys/fs/selinux/enforce"
-        private const val LD_PRELOAD_ENV = "LD_PRELOAD"
-
-        private val knownRootArtifacts = listOf(
-            "/system/app/Superuser.apk",
-            "/system/bin/su",
-            "/system/xbin/su",
-            "/sbin/su",
-            "/su/bin/su",
-            "/system/bin/.ext/.su",
-            "/system/usr/we-need-root/su",
-            "/data/local/xbin/su",
-            "/data/local/bin/su",
-            "/data/local/su",
-            "/cache/su",
-            "/data/adb/magisk",
-            "/init.magisk.rc"
-        )
-
-        /**
-         * Package names must also appear in `app` manifest `<queries>` so
-         * [PackageManager.getPackageInfo] works on API 30+.
-         */
-        private val knownRootPackages = listOf(
-            "com.topjohnwu.magisk",
-            "com.thirdparty.superuser",
-            "eu.chainfire.supersu",
-            "com.koushikdutta.superuser",
-            "com.kingroot.kinguser",
-            "com.zachspong.temprootremovejb",
-            "com.ramdroid.appquarantine"
-        )
-
-        /** See [knownRootPackages] re: manifest `<queries>`. */
-        private val knownHookPackages = listOf(
-            "de.robv.android.xposed.installer",
-            "org.lsposed.manager",
-            "io.github.libxposed.manager",
-            "com.saurik.substrate",
-            "me.weishu.exp"
-        )
-
-        private val suspiciousMapIndicators = listOf(
-            "frida",
-            "xposed",
-            "substrate",
-            "lsposed",
-            "edxp",
-            "riru",
-            "zygisk"
-        )
-
-        private val knownFridaPorts = setOf(27042, 27043)
-
-        /** `app` モジュール `AndroidManifest.xml` の `<queries>` と一致させること。 */
-        internal fun allManifestQueryPackageNames(): List<String> =
-            knownRootPackages + knownHookPackages
-    }
 }
-
-internal fun parseTracerPid(statusContent: String): Int? {
-    return statusContent.lineSequence()
-        .firstOrNull { it.startsWith("TracerPid:") }
-        ?.substringAfter(':')
-        ?.trim()
-        ?.toIntOrNull()
-}
-
-internal fun parseListeningTcpPorts(tcpContent: String): Set<Int> {
-    return tcpContent.lineSequence()
-        .drop(1)
-        .mapNotNull { line ->
-            val columns = line.trim().split(Regex("\\s+"))
-            if (columns.size < 4 || columns[3] != TCP_LISTEN_STATE) {
-                return@mapNotNull null
-            }
-
-            columns[1]
-                .substringAfter(':', "")
-                .takeIf(String::isNotEmpty)
-                ?.toIntOrNull(HEXADECIMAL_RADIX)
-        }
-        .toSet()
-}
-
-internal fun isWritableSensitiveMountLine(line: String): Boolean {
-    val columns = line.trim().split(Regex("\\s+"))
-    if (columns.size < 4) {
-        return false
-    }
-
-    val mountPoint = columns[1]
-    val mountOptions = columns[3].split(',')
-    return mountPoint in sensitiveMountPoints && "rw" in mountOptions
-}
-
-private const val TCP_LISTEN_STATE = "0A"
-private const val HEXADECIMAL_RADIX = 16
-
-private val sensitiveMountPoints = setOf("/system", "/vendor", "/product", "/system_ext")

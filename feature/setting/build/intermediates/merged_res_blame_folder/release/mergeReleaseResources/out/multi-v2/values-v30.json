@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.segnities007.setting.impl-release-63:/values-v30/values-v30.xml",
+            "map": [
+                {
+                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/a45c2642ea1b19a1de8920969b5edf4a/transformed/jetified-material3/res/values-v30/values-v30.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "72",
+                        "endOffsets": "123"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "com.segnities007.setting.impl-mergeReleaseResources-61:/values-v30/values-v30.xml",
+            "map": [
+                {
+                    "source": "/home/segnities007/.gradle/caches/9.3.1/transforms/a45c2642ea1b19a1de8920969b5edf4a/transformed/jetified-material3/res/values-v30/values-v30.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "72",
+                        "endOffsets": "123"
+                    }
+                }
+            ]
+        }
+    ]
+}

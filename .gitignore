@@ -9,6 +9,8 @@
 /.idea/assetWizardSettings.xml
 .DS_Store
 /build
+# Gradle / IDE output under convention plugin (source of truth is src/main/kotlin)
+build-logic/convention/bin/
 /captures
 .externalNativeBuild
 .cxx

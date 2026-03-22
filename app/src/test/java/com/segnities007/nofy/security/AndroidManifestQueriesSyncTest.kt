@@ -9,7 +9,7 @@ class AndroidManifestQueriesSyncTest {
     @Test
     fun manifestIncludesAllRiskyEnvironmentPackageQueries() {
         val manifestText = readAppManifestText()
-        RiskyEnvironmentDetector.allManifestQueryPackageNames().forEach { packageName ->
+        RiskyEnvironmentHeuristics.allManifestQueryPackageNames().forEach { packageName ->
             assertTrue(
                 "Missing <queries> entry for $packageName in AndroidManifest.xml",
                 manifestText.contains("""android:name="$packageName"""")

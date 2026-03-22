@@ -1,0 +1,26 @@
+<resources>
+    <string name="note_title_untitled">Untitled</string>
+    <string name="note_delete_dialog_title">Delete page?</string>
+    <string name="note_delete_dialog_message">This page will be permanently deleted and cannot be recovered.</string>
+    <string name="note_delete_dialog_message_named">"%1$s" will be permanently deleted and cannot be recovered.</string>
+    <string name="note_delete_action">Delete</string>
+    <string name="note_cancel_action">Cancel</string>
+    <string name="note_placeholder">Write a secure markdown note...</string>
+    <string name="note_preview_empty">Nothing to preview yet.</string>
+    <string name="note_error_title">Couldn\'t open your notes</string>
+    <string name="note_error_body">Your encrypted notes could not be loaded. Try again.</string>
+    <string name="note_retry_action">Retry</string>
+    <string name="note_cd_delete_page">Delete current page</string>
+    <string name="note_cd_lock">Lock and return to login</string>
+    <string name="note_cd_previous_page">Previous page</string>
+    <string name="note_cd_toggle_preview">Toggle markdown preview</string>
+    <string name="note_cd_open_settings">Open settings</string>
+    <string name="note_cd_next_page">Next page</string>
+    <string name="note_page_counter">%1$d / %2$d</string>
+    <string name="note_toast_page_deleted">Page deleted</string>
+    <string name="note_toast_load_failed">Failed to load notes</string>
+    <string name="note_toast_untrusted_environment">This environment is not trusted. Open notes were cleared from memory.</string>
+    <string name="note_toast_save_failed">Failed to save note</string>
+    <string name="note_toast_delete_failed">Failed to delete note</string>
+    <string name="note_toast_lock_failed">Failed to lock app</string>
+</resources>

@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">nofy</string>
     <string name="security_block_title">この端末環境では起動できません</string>
-    <string name="security_block_body">Nofy は高リスクな実行環境が検出された場合、暗号化ノートとローカル認証情報を保護するためアクセスを遮断します。</string>
-    <string name="security_block_footer">危険要因を解消してからアプリを再起動してください。release build は root 化、改変、デバッグ接続中の環境では動作しません。</string>
+    <string name="security_block_body">Nofy は高リスクな実行環境を検出するとアクセスを遮断します。暗号化されたノートと端末内の認証情報を守るための措置です。</string>
+    <string name="security_block_footer">下記の要因を解消してからアプリを再起動してください。リリース版は、root 化・改変された端末、またはデバッガ接続中の環境では起動しません。</string>
     <string name="security_block_close">アプリを閉じる</string>
     <string name="security_reason_debugger">デバッガがプロセスに接続されています。</string>
     <string name="security_reason_tracer">ptrace / TracerPid によるプロセストレースを検出しました。</string>

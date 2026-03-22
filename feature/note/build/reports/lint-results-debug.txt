@@ -1,0 +1,31 @@
+/home/segnities007/AndroidStudioProjects/nofy/feature/note/src/main/java/com/segnities007/note/presentation/component/layout/NoteScaffold.kt:181: Warning: Modifier parameter should be the first optional parameter [ModifierParameter from androidx.compose.ui]
+    modifier: Modifier = Modifier
+    ~~~~~~~~
+
+   Explanation for issues of type "ModifierParameter":
+   The first (or only) Modifier parameter in a Composable function should
+   follow the following rules:
+   - Be named modifier
+   - Have a type of Modifier
+   - Either have no default value, or have a default value of Modifier
+   - If optional, be the first optional parameter in the parameter list
+
+   Vendor: Jetpack Compose
+   Identifier: androidx.compose.ui
+   Feedback: https://issuetracker.google.com/issues/new?component=612128
+
+/home/segnities007/AndroidStudioProjects/nofy/feature/note/src/main/res/values-ja/strings.xml:8: Warning: Replace "..." with ellipsis character (…, &#8230;) ? [TypographyEllipsis]
+    <string name="note_placeholder">安全な Markdown メモを書いてください...</string>
+                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/segnities007/AndroidStudioProjects/nofy/feature/note/src/main/res/values/strings.xml:8: Warning: Replace "..." with ellipsis character (…, &#8230;) ? [TypographyEllipsis]
+    <string name="note_placeholder">Write a secure markdown note...</string>
+                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "TypographyEllipsis":
+   You can replace the string "..." with a dedicated ellipsis character,
+   ellipsis character (u2026, &#8230;). This can help make the text more
+   readable.
+
+   https://en.wikipedia.org/wiki/Ellipsis
+
+0 errors, 3 warnings

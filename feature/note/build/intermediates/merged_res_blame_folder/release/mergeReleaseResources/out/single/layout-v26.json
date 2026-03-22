@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.segnities007.note.impl-release-66:/layout-v26/mtrl_calendar_month.xml",
+        "source": "com.segnities007.note.impl-material-1.13.0-14:/layout-v26/mtrl_calendar_month.xml"
+    },
+    {
+        "merged": "com.segnities007.note.impl-release-66:/layout-v26/abc_screen_toolbar.xml",
+        "source": "com.segnities007.note.impl-appcompat-1.7.1-42:/layout-v26/abc_screen_toolbar.xml"
+    }
+]

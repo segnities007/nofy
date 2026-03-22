@@ -51,7 +51,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                         throw GradleException(
                             buildString {
                                 appendLine("Direct Compose Material usage is forbidden in feature modules.")
-                                appendLine("Use components exposed from :core:designsystem instead.")
+                                appendLine("Use components exposed from :platform:designsystem instead.")
                                 append(violations.joinToString(separator = "\n"))
                             }
                         )

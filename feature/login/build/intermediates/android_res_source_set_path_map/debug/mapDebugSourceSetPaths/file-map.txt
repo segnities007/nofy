@@ -1,0 +1,8 @@
+com.segnities007.login.impl-pngs-0 /home/segnities007/AndroidStudioProjects/nofy/feature/login/build/generated/res/pngs/debug
+com.segnities007.login.impl-updated_navigation_xml-1 /home/segnities007/AndroidStudioProjects/nofy/feature/login/build/generated/updated_navigation_xml/debug
+com.segnities007.login.impl-mergeDebugResources-2 /home/segnities007/AndroidStudioProjects/nofy/feature/login/build/intermediates/incremental/debug/mergeDebugResources/merged.dir
+com.segnities007.login.impl-mergeDebugResources-3 /home/segnities007/AndroidStudioProjects/nofy/feature/login/build/intermediates/incremental/debug/mergeDebugResources/stripped.dir
+com.segnities007.login.impl-debug-4 /home/segnities007/AndroidStudioProjects/nofy/feature/login/build/intermediates/merged_res/debug/mergeDebugResources
+com.segnities007.login.impl-debug-5 /home/segnities007/AndroidStudioProjects/nofy/feature/login/build/intermediates/packaged_res/debug/packageDebugResources
+com.segnities007.login.impl-debug-6 /home/segnities007/AndroidStudioProjects/nofy/feature/login/src/debug/res
+com.segnities007.login.impl-main-7 /home/segnities007/AndroidStudioProjects/nofy/feature/login/src/main/res

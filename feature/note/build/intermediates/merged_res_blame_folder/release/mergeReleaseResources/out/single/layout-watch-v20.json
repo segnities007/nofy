@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.segnities007.note.impl-release-66:/layout-watch-v20/abc_alert_dialog_button_bar_material.xml",
+        "source": "com.segnities007.note.impl-appcompat-1.7.1-42:/layout-watch-v20/abc_alert_dialog_button_bar_material.xml"
+    },
+    {
+        "merged": "com.segnities007.note.impl-release-66:/layout-watch-v20/abc_alert_dialog_title_material.xml",
+        "source": "com.segnities007.note.impl-appcompat-1.7.1-42:/layout-watch-v20/abc_alert_dialog_title_material.xml"
+    }
+]

@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">nofy</string>
     <string name="security_block_title">This device environment is not trusted</string>
-    <string name="security_block_body">Nofy blocks access when the app appears to be running in a high-risk environment. This helps protect encrypted notes and local credentials on this device.</string>
-    <string name="security_block_footer">Remove the risky condition and relaunch the app. Release builds do not run on rooted, tampered, or actively debugged environments.</string>
+    <string name="security_block_body">Nofy blocks access when it detects a high-risk environment. That helps protect your encrypted notes and on-device credentials.</string>
+    <string name="security_block_footer">Address the issue below, then restart the app. Release builds do not run on rooted or tampered devices, or while a debugger is attached.</string>
     <string name="security_block_close">Close App</string>
     <string name="security_reason_debugger">A debugger is attached to the process.</string>
     <string name="security_reason_tracer">The process is being traced via ptrace/TracerPid.</string>
