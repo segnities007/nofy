@@ -6,7 +6,7 @@
     debuggable="true"
     mergedManifest="build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml"
     partialResultsDir="build/intermediates/android_test_lint_partial_results/debug/lintAnalyzeDebugAndroidTest/out"
-    desugaredMethodsFiles="/home/segnities007/.gradle/caches/9.3.1/transforms/0d1ca71db4b46bbd350f8a9aa3d95e7b/transformed/D8BackportedDesugaredMethods.txt">
+    desugaredMethodsFiles="/home/segnities007/.gradle/caches/9.3.1/transforms/47448674e6296937a1cecb2a795ce045/transformed/D8BackportedDesugaredMethods.txt">
   <buildFeatures/>
   <sourceProviders>
   </sourceProviders>
@@ -24,6 +24,6 @@
   <artifact
       type="INSTRUMENTATION_TEST"
       applicationId="com.segnities007.auth.test"
-      desugaredMethodsFiles="/home/segnities007/.gradle/caches/9.3.1/transforms/0d1ca71db4b46bbd350f8a9aa3d95e7b/transformed/D8BackportedDesugaredMethods.txt">
+      desugaredMethodsFiles="/home/segnities007/.gradle/caches/9.3.1/transforms/47448674e6296937a1cecb2a795ce045/transformed/D8BackportedDesugaredMethods.txt">
   </artifact>
 </variant>

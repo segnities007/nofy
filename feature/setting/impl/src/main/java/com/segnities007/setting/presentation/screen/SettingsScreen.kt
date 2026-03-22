@@ -77,6 +77,7 @@ private fun SettingsScreenContent(
         }
     }
     val context = LocalContext.current
+    val licensesScreenTitle = stringResource(R.string.settings_app_licenses_screen_title)
     NofySurface(modifier = modifier.fillMaxSize()) {
         SettingsScaffold(
             uiState = uiState,
@@ -85,7 +86,7 @@ private fun SettingsScreenContent(
             onOpenOpenSourceLicenses = {
                 openOpenSourceLicenses(
                     context = context,
-                    title = context.getString(R.string.settings_app_licenses_screen_title)
+                    title = licensesScreenTitle
                 )
             },
             passwordDraftHolder = passwordDraftHolder

@@ -15,3 +15,17 @@ build-logic/convention/bin/
 .externalNativeBuild
 .cxx
 local.properties
+
+# Release signing (local)
+keystore.properties
+*.jks
+*.keystore
+
+# Play API (never commit)
+play-store-credentials.json
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output

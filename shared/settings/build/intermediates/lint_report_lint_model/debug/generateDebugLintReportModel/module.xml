@@ -1,6 +1,6 @@
 <lint-module
     format="1"
-    dir="/home/segnities007/AndroidStudioProjects/nofy/core/settings"
+    dir="/home/segnities007/AndroidStudioProjects/nofy/shared/settings"
     name=":shared:settings"
     type="LIBRARY"
     maven="nofy.shared:settings:unspecified"

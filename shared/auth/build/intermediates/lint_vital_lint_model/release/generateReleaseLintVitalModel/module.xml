@@ -1,6 +1,6 @@
 <lint-module
     format="1"
-    dir="/home/segnities007/AndroidStudioProjects/nofy/core/auth"
+    dir="/home/segnities007/AndroidStudioProjects/nofy/shared/auth"
     name=":shared:auth"
     type="LIBRARY"
     maven="nofy.shared:auth:unspecified"

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.segnities007.settings.FontScaleTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-03-21T17:09:44.311Z" hostname="archlinux" time="0.023">
+<testsuite name="com.segnities007.settings.FontScaleTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-03-22T11:36:00.154Z" hostname="archlinux" time="0.05">
   <properties/>
-  <testcase name="sanitized_snapsArbitraryScaleToPreset" classname="com.segnities007.settings.FontScaleTest" time="0.017"/>
-  <testcase name="snapToSupportedFontScale_returnsNearestPreset" classname="com.segnities007.settings.FontScaleTest" time="0.0"/>
+  <testcase name="sanitized_snapsArbitraryScaleToPreset" classname="com.segnities007.settings.FontScaleTest" time="0.035"/>
+  <testcase name="snapToSupportedFontScale_returnsNearestPreset" classname="com.segnities007.settings.FontScaleTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
