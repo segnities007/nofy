@@ -4,6 +4,7 @@ import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import java.security.GeneralSecurityException
 import java.security.KeyStore
+import java.nio.charset.StandardCharsets
 import javax.crypto.Cipher
 import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
@@ -54,8 +55,13 @@ class BiometricCipher {
 
     fun encrypt(data: String, cipher: Cipher): Pair<ByteArray, ByteArray> {
         return try {
-            val encryptedData = cipher.doFinal(data.toByteArray())
-            Pair(encryptedData, cipher.iv)
+            val plainBytes = data.toByteArray(StandardCharsets.UTF_8)
+            try {
+                val encryptedData = cipher.doFinal(plainBytes)
+                Pair(encryptedData, cipher.iv)
+            } finally {
+                plainBytes.fill(0)
+            }
         } catch (error: Exception) {
             throw error.toCredentialUnavailable()
         }
@@ -64,7 +70,11 @@ class BiometricCipher {
     fun decrypt(encryptedData: ByteArray, cipher: Cipher): String {
         return try {
             val decryptedData = cipher.doFinal(encryptedData)
-            String(decryptedData)
+            try {
+                String(decryptedData, StandardCharsets.UTF_8)
+            } finally {
+                decryptedData.fill(0)
+            }
         } catch (error: Exception) {
             throw error.toCredentialUnavailable()
         }

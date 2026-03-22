@@ -4,6 +4,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -23,6 +27,8 @@ internal fun LoginContent(
     onIntent: (LoginIntent) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    var password by remember { mutableStateOf("") }
+
     AuthScreenLayout(
         modifier = modifier,
         hero = {
@@ -33,6 +39,12 @@ internal fun LoginContent(
         form = {
             LoginFormCard(
                 uiState = uiState,
+                password = password,
+                onPasswordChange = { password = it },
+                onSubmitPassword = {
+                    onIntent(LoginIntent.SubmitPassword(password))
+                    password = ""
+                },
                 onIntent = onIntent
             )
         }
@@ -42,6 +54,9 @@ internal fun LoginContent(
 @Composable
 private fun LoginFormCard(
     uiState: LoginState,
+    password: String,
+    onPasswordChange: (String) -> Unit,
+    onSubmitPassword: () -> Unit,
     onIntent: (LoginIntent) -> Unit
 ){
     Column(
@@ -49,14 +64,14 @@ private fun LoginFormCard(
         verticalArrangement = Arrangement.spacedBy(AuthFormSpacing)
     ) {
         NofyPasswordField(
-            value = uiState.password,
-            onValueChange = { onIntent(LoginIntent.ChangePassword(it)) },
+            value = password,
+            onValueChange = onPasswordChange,
             label = stringResource(R.string.login_password_label),
             modifier = Modifier.fillMaxWidth()
         )
         NofyButton(
             text = stringResource(R.string.login_button_text),
-            onClick = { onIntent(LoginIntent.Login) },
+            onClick = onSubmitPassword,
             modifier = Modifier.fillMaxWidth(),
             enabled = !uiState.isLoading,
             rejectObscuredTouches = true
@@ -65,7 +80,8 @@ private fun LoginFormCard(
             NofyTextButton(
                 text = stringResource(R.string.biometric_title),
                 onClick = { onIntent(LoginIntent.BiometricLogin) },
-                enabled = !uiState.isLoading
+                enabled = !uiState.isLoading,
+                rejectObscuredTouches = true
             )
         }
     }

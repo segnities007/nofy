@@ -5,10 +5,13 @@ import com.segnities007.auth.domain.error.AuthException
 import com.segnities007.auth.domain.policy.PasswordPolicy
 import com.segnities007.auth.domain.policy.PasswordPolicyViolation
 import com.segnities007.auth.domain.repository.AuthRepository
+import com.segnities007.auth.domain.security.SensitiveOperationBlockedException
+import com.segnities007.auth.domain.security.SensitiveOperationGuard
 import com.segnities007.crypto.DataCipher
 import com.segnities007.crypto.PasswordHasher
 import com.segnities007.database.SecureDatabaseController
 import com.segnities007.datastore.AuthLocalDataSource
+import java.nio.charset.StandardCharsets
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,6 +21,7 @@ class AuthRepositoryImpl(
     private val passwordHasher: PasswordHasher,
     private val databaseController: SecureDatabaseController,
     private val dataCipher: DataCipher,
+    private val sensitiveOperationGuard: SensitiveOperationGuard,
     private val nowMillisProvider: () -> Long = System::currentTimeMillis
 ) : AuthRepository {
     private val registeredState = MutableStateFlow(authLocalDataSource.getPasswordHash() != null)
@@ -36,6 +40,14 @@ class AuthRepositoryImpl(
         return lockedState.asStateFlow()
     }
 
+    override suspend fun verifyPassword(password: String): Result<Unit> {
+        return runCatching {
+            ensureSensitiveOperationAllowed()
+            verifyPasswordForPasswordEntry(password)
+            clearPasswordAttemptState()
+        }.recoverCatching(::recoverFromPasswordEntryFailure)
+    }
+
     override suspend fun lock(): Result<Unit> {
         return runCatching {
             dataCipher.lockSession()
@@ -46,6 +58,7 @@ class AuthRepositoryImpl(
 
     override suspend fun registerPassword(password: String): Result<Unit> {
         return runCatching {
+            ensureSensitiveOperationAllowed()
             ensureNotRegistered()
             ensurePasswordPolicySatisfied(password)
             storePasswordHash(password)
@@ -58,6 +71,7 @@ class AuthRepositoryImpl(
 
     override suspend fun unlock(password: String): Result<Unit> {
         return runCatching {
+            ensureSensitiveOperationAllowed()
             verifyPasswordForPasswordEntry(password)
             unlockDatabase(password)
             dataCipher.unlockSession()
@@ -68,6 +82,7 @@ class AuthRepositoryImpl(
 
     override suspend fun unlockWithBiometric(decryptedPassword: String): Result<Unit> {
         return runCatching {
+            ensureSensitiveOperationAllowed()
             ensurePasswordMatches(decryptedPassword)
             unlockDatabase(decryptedPassword)
             dataCipher.unlockSession()
@@ -78,6 +93,7 @@ class AuthRepositoryImpl(
 
     override suspend fun saveBiometricSecret(encryptedSecret: ByteArray, iv: ByteArray): Result<Unit> {
         return runCatching {
+            ensureSensitiveOperationAllowed()
             val secretString = Base64.encodeToString(encryptedSecret, Base64.DEFAULT)
             val ivString = Base64.encodeToString(iv, Base64.DEFAULT)
             authLocalDataSource.saveBiometricSecret(secretString, ivString)
@@ -86,6 +102,7 @@ class AuthRepositoryImpl(
     }
 
     override suspend fun getBiometricSecret(): Pair<ByteArray, ByteArray>? {
+        ensureSensitiveOperationAllowed()
         val pair = authLocalDataSource.getBiometricSecret() ?: return null
         return try {
             val secret = Base64.decode(pair.first, Base64.DEFAULT)
@@ -105,28 +122,42 @@ class AuthRepositoryImpl(
 
     override suspend fun reset(currentPassword: String): Result<Unit> {
         return runCatching {
+            ensureSensitiveOperationAllowed()
             verifyPasswordForPasswordEntry(currentPassword)
             performReset()
         }.recoverCatching(::recoverFromPasswordEntryFailure)
     }
 
     private fun performReset() {
-            dataCipher.lockSession()
-            authLocalDataSource.clearAuthState()
-            registeredState.value = false
-            biometricEnabledState.value = false
-            lockedState.value = true
-            databaseController.deleteDatabaseFiles()
+        dataCipher.lockSession()
+        authLocalDataSource.clearAuthState()
+        registeredState.value = false
+        biometricEnabledState.value = false
+        lockedState.value = true
+        databaseController.deleteDatabaseFiles()
     }
 
     override suspend fun setBiometricEnabled(enabled: Boolean): Result<Unit> {
-        authLocalDataSource.setBiometricEnabled(enabled)
-        biometricEnabledState.value = enabled
-        return Result.success(Unit)
+        return runCatching {
+            if (!enabled) {
+                authLocalDataSource.clearBiometricSecret()
+                biometricEnabledState.value = false
+                return@runCatching
+            }
+
+            ensureSensitiveOperationAllowed()
+            if (!authLocalDataSource.hasBiometricSecret()) {
+                throw AuthException.BiometricNotEnrolled
+            }
+
+            authLocalDataSource.setBiometricEnabled(true)
+            biometricEnabledState.value = true
+        }
     }
 
     override suspend fun changePassword(currentPassword: String, newPassword: String): Result<Unit> {
         return runCatching {
+            ensureSensitiveOperationAllowed()
             ensurePasswordPolicySatisfied(newPassword)
             verifyPasswordForPasswordEntry(currentPassword)
             applyPasswordChange(currentPassword, newPassword)
@@ -149,6 +180,14 @@ class AuthRepositoryImpl(
         }
     }
 
+    private fun ensureSensitiveOperationAllowed() {
+        try {
+            sensitiveOperationGuard.ensureSensitiveOperationAllowed()
+        } catch (_: SensitiveOperationBlockedException) {
+            throw AuthException.UntrustedEnvironment
+        }
+    }
+
     private fun storePasswordHash(password: String) {
         val hash = passwordHasher.hashPassword(password)
         authLocalDataSource.savePasswordHash(hash)
@@ -166,7 +205,12 @@ class AuthRepositoryImpl(
     }
 
     private fun unlockDatabase(password: String) {
-        databaseController.unlock(password.toByteArray())
+        val passphrase = password.toByteArray(StandardCharsets.UTF_8)
+        try {
+            databaseController.unlock(passphrase)
+        } finally {
+            passphrase.fill(0)
+        }
     }
 
     private fun applyPasswordChange(currentPassword: String, newPassword: String) {
@@ -242,8 +286,10 @@ class AuthRepositoryImpl(
     }
 
     private fun persistPasswordEntryState(state: PasswordEntryState) {
-        authLocalDataSource.saveFailedPasswordAttempts(state.failedAttempts)
-        authLocalDataSource.savePasswordLockoutUntilMillis(state.lockoutEndsAtMillis)
+        authLocalDataSource.savePasswordEntryState(
+            failedAttempts = state.failedAttempts,
+            lockoutUntilMillis = state.lockoutEndsAtMillis
+        )
     }
 
     private fun nowMillis(): Long = nowMillisProvider()

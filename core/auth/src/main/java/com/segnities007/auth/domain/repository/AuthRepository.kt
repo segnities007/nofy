@@ -10,6 +10,7 @@ interface AuthRepository {
     fun isRegistered(): Flow<Boolean>
     fun isBiometricEnabled(): Flow<Boolean>
     fun isLocked(): Flow<Boolean>
+    suspend fun verifyPassword(password: String): Result<Unit>
     suspend fun lock(): Result<Unit>
     suspend fun unlock(password: String): Result<Unit>
     suspend fun unlockWithBiometric(decryptedPassword: String): Result<Unit>

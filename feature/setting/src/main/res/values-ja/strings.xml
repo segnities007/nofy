@@ -21,6 +21,10 @@
     <string name="settings_security_confirm_password">新しいパスワードの確認</string>
     <string name="settings_security_password_note">新しいパスワードは 12 文字以上を推奨します。変更すると、生体認証ログインは再登録されるまで無効になります。</string>
     <string name="settings_security_update_password">パスワードを更新</string>
+    <string name="settings_biometric_dialog_title">生体認証ログインを再設定</string>
+    <string name="settings_biometric_dialog_body">現在のパスワードを確認し、生体認証を完了して新しい生体認証シークレットを登録します。</string>
+    <string name="settings_biometric_dialog_confirm">続行</string>
+    <string name="settings_biometric_dialog_dismiss">キャンセル</string>
     <string name="settings_app_storage_heading">セキュリティ</string>
     <string name="settings_app_storage_body">ノート、パスワード情報、UI 設定は端末内で安全に暗号化保存されます。</string>
     <string name="settings_app_reset_heading">危険な操作</string>
@@ -39,10 +43,13 @@
     <string name="settings_app_reset_dialog_dismiss">キャンセル</string>
     <string name="settings_toast_biometric_updated">生体認証の設定を更新しました</string>
     <string name="settings_toast_biometric_update_failed">生体認証の設定更新に失敗しました</string>
+    <string name="settings_toast_biometric_unavailable">この端末では生体認証を利用できません</string>
+    <string name="settings_toast_biometric_reenroll_required">生体認証資格情報が変更されました。生体認証ログインを再登録してください。</string>
     <string name="settings_toast_passwords_do_not_match">新しいパスワードが一致しません</string>
     <string name="settings_toast_password_too_short">新しいパスワードはもっと長くしてください</string>
     <string name="settings_toast_password_too_common">推測されやすい新しいパスワードは使えません</string>
     <string name="settings_toast_current_password_invalid">現在のパスワードが正しくありません</string>
+    <string name="settings_toast_untrusted_environment">現在の端末環境では安全な設定変更を続行できません。</string>
     <string name="settings_toast_too_many_attempts">パスワード試行回数が多すぎます。しばらく待ってから再試行してください</string>
     <string name="settings_toast_password_updated">パスワードを更新しました。安全のため生体認証ログインを無効化しました。</string>
     <string name="settings_toast_password_update_failed">パスワード更新に失敗しました</string>

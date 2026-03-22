@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import net.sqlcipher.database.SupportFactory
+import net.zetetic.database.sqlcipher.SupportOpenHelperFactory
 
 @Database(
     entities = [NoteEntity::class],
@@ -46,7 +46,7 @@ internal abstract class NoteDatabase : RoomDatabase() {
         }
 
         fun build(context: Context, passphrase: ByteArray): NoteDatabase {
-            val factory = SupportFactory(passphrase)
+            val factory = SupportOpenHelperFactory(passphrase)
             return Room.databaseBuilder(
                 context.applicationContext,
                 NoteDatabase::class.java,

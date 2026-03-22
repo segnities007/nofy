@@ -1,11 +1,13 @@
 package com.segnities007.nofy.di
 
 import com.segnities007.auth.di.authModule
+import com.segnities007.auth.domain.security.SensitiveOperationGuard
 import com.segnities007.biometric.di.biometricModule
 import com.segnities007.crypto.di.cryptoModule
 import com.segnities007.datastore.di.datastoreModule
 import com.segnities007.login.di.loginFeatureModule
 import com.segnities007.note.di.noteFeatureModule
+import com.segnities007.nofy.security.CachedSensitiveOperationGuard
 import com.segnities007.nofy.security.RiskyEnvironmentDetector
 import com.segnities007.setting.di.settingFeatureModule
 import org.koin.core.module.Module
@@ -21,5 +23,6 @@ val nofyModules: List<Module> = listOf(
     settingFeatureModule,
     module {
         single { RiskyEnvironmentDetector(get()) }
+        single<SensitiveOperationGuard> { CachedSensitiveOperationGuard(get()) }
     }
 )

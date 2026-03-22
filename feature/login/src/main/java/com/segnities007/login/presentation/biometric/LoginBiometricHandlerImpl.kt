@@ -32,7 +32,7 @@ class LoginBiometricHandlerImpl(
         onSuccess: (BiometricPrompt.AuthenticationResult) -> Unit,
         onError: (String) -> Unit
     ) {
-        if (!biometricAuthenticator.isBiometricAvailable()) {
+        if (!biometricAuthenticator.isStrongBiometricAvailable()) {
             onError(cryptoPrompt.failureMessage)
             return
         }

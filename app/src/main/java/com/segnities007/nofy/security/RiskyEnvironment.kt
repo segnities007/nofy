@@ -6,8 +6,15 @@ internal data class RiskyEnvironment(
 
 internal enum class RiskyEnvironmentReason {
     DebuggerAttached,
+    ProcessTraced,
+    FridaServerDetected,
+    InjectedHookLibraryDetected,
+    HookFrameworkPackageDetected,
+    SuspiciousEnvironmentVariable,
     UnexpectedDebuggableApp,
     TestKeysBuild,
+    WritableSystemPartition,
+    PermissiveSelinux,
     RootArtifactDetected,
     RootManagerDetected
 }

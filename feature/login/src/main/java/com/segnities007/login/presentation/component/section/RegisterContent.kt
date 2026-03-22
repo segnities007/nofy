@@ -4,6 +4,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -22,6 +26,9 @@ internal fun RegisterContent(
     onIntent: (RegisterIntent) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    var password by remember { mutableStateOf("") }
+    var confirmPassword by remember { mutableStateOf("") }
+
     AuthScreenLayout(
         modifier = modifier,
         hero = {
@@ -33,6 +40,20 @@ internal fun RegisterContent(
         form = {
             RegisterFormCard(
                 uiState = uiState,
+                password = password,
+                confirmPassword = confirmPassword,
+                onPasswordChange = { password = it },
+                onConfirmPasswordChange = { confirmPassword = it },
+                onSubmitRegistration = {
+                    onIntent(
+                        RegisterIntent.SubmitRegistration(
+                            password = password,
+                            confirmPassword = confirmPassword
+                        )
+                    )
+                    password = ""
+                    confirmPassword = ""
+                },
                 onIntent = onIntent
             )
         }
@@ -42,6 +63,11 @@ internal fun RegisterContent(
 @Composable
 private fun RegisterFormCard(
     uiState: RegisterState,
+    password: String,
+    confirmPassword: String,
+    onPasswordChange: (String) -> Unit,
+    onConfirmPasswordChange: (String) -> Unit,
+    onSubmitRegistration: () -> Unit,
     onIntent: (RegisterIntent) -> Unit
 ) {
     Column(
@@ -49,20 +75,20 @@ private fun RegisterFormCard(
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
         NofyPasswordField(
-            value = uiState.password,
-            onValueChange = { onIntent(RegisterIntent.ChangePassword(it)) },
+            value = password,
+            onValueChange = onPasswordChange,
             label = stringResource(R.string.register_password_label),
             modifier = Modifier.fillMaxWidth()
         )
         NofyPasswordField(
-            value = uiState.confirmPassword,
-            onValueChange = { onIntent(RegisterIntent.ChangeConfirmPassword(it)) },
+            value = confirmPassword,
+            onValueChange = onConfirmPasswordChange,
             label = stringResource(R.string.register_confirm_password_label),
             modifier = Modifier.fillMaxWidth()
         )
         NofyButton(
             text = stringResource(R.string.register_button_text),
-            onClick = { onIntent(RegisterIntent.Register) },
+            onClick = onSubmitRegistration,
             modifier = Modifier.fillMaxWidth(),
             enabled = !uiState.isLoading,
             rejectObscuredTouches = true

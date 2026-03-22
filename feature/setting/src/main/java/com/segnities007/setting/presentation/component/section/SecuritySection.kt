@@ -27,7 +27,17 @@ import com.segnities007.setting.presentation.preview.previewSettingState
 @Composable
 internal fun SecuritySection(
     uiState: SettingState,
-    onIntent: (SettingIntent) -> Unit
+    currentPassword: String,
+    newPassword: String,
+    confirmPassword: String,
+    isBiometricBusy: Boolean,
+    canUpdatePassword: Boolean,
+    onCurrentPasswordChange: (String) -> Unit,
+    onNewPasswordChange: (String) -> Unit,
+    onConfirmPasswordChange: (String) -> Unit,
+    onEnableBiometric: () -> Unit,
+    onDisableBiometric: () -> Unit,
+    onSavePassword: () -> Unit
 ) {
     SettingsSectionList {
         item {
@@ -43,8 +53,15 @@ internal fun SecuritySection(
                     )
                     NofySwitch(
                         checked = uiState.isBiometricEnabled,
-                        onCheckedChange = { onIntent(SettingIntent.SetBiometricEnabled(it)) },
-                        enabled = !uiState.isBiometricUpdating
+                        onCheckedChange = { enabled ->
+                            if (enabled) {
+                                onEnableBiometric()
+                            } else {
+                                onDisableBiometric()
+                            }
+                        },
+                        enabled = !isBiometricBusy,
+                        rejectObscuredTouches = true
                     )
                 }
             }
@@ -58,20 +75,20 @@ internal fun SecuritySection(
                 )
                 NofyDivider(modifier = Modifier.padding(vertical = 4.dp))
                 NofyPasswordField(
-                    value = uiState.currentPassword,
-                    onValueChange = { onIntent(SettingIntent.ChangeCurrentPassword(it)) },
+                    value = currentPassword,
+                    onValueChange = onCurrentPasswordChange,
                     label = stringResource(R.string.settings_security_current_password),
                     modifier = Modifier.fillMaxWidth()
                 )
                 NofyPasswordField(
-                    value = uiState.newPassword,
-                    onValueChange = { onIntent(SettingIntent.ChangeNewPassword(it)) },
+                    value = newPassword,
+                    onValueChange = onNewPasswordChange,
                     label = stringResource(R.string.settings_security_new_password),
                     modifier = Modifier.fillMaxWidth()
                 )
                 NofyPasswordField(
-                    value = uiState.confirmPassword,
-                    onValueChange = { onIntent(SettingIntent.ChangeConfirmPassword(it)) },
+                    value = confirmPassword,
+                    onValueChange = onConfirmPasswordChange,
                     label = stringResource(R.string.settings_security_confirm_password),
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -82,9 +99,9 @@ internal fun SecuritySection(
                 )
                 NofyButton(
                     text = stringResource(R.string.settings_security_update_password),
-                    onClick = { onIntent(SettingIntent.SavePassword) },
+                    onClick = onSavePassword,
                     modifier = Modifier.fillMaxWidth(),
-                    enabled = uiState.canUpdatePassword,
+                    enabled = canUpdatePassword,
                     rejectObscuredTouches = true
                 )
             }
@@ -98,7 +115,17 @@ private fun SecuritySectionPreview() {
     NofyPreviewSurface {
         SecuritySection(
             uiState = previewSettingState(currentSection = SettingsSection.Security),
-            onIntent = {}
+            currentPassword = "",
+            newPassword = "",
+            confirmPassword = "",
+            isBiometricBusy = false,
+            canUpdatePassword = false,
+            onCurrentPasswordChange = {},
+            onNewPasswordChange = {},
+            onConfirmPasswordChange = {},
+            onEnableBiometric = {},
+            onDisableBiometric = {},
+            onSavePassword = {}
         )
     }
 }

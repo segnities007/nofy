@@ -6,11 +6,11 @@ sealed interface SettingIntent {
     data class SelectSection(val section: SettingsSection) : SettingIntent
     data class SelectThemeMode(val themeMode: ThemeMode) : SettingIntent
     data class ChangeFontScale(val fontScale: Float) : SettingIntent
-    data class SetBiometricEnabled(val enabled: Boolean) : SettingIntent
-    data class ChangeCurrentPassword(val value: String) : SettingIntent
-    data class ChangeNewPassword(val value: String) : SettingIntent
-    data class ChangeConfirmPassword(val value: String) : SettingIntent
-    data object SavePassword : SettingIntent
+    data class SavePassword(
+        val currentPassword: String,
+        val newPassword: String,
+        val confirmPassword: String
+    ) : SettingIntent
     data class ResetApp(val currentPassword: String) : SettingIntent
     data object Lock : SettingIntent
 }

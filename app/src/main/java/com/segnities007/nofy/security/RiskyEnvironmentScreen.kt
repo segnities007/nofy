@@ -70,8 +70,15 @@ internal fun RiskyEnvironmentScreen(
 private fun RiskyEnvironmentReason.toDisplayText(): String {
     return when (this) {
         RiskyEnvironmentReason.DebuggerAttached -> stringResource(R.string.security_reason_debugger)
+        RiskyEnvironmentReason.ProcessTraced -> stringResource(R.string.security_reason_tracer)
+        RiskyEnvironmentReason.FridaServerDetected -> stringResource(R.string.security_reason_frida_port)
+        RiskyEnvironmentReason.InjectedHookLibraryDetected -> stringResource(R.string.security_reason_hook_library)
+        RiskyEnvironmentReason.HookFrameworkPackageDetected -> stringResource(R.string.security_reason_hook_package)
+        RiskyEnvironmentReason.SuspiciousEnvironmentVariable -> stringResource(R.string.security_reason_env_var)
         RiskyEnvironmentReason.UnexpectedDebuggableApp -> stringResource(R.string.security_reason_debuggable)
         RiskyEnvironmentReason.TestKeysBuild -> stringResource(R.string.security_reason_test_keys)
+        RiskyEnvironmentReason.WritableSystemPartition -> stringResource(R.string.security_reason_writable_system)
+        RiskyEnvironmentReason.PermissiveSelinux -> stringResource(R.string.security_reason_selinux)
         RiskyEnvironmentReason.RootArtifactDetected -> stringResource(R.string.security_reason_root_artifact)
         RiskyEnvironmentReason.RootManagerDetected -> stringResource(R.string.security_reason_root_manager)
     }

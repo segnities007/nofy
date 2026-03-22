@@ -3,6 +3,7 @@ package com.segnities007.setting.presentation.component.dialog
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
@@ -18,7 +19,7 @@ internal fun SettingsResetDialog(
     onDismiss: () -> Unit
 ) {
     var confirmationValue by rememberSaveable { mutableStateOf("") }
-    var currentPassword by rememberSaveable { mutableStateOf("") }
+    var currentPassword by remember { mutableStateOf("") }
 
     NofyDestructiveConfirmDialog(
         title = stringResource(R.string.settings_app_reset_dialog_title),

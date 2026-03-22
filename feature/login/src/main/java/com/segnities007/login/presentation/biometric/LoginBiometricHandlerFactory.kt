@@ -8,7 +8,9 @@ internal fun createLoginBiometricHandler(
     authenticatePrompt: BiometricPromptContent,
     cryptoPrompt: BiometricPromptContent = authenticatePrompt
 ): LoginBiometricHandler {
-    return biometricAuthenticator?.let {
+    return biometricAuthenticator
+        ?.takeIf(BiometricAuthenticator::isStrongBiometricAvailable)
+        ?.let {
         LoginBiometricHandlerImpl(
             biometricAuthenticator = it,
             authenticatePrompt = authenticatePrompt,

@@ -1,9 +1,9 @@
 <libraries>
   <library
       name=":@@:shared:auth::debug"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/87e1594797d6fd29e0227e7b15f981a2/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/87e1594797d6fd29e0227e7b15f981a2/transformed/out/jars/libs/R.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/b35f1915cf211506e9027e5773ac2a9f/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/b35f1915cf211506e9027e5773ac2a9f/transformed/out/jars/libs/R.jar"
       resolved="nofy.shared:auth:unspecified"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/87e1594797d6fd29e0227e7b15f981a2/transformed/out"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/b35f1915cf211506e9027e5773ac2a9f/transformed/out"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -14,9 +14,9 @@
       proguardRules="proguard.txt"/>
   <library
       name=":@@:platform:crypto::debug"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/540ad02e7b2db7868c24bf0b32eaddd7/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/540ad02e7b2db7868c24bf0b32eaddd7/transformed/out/jars/libs/R.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/bcf02f7b8bf59259d6fd1f84a6acbaec/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/bcf02f7b8bf59259d6fd1f84a6acbaec/transformed/out/jars/libs/R.jar"
       resolved="nofy.platform:crypto:unspecified"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/540ad02e7b2db7868c24bf0b32eaddd7/transformed/out"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/bcf02f7b8bf59259d6fd1f84a6acbaec/transformed/out"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -40,9 +40,9 @@
       proguardRules="proguard.txt"/>
   <library
       name=":@@:platform:storage::debug"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/9fe910238127f87994cc66dce70d1749/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/9fe910238127f87994cc66dce70d1749/transformed/out/jars/libs/R.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/6d635af7c38eca6dfff98dadd3161ac2/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/6d635af7c38eca6dfff98dadd3161ac2/transformed/out/jars/libs/R.jar"
       resolved="nofy.platform:storage:unspecified"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/9fe910238127f87994cc66dce70d1749/transformed/out"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/6d635af7c38eca6dfff98dadd3161ac2/transformed/out"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -53,9 +53,9 @@
       proguardRules="proguard.txt"/>
   <library
       name=":@@:platform:biometric::debug"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/b0c6b4f30c504b51fbfc05559e85cba9/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/b0c6b4f30c504b51fbfc05559e85cba9/transformed/out/jars/libs/R.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/4e3d3ceb1dad2f61dff72e4ac8fbc5d5/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/4e3d3ceb1dad2f61dff72e4ac8fbc5d5/transformed/out/jars/libs/R.jar"
       resolved="nofy.platform:biometric:unspecified"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/b0c6b4f30c504b51fbfc05559e85cba9/transformed/out"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/4e3d3ceb1dad2f61dff72e4ac8fbc5d5/transformed/out"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"

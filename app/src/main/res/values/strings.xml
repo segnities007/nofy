@@ -5,8 +5,15 @@
     <string name="security_block_footer">Remove the risky condition and relaunch the app. Release builds do not run on rooted, tampered, or actively debugged environments.</string>
     <string name="security_block_close">Close App</string>
     <string name="security_reason_debugger">A debugger is attached to the process.</string>
+    <string name="security_reason_tracer">The process is being traced via ptrace/TracerPid.</string>
+    <string name="security_reason_frida_port">A known Frida server port is listening on the device.</string>
+    <string name="security_reason_hook_library">Injected hook or instrumentation libraries were found in process memory.</string>
+    <string name="security_reason_hook_package">A known Xposed/Substrate/LSPosed package was detected.</string>
+    <string name="security_reason_env_var">A suspicious preload environment variable is present.</string>
     <string name="security_reason_debuggable">The installed app is unexpectedly debuggable.</string>
     <string name="security_reason_test_keys">The device firmware is signed with test keys.</string>
+    <string name="security_reason_writable_system">A protected system partition appears to be mounted writable.</string>
+    <string name="security_reason_selinux">SELinux enforcement appears to be disabled.</string>
     <string name="security_reason_root_artifact">Root-related binaries or Magisk artifacts were detected.</string>
     <string name="security_reason_root_manager">A known root management package was detected.</string>
 </resources>

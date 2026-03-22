@@ -6,6 +6,7 @@ sealed class NoteRepositoryException(
 ) : IllegalStateException(message, cause) {
     data object DatabaseLocked : NoteRepositoryException("Database locked")
     data object NoteNotFound : NoteRepositoryException("Note not found")
+    data object UntrustedEnvironment : NoteRepositoryException("Untrusted environment")
 
     class DecryptionFailed(
         noteId: Long,

@@ -42,15 +42,22 @@ internal class RegisterViewModel(
 
     fun onIntent(intent: RegisterIntent) {
         when (intent) {
-            is RegisterIntent.ChangePassword -> updatePassword(intent.password)
-            is RegisterIntent.ChangeConfirmPassword -> updateConfirmPassword(intent.password)
-            RegisterIntent.Register -> register()
+            is RegisterIntent.SubmitRegistration -> register(
+                password = intent.password,
+                confirmPassword = intent.confirmPassword
+            )
         }
     }
 
-    private fun register() {
-        val password = validatedPasswordOrNull() ?: return
-        submitRegistration(password)
+    private fun register(
+        password: String,
+        confirmPassword: String
+    ) {
+        val validatedPassword = validatedPasswordOrNull(
+            password = password,
+            confirmPassword = confirmPassword
+        ) ?: return
+        submitRegistration(validatedPassword)
     }
 
     private fun submitRegistration(password: String) {
@@ -75,20 +82,24 @@ internal class RegisterViewModel(
             PasswordRegistrationResult.Success -> continueBiometricEnrollment(password)
             is PasswordRegistrationResult.TooShort -> handlePasswordTooShort(result.minimumLength)
             PasswordRegistrationResult.TooCommon -> handlePasswordTooCommon()
+            PasswordRegistrationResult.UntrustedEnvironment -> handleUntrustedEnvironment()
             PasswordRegistrationResult.Failure -> handleRegistrationFailure()
         }
     }
 
     private suspend fun continueBiometricEnrollment(password: String) {
-        val request = executeBiometricEnrollmentPreparation(password) ?: return
+        val request = executeBiometricEnrollmentPreparation() ?: return
         val authentication = executeBiometricEnrollmentAuthentication(request.cryptoObject) ?: return
-        val secret = executeBiometricSecretEncryption(request, authentication) ?: return
+        val secret = executeBiometricSecretEncryption(
+            password = password,
+            authenticationResult = authentication
+        ) ?: return
         val result = executeBiometricSecretPersistence(secret)
         reduceBiometricSecretPersistence(result)
     }
 
-    private suspend fun executeBiometricEnrollmentPreparation(password: String): BiometricEnrollmentRequest? {
-        return when (val result = prepareBiometricEnrollmentOperation(password)) {
+    private suspend fun executeBiometricEnrollmentPreparation(): BiometricEnrollmentRequest? {
+        return when (val result = prepareBiometricEnrollmentOperation()) {
             is BiometricEnrollmentPreparationResult.Ready -> result.request
             BiometricEnrollmentPreparationResult.Failure -> {
                 emitLoginNavigation(R.string.register_success_without_biometric)
@@ -110,12 +121,12 @@ internal class RegisterViewModel(
     }
 
     private suspend fun executeBiometricSecretEncryption(
-        request: BiometricEnrollmentRequest,
+        password: String,
         authenticationResult: BiometricPrompt.AuthenticationResult
     ): EncryptedBiometricSecret? {
         return when (
             val result = encryptBiometricSecretOperation(
-                request = request,
+                password = password,
                 authenticationResult = authenticationResult
             )
         ) {
@@ -141,21 +152,24 @@ internal class RegisterViewModel(
     ) {
         when (result) {
             BiometricSecretSaveResult.Success -> emitLoginNavigation(R.string.register_success_with_biometric)
+            BiometricSecretSaveResult.UntrustedEnvironment -> handleUntrustedEnvironment()
             BiometricSecretSaveResult.Failure -> emitLoginNavigation(R.string.register_success_without_biometric)
         }
     }
 
-    private fun validatedPasswordOrNull(): String? {
-        val state = _uiState.value
-        if (state.password.isEmpty()) {
+    private fun validatedPasswordOrNull(
+        password: String,
+        confirmPassword: String
+    ): String? {
+        if (password.isEmpty()) {
             emitError(R.string.register_error_empty_password)
             return null
         }
-        if (state.password != state.confirmPassword) {
+        if (password != confirmPassword) {
             emitError(R.string.register_error_passwords_do_not_match)
             return null
         }
-        return state.password
+        return password
     }
 
     private suspend fun handleRegistrationFailure() {
@@ -176,20 +190,17 @@ internal class RegisterViewModel(
         emitEffect(RegisterEffect.ShowToastRes(R.string.register_error_password_too_common))
     }
 
+    private suspend fun handleUntrustedEnvironment() {
+        stopLoading()
+        emitEffect(RegisterEffect.ShowToastRes(R.string.register_error_untrusted_environment))
+    }
+
     private fun startLoading() {
         setLoading(true)
     }
 
     private fun stopLoading() {
         setLoading(false)
-    }
-
-    private fun updatePassword(password: String) {
-        _uiState.update { it.copy(password = password) }
-    }
-
-    private fun updateConfirmPassword(password: String) {
-        _uiState.update { it.copy(confirmPassword = password) }
     }
 
     private fun setLoading(isLoading: Boolean) {

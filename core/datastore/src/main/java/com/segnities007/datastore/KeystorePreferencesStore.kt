@@ -1,6 +1,7 @@
 package com.segnities007.datastore
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.Base64
 import com.segnities007.crypto.KeystoreAesKeyFactory
 import java.nio.charset.StandardCharsets
@@ -22,60 +23,96 @@ class KeystorePreferencesStore(
         Context.MODE_PRIVATE
     )
 
-    fun putString(key: String, value: String) {
-        putEncodedValue(key, SecurePreferencesValueCodec.encodeString(value))
+    fun putString(
+        key: String,
+        value: String,
+        commitSynchronously: Boolean = false
+    ) {
+        update(commitSynchronously) {
+            putString(key, value)
+        }
     }
 
     fun getString(key: String): String? {
         return getDecodedValue(key, SecurePreferencesValueCodec::decodeString)
     }
 
-    fun putBoolean(key: String, value: Boolean) {
-        putEncodedValue(key, SecurePreferencesValueCodec.encodeBoolean(value))
+    fun putBoolean(
+        key: String,
+        value: Boolean,
+        commitSynchronously: Boolean = false
+    ) {
+        update(commitSynchronously) {
+            putBoolean(key, value)
+        }
     }
 
     fun getBoolean(key: String, defaultValue: Boolean = false): Boolean {
         return getDecodedValue(key, SecurePreferencesValueCodec::decodeBoolean) ?: defaultValue
     }
 
-    fun putInt(key: String, value: Int) {
-        putEncodedValue(key, SecurePreferencesValueCodec.encodeInt(value))
+    fun putInt(
+        key: String,
+        value: Int,
+        commitSynchronously: Boolean = false
+    ) {
+        update(commitSynchronously) {
+            putInt(key, value)
+        }
     }
 
     fun getInt(key: String, defaultValue: Int = 0): Int {
         return getDecodedValue(key, SecurePreferencesValueCodec::decodeInt) ?: defaultValue
     }
 
-    fun putLong(key: String, value: Long) {
-        putEncodedValue(key, SecurePreferencesValueCodec.encodeLong(value))
+    fun putLong(
+        key: String,
+        value: Long,
+        commitSynchronously: Boolean = false
+    ) {
+        update(commitSynchronously) {
+            putLong(key, value)
+        }
     }
 
     fun getLong(key: String, defaultValue: Long = 0L): Long {
         return getDecodedValue(key, SecurePreferencesValueCodec::decodeLong) ?: defaultValue
     }
 
-    fun putFloat(key: String, value: Float) {
-        putEncodedValue(key, SecurePreferencesValueCodec.encodeFloat(value))
+    fun putFloat(
+        key: String,
+        value: Float,
+        commitSynchronously: Boolean = false
+    ) {
+        update(commitSynchronously) {
+            putFloat(key, value)
+        }
     }
 
     fun getFloat(key: String, defaultValue: Float = 0f): Float {
         return getDecodedValue(key, SecurePreferencesValueCodec::decodeFloat) ?: defaultValue
     }
 
-    fun remove(vararg keys: String) {
-        sharedPreferences.edit().apply {
-            keys.forEach { remove(storageKey(it)) }
-        }.apply()
+    fun remove(
+        vararg keys: String,
+        commitSynchronously: Boolean = false
+    ) {
+        update(commitSynchronously) {
+            remove(*keys)
+        }
     }
 
     fun clear() {
         sharedPreferences.edit().clear().apply()
     }
 
-    private fun putEncodedValue(logicalKey: String, payload: String) {
-        sharedPreferences.edit()
-            .putString(storageKey(logicalKey), encrypt(payload))
-            .apply()
+    internal fun update(
+        commitSynchronously: Boolean = false,
+        mutation: SecurePreferencesMutation.() -> Unit
+    ) {
+        val editor = sharedPreferences.edit()
+        SecurePreferencesMutation(editor).mutation()
+        persist(editor, commitSynchronously)
     }
 
     private fun <T> getDecodedValue(
@@ -99,11 +136,28 @@ class KeystorePreferencesStore(
         return KEY_PREFIX + Base64.encodeToString(hashedKey, Base64.NO_WRAP)
     }
 
+    private fun persist(
+        editor: SharedPreferences.Editor,
+        commitSynchronously: Boolean
+    ) {
+        if (!commitSynchronously) {
+            editor.apply()
+            return
+        }
+
+        check(editor.commit()) { "Failed to persist secure preferences" }
+    }
+
     private fun encrypt(plainText: String): String {
         val cipher = Cipher.getInstance(AES_TRANSFORMATION)
         cipher.init(Cipher.ENCRYPT_MODE, secretKey())
         val iv = cipher.iv
-        val encrypted = cipher.doFinal(plainText.toByteArray(StandardCharsets.UTF_8))
+        val plainTextBytes = plainText.toByteArray(StandardCharsets.UTF_8)
+        val encrypted = try {
+            cipher.doFinal(plainTextBytes)
+        } finally {
+            plainTextBytes.fill(0)
+        }
         val encodedIv = Base64.encodeToString(iv, Base64.NO_WRAP)
         val encodedEncrypted = Base64.encodeToString(encrypted, Base64.NO_WRAP)
         return "$encodedIv:$encodedEncrypted"
@@ -119,7 +173,11 @@ class KeystorePreferencesStore(
         val spec = GCMParameterSpec(GCM_TAG_LENGTH_BITS, iv)
         cipher.init(Cipher.DECRYPT_MODE, secretKey(), spec)
         val plainText = cipher.doFinal(encrypted)
-        return String(plainText, StandardCharsets.UTF_8)
+        return try {
+            String(plainText, StandardCharsets.UTF_8)
+        } finally {
+            plainText.fill(0)
+        }
     }
 
     private fun secretKey(): SecretKey {
@@ -136,5 +194,39 @@ class KeystorePreferencesStore(
         const val KEY_ALIAS = "secure_preferences_key_v2"
         const val PREFERENCES_NAME = "secure_keystore_prefs"
         const val KEY_PREFIX = "entry_"
+    }
+
+    internal inner class SecurePreferencesMutation(
+        private val editor: SharedPreferences.Editor
+    ) {
+        fun putString(key: String, value: String) {
+            putEncodedValue(key, SecurePreferencesValueCodec.encodeString(value))
+        }
+
+        fun putBoolean(key: String, value: Boolean) {
+            putEncodedValue(key, SecurePreferencesValueCodec.encodeBoolean(value))
+        }
+
+        fun putInt(key: String, value: Int) {
+            putEncodedValue(key, SecurePreferencesValueCodec.encodeInt(value))
+        }
+
+        fun putLong(key: String, value: Long) {
+            putEncodedValue(key, SecurePreferencesValueCodec.encodeLong(value))
+        }
+
+        fun putFloat(key: String, value: Float) {
+            putEncodedValue(key, SecurePreferencesValueCodec.encodeFloat(value))
+        }
+
+        fun remove(vararg keys: String) {
+            keys.forEach { key ->
+                editor.remove(storageKey(key))
+            }
+        }
+
+        private fun putEncodedValue(logicalKey: String, payload: String) {
+            editor.putString(storageKey(logicalKey), encrypt(payload))
+        }
     }
 }

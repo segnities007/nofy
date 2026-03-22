@@ -8,7 +8,6 @@ import com.segnities007.login.R
 import com.segnities007.login.domain.usecase.ClearBiometricSecretUseCase
 import com.segnities007.login.domain.usecase.LoginSubmissionResult
 import com.segnities007.login.domain.usecase.ObserveBiometricEnabledUseCase
-import com.segnities007.login.domain.usecase.UnlockWithBiometricUseCase
 import com.segnities007.login.domain.usecase.UnlockWithPasswordUseCase
 import com.segnities007.login.presentation.contract.LoginEffect
 import com.segnities007.login.presentation.contract.LoginIntent
@@ -33,8 +32,7 @@ internal class LoginViewModel(
     private val clearBiometricSecretUseCase: ClearBiometricSecretUseCase,
     private val prepareBiometricUnlockOperation: PrepareBiometricUnlockOperation,
     private val authenticateWithCryptoOperation: AuthenticateWithCryptoOperation,
-    private val decryptBiometricPasswordOperation: DecryptBiometricPasswordOperation,
-    private val unlockWithBiometricUseCase: UnlockWithBiometricUseCase
+    private val decryptBiometricPasswordOperation: DecryptBiometricPasswordOperation
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(LoginState())
     val uiState = _uiState.asStateFlow()
@@ -48,26 +46,20 @@ internal class LoginViewModel(
 
     fun onIntent(intent: LoginIntent) {
         when (intent) {
-            is LoginIntent.ChangePassword -> updatePassword(intent.password)
-            LoginIntent.Login -> unlock()
+            is LoginIntent.SubmitPassword -> unlock(intent.password)
             LoginIntent.BiometricLogin -> startBiometricUnlock()
             is LoginIntent.SetBiometricAvailability -> updateBiometricAvailability(intent.isAvailable)
         }
     }
 
-    private fun unlock() {
-        val password = validatedPasswordOrNull() ?: return
-        submitPasswordUnlock(password)
-    }
-
-    private fun validatedPasswordOrNull(): String? {
-        val password = _uiState.value.password.takeIf { it.isNotEmpty() }
-        if (password != null) {
-            return password
+    private fun unlock(password: String) {
+        val validatedPassword = password.takeIf(String::isNotEmpty)
+        if (validatedPassword != null) {
+            submitPasswordUnlock(validatedPassword)
+            return
         }
 
         emitError(R.string.login_error_empty_password)
-        return null
     }
 
     private fun submitPasswordUnlock(password: String) {
@@ -86,6 +78,7 @@ internal class LoginViewModel(
         stopLoading()
         when (result) {
             LoginSubmissionResult.Success -> emitEffect(LoginEffect.NavigateToNotes)
+            LoginSubmissionResult.UntrustedEnvironment -> emitToast(R.string.login_error_untrusted_environment)
             LoginSubmissionResult.Failure -> emitToast(R.string.login_error_unlock_failed)
             is LoginSubmissionResult.LockedOut -> emitLockout(result.remainingMillis)
         }
@@ -95,8 +88,7 @@ internal class LoginViewModel(
         viewModelScope.launch {
             val request = executeBiometricUnlockPreparation() ?: return@launch
             val authentication = executeBiometricAuthentication(request.cryptoObject) ?: return@launch
-            val password = executeBiometricPasswordDecryption(request, authentication) ?: return@launch
-            submitBiometricUnlock(password)
+            submitBiometricUnlock(request, authentication)
         }
     }
 
@@ -109,6 +101,11 @@ internal class LoginViewModel(
 
             BiometricUnlockPreparationResult.CredentialUnavailable -> {
                 disableUnavailableBiometricLogin()
+                null
+            }
+
+            BiometricUnlockPreparationResult.UntrustedEnvironment -> {
+                emitToast(R.string.login_error_untrusted_environment)
                 null
             }
 
@@ -128,17 +125,17 @@ internal class LoginViewModel(
         }
     }
 
-    private suspend fun executeBiometricPasswordDecryption(
+    private suspend fun executeBiometricUnlock(
         request: BiometricUnlockRequest,
         authenticationResult: BiometricPrompt.AuthenticationResult
-    ): String? {
+    ): LoginSubmissionResult? {
         return when (
             val result = decryptBiometricPasswordOperation(
                 request = request,
                 authenticationResult = authenticationResult
             )
         ) {
-            is BiometricPasswordDecryptionResult.Success -> result.password
+            is BiometricPasswordDecryptionResult.Success -> result.submissionResult
             BiometricPasswordDecryptionResult.CredentialUnavailable -> {
                 disableUnavailableBiometricLogin()
                 null
@@ -151,22 +148,26 @@ internal class LoginViewModel(
         }
     }
 
-    private fun submitBiometricUnlock(password: String) {
+    private fun submitBiometricUnlock(
+        request: BiometricUnlockRequest,
+        authenticationResult: BiometricPrompt.AuthenticationResult
+    ) {
         viewModelScope.launch {
             startLoading()
-            val result = executeBiometricUnlock(password)
+            val result = executeBiometricUnlock(request, authenticationResult)
+            if (result == null) {
+                stopLoading()
+                return@launch
+            }
             reduceBiometricUnlock(result)
         }
-    }
-
-    private suspend fun executeBiometricUnlock(password: String): LoginSubmissionResult {
-        return unlockWithBiometricUseCase(password)
     }
 
     private suspend fun reduceBiometricUnlock(result: LoginSubmissionResult) {
         stopLoading()
         when (result) {
             LoginSubmissionResult.Success -> emitEffect(LoginEffect.NavigateToNotes)
+            LoginSubmissionResult.UntrustedEnvironment -> emitToast(R.string.login_error_untrusted_environment)
             LoginSubmissionResult.Failure -> emitToast(R.string.login_error_biometric_unlock_failed)
             is LoginSubmissionResult.LockedOut -> emitLockout(result.remainingMillis)
         }
@@ -178,10 +179,6 @@ internal class LoginViewModel(
 
     private fun stopLoading() {
         setLoading(false)
-    }
-
-    private fun updatePassword(password: String) {
-        _uiState.update { it.copy(password = password) }
     }
 
     private fun updateBiometricAvailability(isAvailable: Boolean) {

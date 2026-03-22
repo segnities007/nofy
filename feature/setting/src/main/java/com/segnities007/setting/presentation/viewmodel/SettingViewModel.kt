@@ -55,11 +55,11 @@ class SettingViewModel(
             is SettingIntent.SelectSection -> updateCurrentSection(intent.section)
             is SettingIntent.SelectThemeMode -> updateThemeMode(intent.themeMode)
             is SettingIntent.ChangeFontScale -> updateFontScale(intent.fontScale)
-            is SettingIntent.SetBiometricEnabled -> setBiometricEnabled(intent.enabled)
-            is SettingIntent.ChangeCurrentPassword -> updateCurrentPassword(intent.value)
-            is SettingIntent.ChangeNewPassword -> updateNewPassword(intent.value)
-            is SettingIntent.ChangeConfirmPassword -> updateConfirmPassword(intent.value)
-            SettingIntent.SavePassword -> changePassword()
+            is SettingIntent.SavePassword -> changePassword(
+                currentPassword = intent.currentPassword,
+                newPassword = intent.newPassword,
+                confirmPassword = intent.confirmPassword
+            )
             is SettingIntent.ResetApp -> resetApp(intent.currentPassword)
             SettingIntent.Lock -> lock()
         }
@@ -77,16 +77,16 @@ class SettingViewModel(
         }
     }
 
-    private fun setBiometricEnabled(enabled: Boolean) {
-        viewModelScope.launch {
-            startBiometricUpdate()
-            val result = authRepository.setBiometricEnabled(enabled)
-            reduceBiometricUpdate(result)
-        }
-    }
-
-    private fun changePassword() {
-        val request = validatedPasswordChangeOrNull() ?: return
+    private fun changePassword(
+        currentPassword: String,
+        newPassword: String,
+        confirmPassword: String
+    ) {
+        val request = validatedPasswordChangeOrNull(
+            currentPassword = currentPassword,
+            newPassword = newPassword,
+            confirmPassword = confirmPassword
+        ) ?: return
         submitPasswordChange(request)
     }
 
@@ -131,16 +131,19 @@ class SettingViewModel(
         }
     }
 
-    private fun validatedPasswordChangeOrNull(): PasswordChangeRequest? {
-        val state = _uiState.value
-        if (state.newPassword != state.confirmPassword) {
+    private fun validatedPasswordChangeOrNull(
+        currentPassword: String,
+        newPassword: String,
+        confirmPassword: String
+    ): PasswordChangeRequest? {
+        if (newPassword != confirmPassword) {
             notifyPasswordMismatch()
             return null
         }
 
         return PasswordChangeRequest(
-            currentPassword = state.currentPassword,
-            newPassword = state.newPassword
+            currentPassword = currentPassword,
+            newPassword = newPassword
         )
     }
 
@@ -153,24 +156,6 @@ class SettingViewModel(
             emitToast(R.string.settings_toast_reset_password_required)
         }
         return null
-    }
-
-    private fun startBiometricUpdate() {
-        setBiometricUpdating(true)
-    }
-
-    private suspend fun reduceBiometricUpdate(result: Result<Unit>) {
-        finishBiometricUpdate()
-        if (result.isSuccess) {
-            emitToast(R.string.settings_toast_biometric_updated)
-            return
-        }
-
-        emitToast(R.string.settings_toast_biometric_update_failed)
-    }
-
-    private fun finishBiometricUpdate() {
-        setBiometricUpdating(false)
     }
 
     private fun startPasswordChange() {
@@ -189,9 +174,6 @@ class SettingViewModel(
     private suspend fun handlePasswordChangeSuccess() {
         _uiState.update {
             it.copy(
-                currentPassword = "",
-                newPassword = "",
-                confirmPassword = "",
                 isPasswordUpdating = false
             )
         }
@@ -260,6 +242,7 @@ class SettingViewModel(
             is AuthException.PasswordTooShort -> R.string.settings_toast_password_too_short
             AuthException.PasswordTooCommon -> R.string.settings_toast_password_too_common
             AuthException.InvalidPassword -> R.string.settings_toast_current_password_invalid
+            AuthException.UntrustedEnvironment -> R.string.settings_toast_untrusted_environment
             is AuthException.LockedOut -> R.string.settings_toast_too_many_attempts
             else -> R.string.settings_toast_password_update_failed
         }
@@ -268,6 +251,7 @@ class SettingViewModel(
     private fun resolveResetFailureMessage(result: Result<Unit>): Int {
         return when (val error = result.exceptionOrNull()) {
             AuthException.InvalidPassword -> R.string.settings_toast_reset_invalid_password
+            AuthException.UntrustedEnvironment -> R.string.settings_toast_untrusted_environment
             is AuthException.LockedOut -> R.string.settings_toast_too_many_attempts
             else -> R.string.settings_toast_reset_failed
         }
@@ -275,22 +259,6 @@ class SettingViewModel(
 
     private fun updateCurrentSection(section: SettingsSection) {
         _uiState.update { it.copy(currentSection = section) }
-    }
-
-    private fun updateCurrentPassword(value: String) {
-        _uiState.update { it.copy(currentPassword = value) }
-    }
-
-    private fun updateNewPassword(value: String) {
-        _uiState.update { it.copy(newPassword = value) }
-    }
-
-    private fun updateConfirmPassword(value: String) {
-        _uiState.update { it.copy(confirmPassword = value) }
-    }
-
-    private fun setBiometricUpdating(isUpdating: Boolean) {
-        _uiState.update { it.copy(isBiometricUpdating = isUpdating) }
     }
 
     private fun setPasswordUpdating(isUpdating: Boolean) {

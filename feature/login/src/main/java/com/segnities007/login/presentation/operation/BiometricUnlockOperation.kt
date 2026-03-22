@@ -1,16 +1,25 @@
 package com.segnities007.login.presentation.operation
 
 import androidx.biometric.BiometricPrompt
+import com.segnities007.auth.domain.error.AuthException
 import com.segnities007.auth.domain.repository.AuthRepository
 import com.segnities007.crypto.BiometricCipher
+import com.segnities007.login.domain.usecase.LoginSubmissionResult
+import com.segnities007.login.domain.usecase.UnlockWithBiometricUseCase
 
 internal class PrepareBiometricUnlockOperation(
     private val authRepository: AuthRepository,
     private val biometricCipher: BiometricCipher
 ) {
     suspend operator fun invoke(): BiometricUnlockPreparationResult {
-        val secretData = authRepository.getBiometricSecret()
-            ?: return BiometricUnlockPreparationResult.MissingSecret
+        val secretData = try {
+            authRepository.getBiometricSecret()
+        } catch (error: AuthException) {
+            if (error == AuthException.UntrustedEnvironment) {
+                return BiometricUnlockPreparationResult.UntrustedEnvironment
+            }
+            throw error
+        } ?: return BiometricUnlockPreparationResult.MissingSecret
 
         val (encryptedSecret, iv) = secretData
         return try {
@@ -29,9 +38,10 @@ internal class PrepareBiometricUnlockOperation(
 }
 
 internal class DecryptBiometricPasswordOperation(
-    private val biometricCipher: BiometricCipher
+    private val biometricCipher: BiometricCipher,
+    private val unlockWithBiometricUseCase: UnlockWithBiometricUseCase
 ) {
-    operator fun invoke(
+    suspend operator fun invoke(
         request: BiometricUnlockRequest,
         authenticationResult: BiometricPrompt.AuthenticationResult
     ): BiometricPasswordDecryptionResult {
@@ -39,11 +49,12 @@ internal class DecryptBiometricPasswordOperation(
             ?: return BiometricPasswordDecryptionResult.Failure
 
         return try {
+            val password = biometricCipher.decrypt(
+                request.encryptedSecret,
+                authenticatedCipher
+            )
             BiometricPasswordDecryptionResult.Success(
-                password = biometricCipher.decrypt(
-                    request.encryptedSecret,
-                    authenticatedCipher
-                )
+                submissionResult = unlockWithBiometricUseCase(password)
             )
         } catch (_: BiometricCipher.CredentialUnavailableException) {
             BiometricPasswordDecryptionResult.CredentialUnavailable
@@ -54,6 +65,7 @@ internal class DecryptBiometricPasswordOperation(
 internal sealed interface BiometricUnlockPreparationResult {
     data object MissingSecret : BiometricUnlockPreparationResult
     data object CredentialUnavailable : BiometricUnlockPreparationResult
+    data object UntrustedEnvironment : BiometricUnlockPreparationResult
     data class Ready(
         val request: BiometricUnlockRequest
     ) : BiometricUnlockPreparationResult
@@ -66,7 +78,7 @@ internal data class BiometricUnlockRequest(
 
 internal sealed interface BiometricPasswordDecryptionResult {
     data class Success(
-        val password: String
+        val submissionResult: LoginSubmissionResult
     ) : BiometricPasswordDecryptionResult
 
     data object CredentialUnavailable : BiometricPasswordDecryptionResult

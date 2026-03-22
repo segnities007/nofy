@@ -19,6 +19,7 @@
     <string name="note_page_counter">%1$d / %2$d</string>
     <string name="note_toast_page_deleted">ページを削除しました</string>
     <string name="note_toast_load_failed">ノートの読み込みに失敗しました</string>
+    <string name="note_toast_untrusted_environment">現在の端末環境は信頼できません。メモリ上のノートを破棄しました。</string>
     <string name="note_toast_save_failed">ノートの保存に失敗しました</string>
     <string name="note_toast_delete_failed">ノートの削除に失敗しました</string>
     <string name="note_toast_lock_failed">アプリをロックできませんでした</string>

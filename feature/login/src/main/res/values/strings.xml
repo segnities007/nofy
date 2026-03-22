@@ -17,6 +17,7 @@
     <string name="register_biometric_subtitle">Confirm to enable biometric login</string>
     <string name="login_error_empty_password">Password cannot be empty</string>
     <string name="login_error_unlock_failed">Unable to unlock the app</string>
+    <string name="login_error_untrusted_environment">This device environment is not trusted for secure operations.</string>
     <string name="login_error_too_many_attempts">Too many attempts. Try again in %1$d seconds.</string>
     <string name="login_error_biometric_not_set">Biometric login is not set up</string>
     <string name="login_error_biometric_unlock_failed">Biometric unlock failed</string>
@@ -25,6 +26,7 @@
     <string name="register_error_passwords_do_not_match">Passwords do not match</string>
     <string name="register_error_password_too_short">Use at least %1$d characters for the app password</string>
     <string name="register_error_password_too_common">Choose a less common app password</string>
+    <string name="register_error_untrusted_environment">Registration is blocked in the current device environment.</string>
     <string name="register_error_failed">Registration failed</string>
     <string name="register_success_with_biometric">Registration complete. Biometric login is enabled.</string>
     <string name="register_success_without_biometric">Registered without biometric login.</string>

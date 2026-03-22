@@ -5,8 +5,15 @@
     <string name="security_block_footer">危険要因を解消してからアプリを再起動してください。release build は root 化、改変、デバッグ接続中の環境では動作しません。</string>
     <string name="security_block_close">アプリを閉じる</string>
     <string name="security_reason_debugger">デバッガがプロセスに接続されています。</string>
+    <string name="security_reason_tracer">ptrace / TracerPid によるプロセストレースを検出しました。</string>
+    <string name="security_reason_frida_port">既知の Frida server ポートが端末上で待受しています。</string>
+    <string name="security_reason_hook_library">hook または instrumentation 系ライブラリがプロセスメモリに読み込まれています。</string>
+    <string name="security_reason_hook_package">既知の Xposed / Substrate / LSPosed パッケージを検出しました。</string>
+    <string name="security_reason_env_var">不審な preload 環境変数が設定されています。</string>
     <string name="security_reason_debuggable">インストール済みアプリが想定外に debuggable です。</string>
     <string name="security_reason_test_keys">端末ファームウェアが test-keys で署名されています。</string>
+    <string name="security_reason_writable_system">保護されるべき system パーティションが writable で mount されています。</string>
+    <string name="security_reason_selinux">SELinux の enforcement が無効になっている可能性があります。</string>
     <string name="security_reason_root_artifact">root 関連のバイナリまたは Magisk の痕跡を検出しました。</string>
     <string name="security_reason_root_manager">既知の root 管理アプリを検出しました。</string>
 </resources>

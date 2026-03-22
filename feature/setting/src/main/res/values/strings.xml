@@ -21,6 +21,10 @@
     <string name="settings_security_confirm_password">Confirm New Password</string>
     <string name="settings_security_password_note">Use at least 12 characters. Changing the password disables biometric login until it is re-enrolled.</string>
     <string name="settings_security_update_password">Update Password</string>
+    <string name="settings_biometric_dialog_title">Re-enable biometric login</string>
+    <string name="settings_biometric_dialog_body">Confirm your current password and complete biometric authentication to enroll a new biometric secret.</string>
+    <string name="settings_biometric_dialog_confirm">Continue</string>
+    <string name="settings_biometric_dialog_dismiss">Cancel</string>
     <string name="settings_app_storage_heading">Security</string>
     <string name="settings_app_storage_body">Notes, password data, and UI preferences are stored securely on-device.</string>
     <string name="settings_app_reset_heading">Danger Zone</string>
@@ -39,10 +43,13 @@
     <string name="settings_app_reset_dialog_dismiss">Cancel</string>
     <string name="settings_toast_biometric_updated">Biometric settings updated</string>
     <string name="settings_toast_biometric_update_failed">Failed to update biometric settings</string>
+    <string name="settings_toast_biometric_unavailable">Biometric authentication is unavailable on this device.</string>
+    <string name="settings_toast_biometric_reenroll_required">Biometric credentials changed. Enroll biometric login again.</string>
     <string name="settings_toast_passwords_do_not_match">New passwords do not match</string>
     <string name="settings_toast_password_too_short">Use a longer new password for the vault</string>
     <string name="settings_toast_password_too_common">Choose a less common new password</string>
     <string name="settings_toast_current_password_invalid">Current password is incorrect</string>
+    <string name="settings_toast_untrusted_environment">This device environment is not trusted for secure settings changes.</string>
     <string name="settings_toast_too_many_attempts">Too many password attempts. Try again later.</string>
     <string name="settings_toast_password_updated">Password updated. Biometric login was disabled for security.</string>
     <string name="settings_toast_password_update_failed">Failed to update password</string>

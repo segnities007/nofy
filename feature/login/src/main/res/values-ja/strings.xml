@@ -17,6 +17,7 @@
     <string name="register_biometric_subtitle">生体認証ログインを有効にするには確認してください</string>
     <string name="login_error_empty_password">パスワードを入力してください</string>
     <string name="login_error_unlock_failed">アプリを解除できませんでした</string>
+    <string name="login_error_untrusted_environment">現在の端末環境では安全な操作を実行できません。</string>
     <string name="login_error_too_many_attempts">試行回数が多すぎます。%1$d秒後に再試行してください</string>
     <string name="login_error_biometric_not_set">生体認証ログインは未設定です</string>
     <string name="login_error_biometric_unlock_failed">生体認証での解除に失敗しました</string>
@@ -25,6 +26,7 @@
     <string name="register_error_passwords_do_not_match">パスワードが一致しません</string>
     <string name="register_error_password_too_short">アプリ用パスワードは %1$d 文字以上にしてください</string>
     <string name="register_error_password_too_common">推測されやすいパスワードは使えません</string>
+    <string name="register_error_untrusted_environment">現在の端末環境では登録を続行できません。</string>
     <string name="register_error_failed">登録に失敗しました</string>
     <string name="register_success_with_biometric">登録が完了し、生体認証ログインが有効になりました。</string>
     <string name="register_success_without_biometric">生体認証なしで登録しました。</string>

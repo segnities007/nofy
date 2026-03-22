@@ -29,36 +29,44 @@ class PasswordHasher(
         secureRandom.nextBytes(salt)
         val normalizedPassword = normalize(password)
         val passwordBytes = normalizedPassword.toByteArray(StandardCharsets.UTF_8)
+        var hashBytes: ByteArray? = null
+        var pepperedHash: ByteArray? = null
 
-        val result = argon2.hash(
-            mode = Argon2Mode.ARGON2_ID,
-            password = passwordBytes,
-            salt = salt,
-            tCostInIterations = tCost,
-            mCostInKibibyte = mCost,
-            parallelism = parallelism
-        )
+        return try {
+            val result = argon2.hash(
+                mode = Argon2Mode.ARGON2_ID,
+                password = passwordBytes,
+                salt = salt,
+                tCostInIterations = tCost,
+                mCostInKibibyte = mCost,
+                parallelism = parallelism
+            )
 
-        val hashBytes = result.rawHash.toByteArray()
-        val pepperedHash = passwordPepper.pepper(
-            hash = hashBytes,
-            salt = salt,
-            tCost = tCost,
-            mCost = mCost,
-            parallelism = parallelism
-        )
-        val encodedSalt = Base64.getEncoder().encodeToString(salt)
-        val encodedHash = Base64.getEncoder().encodeToString(pepperedHash)
-        passwordBytes.fill(0)
+            hashBytes = result.rawHash.toByteArray()
+            pepperedHash = passwordPepper.pepper(
+                hash = hashBytes,
+                salt = salt,
+                tCost = tCost,
+                mCost = mCost,
+                parallelism = parallelism
+            )
+            val encodedSalt = Base64.getEncoder().encodeToString(salt)
+            val encodedHash = Base64.getEncoder().encodeToString(pepperedHash)
 
-        return listOf(
-            HashVersion,
-            tCost.toString(),
-            mCost.toString(),
-            parallelism.toString(),
-            encodedSalt,
-            encodedHash
-        ).joinToString(separator = ":")
+            listOf(
+                HashVersion,
+                tCost.toString(),
+                mCost.toString(),
+                parallelism.toString(),
+                encodedSalt,
+                encodedHash
+            ).joinToString(separator = ":")
+        } finally {
+            passwordBytes.fill(0)
+            hashBytes?.fill(0)
+            pepperedHash?.fill(0)
+            salt.fill(0)
+        }
     }
 
     fun verifyPassword(password: String, storedHash: String): Boolean {
@@ -73,25 +81,35 @@ class PasswordHasher(
         val expectedHash = decodeBase64OrNull(parts[5]) ?: return false
         val normalizedPassword = normalize(password)
         val passwordBytes = normalizedPassword.toByteArray(StandardCharsets.UTF_8)
+        var rawHash: ByteArray? = null
+        var actualHash: ByteArray? = null
 
-        val result = argon2.hash(
-            mode = Argon2Mode.ARGON2_ID,
-            password = passwordBytes,
-            salt = salt,
-            tCostInIterations = tCost,
-            mCostInKibibyte = mCost,
-            parallelism = parallelism
-        )
+        return try {
+            val result = argon2.hash(
+                mode = Argon2Mode.ARGON2_ID,
+                password = passwordBytes,
+                salt = salt,
+                tCostInIterations = tCost,
+                mCostInKibibyte = mCost,
+                parallelism = parallelism
+            )
 
-        val actualHash = passwordPepper.pepper(
-            hash = result.rawHash.toByteArray(),
-            salt = salt,
-            tCost = tCost,
-            mCost = mCost,
-            parallelism = parallelism
-        )
-        passwordBytes.fill(0)
-        return MessageDigest.isEqual(actualHash, expectedHash)
+            rawHash = result.rawHash.toByteArray()
+            actualHash = passwordPepper.pepper(
+                hash = rawHash,
+                salt = salt,
+                tCost = tCost,
+                mCost = mCost,
+                parallelism = parallelism
+            )
+            MessageDigest.isEqual(actualHash, expectedHash)
+        } finally {
+            passwordBytes.fill(0)
+            salt.fill(0)
+            expectedHash.fill(0)
+            rawHash?.fill(0)
+            actualHash?.fill(0)
+        }
     }
 
     private fun normalize(password: String): String {

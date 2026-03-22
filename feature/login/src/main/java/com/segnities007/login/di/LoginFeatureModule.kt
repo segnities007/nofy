@@ -31,7 +31,7 @@ val loginFeatureModule = module {
     factory { RegisterPasswordUseCase(get()) }
     factory { SaveBiometricSecretUseCase(get()) }
     factory { PrepareBiometricUnlockOperation(get(), get()) }
-    factory { DecryptBiometricPasswordOperation(get()) }
+    factory { DecryptBiometricPasswordOperation(get(), get()) }
     factory { PrepareBiometricEnrollmentOperation(get()) }
     factory { EncryptBiometricSecretOperation(get()) }
     viewModel { (biometricHandler: LoginBiometricHandler) ->
@@ -41,8 +41,7 @@ val loginFeatureModule = module {
             clearBiometricSecretUseCase = get(),
             prepareBiometricUnlockOperation = get(),
             authenticateWithCryptoOperation = AuthenticateWithCryptoOperation(biometricHandler),
-            decryptBiometricPasswordOperation = get(),
-            unlockWithBiometricUseCase = get()
+            decryptBiometricPasswordOperation = get()
         )
     }
     viewModel { (biometricHandler: LoginBiometricHandler) ->

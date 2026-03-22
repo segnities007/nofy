@@ -14,7 +14,9 @@ fun NofyConfirmationDialog(
     confirmLabel: String,
     dismissLabel: String,
     onConfirm: () -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    rejectObscuredConfirmTouch: Boolean = false,
+    rejectObscuredDismissTouch: Boolean = false
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -27,13 +29,15 @@ fun NofyConfirmationDialog(
         confirmButton = {
             NofyTextButton(
                 text = confirmLabel,
-                onClick = onConfirm
+                onClick = onConfirm,
+                rejectObscuredTouches = rejectObscuredConfirmTouch
             )
         },
         dismissButton = {
             NofyTextButton(
                 text = dismissLabel,
-                onClick = onDismiss
+                onClick = onDismiss,
+                rejectObscuredTouches = rejectObscuredDismissTouch
             )
         }
     )

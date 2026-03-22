@@ -11,7 +11,9 @@ class NofyApplication : Application() {
         super.onCreate()
 
         startKoin {
-            androidLogger()
+            if (BuildConfig.DEBUG) {
+                androidLogger()
+            }
             androidContext(this@NofyApplication)
             modules(nofyModules)
         }

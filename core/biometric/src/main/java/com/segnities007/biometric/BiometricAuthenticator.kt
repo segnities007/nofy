@@ -10,10 +10,14 @@ class BiometricAuthenticator(
     private val activity: FragmentActivity
 ) {
     fun isBiometricAvailable(): Boolean {
-        val biometricManager = BiometricManager.from(activity)
-        return biometricManager.canAuthenticate(
-            BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL
-        ) == BiometricManager.BIOMETRIC_SUCCESS
+        return canAuthenticate(
+            BiometricManager.Authenticators.BIOMETRIC_STRONG or
+                BiometricManager.Authenticators.DEVICE_CREDENTIAL
+        )
+    }
+
+    fun isStrongBiometricAvailable(): Boolean {
+        return canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)
     }
 
     fun authenticate(
@@ -65,5 +69,10 @@ class BiometricAuthenticator(
         } else {
             biometricPrompt.authenticate(promptInfo)
         }
+    }
+
+    private fun canAuthenticate(authenticators: Int): Boolean {
+        val biometricManager = BiometricManager.from(activity)
+        return biometricManager.canAuthenticate(authenticators) == BiometricManager.BIOMETRIC_SUCCESS
     }
 }

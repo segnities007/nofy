@@ -29,7 +29,8 @@ internal fun NoteDeleteDialog(
         confirmLabel = stringResource(R.string.note_delete_action),
         dismissLabel = stringResource(R.string.note_cancel_action),
         onConfirm = onConfirm,
-        onDismiss = onDismiss
+        onDismiss = onDismiss,
+        rejectObscuredConfirmTouch = true
     )
 }
 

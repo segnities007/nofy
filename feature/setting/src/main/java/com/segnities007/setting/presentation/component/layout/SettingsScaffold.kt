@@ -33,6 +33,17 @@ internal fun SettingsScaffold(
     uiState: SettingState,
     onIntent: (SettingIntent) -> Unit,
     onNavigateBack: () -> Unit,
+    currentPassword: String,
+    newPassword: String,
+    confirmPassword: String,
+    isBiometricBusy: Boolean,
+    canUpdatePassword: Boolean,
+    onCurrentPasswordChange: (String) -> Unit,
+    onNewPasswordChange: (String) -> Unit,
+    onConfirmPasswordChange: (String) -> Unit,
+    onEnableBiometric: () -> Unit,
+    onDisableBiometric: () -> Unit,
+    onSavePassword: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var isResetDialogVisible by rememberSaveable { mutableStateOf(false) }
@@ -52,7 +63,17 @@ internal fun SettingsScaffold(
 
                     SettingsSection.Security -> SecuritySection(
                         uiState = uiState,
-                        onIntent = onIntent
+                        currentPassword = currentPassword,
+                        newPassword = newPassword,
+                        confirmPassword = confirmPassword,
+                        isBiometricBusy = isBiometricBusy,
+                        canUpdatePassword = canUpdatePassword,
+                        onCurrentPasswordChange = onCurrentPasswordChange,
+                        onNewPasswordChange = onNewPasswordChange,
+                        onConfirmPasswordChange = onConfirmPasswordChange,
+                        onEnableBiometric = onEnableBiometric,
+                        onDisableBiometric = onDisableBiometric,
+                        onSavePassword = onSavePassword
                     )
 
                     SettingsSection.App -> AppSection(
@@ -110,6 +131,17 @@ private fun SettingsScaffoldPreview() {
     SettingsScaffold(
         uiState = previewSettingState(currentSection = SettingsSection.Appearance),
         onIntent = {},
-        onNavigateBack = {}
+        onNavigateBack = {},
+        currentPassword = "",
+        newPassword = "",
+        confirmPassword = "",
+        isBiometricBusy = false,
+        canUpdatePassword = false,
+        onCurrentPasswordChange = {},
+        onNewPasswordChange = {},
+        onConfirmPasswordChange = {},
+        onEnableBiometric = {},
+        onDisableBiometric = {},
+        onSavePassword = {}
     )
 }

@@ -18,6 +18,6 @@ val noteFeatureModule = module {
     single { NoteDatabaseProvider(get()) }
     single<SecureDatabaseController> { get<NoteDatabaseProvider>() }
     single { NoteLocalDataSource(get()) }
-    single<NoteRepository> { NoteRepositoryImpl(get(), get()) }
+    single<NoteRepository> { NoteRepositoryImpl(get(), get(), get()) }
     viewModel { NoteViewModel(get(), get()) }
 }

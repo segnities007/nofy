@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.segnities007.auth.domain.repository.AuthRepository
 import com.segnities007.note.R
+import com.segnities007.note.domain.error.NoteRepositoryException
 import com.segnities007.note.domain.model.Note
 import com.segnities007.note.domain.repository.NoteRepository
 import com.segnities007.note.presentation.contract.NoteEffect
@@ -24,6 +25,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -42,6 +44,7 @@ class NoteViewModel(
     private val saveJobs = mutableMapOf<String, Job>()
 
     init {
+        observeLockState()
         loadNotes()
     }
 
@@ -155,6 +158,11 @@ class NoteViewModel(
     }
 
     private fun handleLoadFailure(error: Throwable) {
+        if (error is NoteRepositoryException.UntrustedEnvironment) {
+            handleUntrustedEnvironment()
+            return
+        }
+
         _uiState.update {
             it.copy(
                 isLoading = false,
@@ -205,6 +213,11 @@ class NoteViewModel(
         val savedNote = result.getOrNull()
         if (savedNote != null) {
             applySavedNote(pageId, savedNote)
+            return
+        }
+
+        if (result.exceptionOrNull() is NoteRepositoryException.UntrustedEnvironment) {
+            handleUntrustedEnvironment()
             return
         }
 
@@ -263,6 +276,11 @@ class NoteViewModel(
             return
         }
 
+        if (result.exceptionOrNull() is NoteRepositoryException.UntrustedEnvironment) {
+            handleUntrustedEnvironment()
+            return
+        }
+
         emitToast(R.string.note_toast_delete_failed)
         loadNotes()
     }
@@ -303,11 +321,36 @@ class NoteViewModel(
 
     private suspend fun reduceLock(result: Result<Unit>) {
         if (result.isSuccess) {
+            wipeInMemoryNotes()
             emitEffect(NoteEffect.NavigateToLogin)
             return
         }
 
         emitToast(R.string.note_toast_lock_failed)
+    }
+
+    private fun observeLockState() {
+        viewModelScope.launch {
+            authRepository.isLocked().collectLatest { isLocked ->
+                if (isLocked) {
+                    wipeInMemoryNotes()
+                }
+            }
+        }
+    }
+
+    private fun handleUntrustedEnvironment() {
+        viewModelScope.launch {
+            authRepository.lock()
+            wipeInMemoryNotes()
+            emitToast(R.string.note_toast_untrusted_environment)
+        }
+    }
+
+    private fun wipeInMemoryNotes() {
+        saveJobs.values.forEach(Job::cancel)
+        saveJobs.clear()
+        _uiState.value = NoteState(isLoading = false)
     }
 
     private fun emitError(@StringRes messageRes: Int) {
@@ -325,8 +368,7 @@ class NoteViewModel(
     }
 
     override fun onCleared() {
-        saveJobs.values.forEach { it.cancel() }
-        saveJobs.clear()
+        wipeInMemoryNotes()
         super.onCleared()
     }
 

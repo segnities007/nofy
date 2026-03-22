@@ -11,9 +11,6 @@ internal fun previewSettingState(
         currentSection = currentSection,
         themeMode = ThemeMode.GreenLight,
         fontScale = 1.15f,
-        isBiometricEnabled = true,
-        currentPassword = "current-password",
-        newPassword = "new-password",
-        confirmPassword = "new-password"
+        isBiometricEnabled = true
     )
 }

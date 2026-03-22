@@ -22,6 +22,7 @@ internal class UnlockWithBiometricUseCase(
 internal sealed interface LoginSubmissionResult {
     data object Success : LoginSubmissionResult
     data object Failure : LoginSubmissionResult
+    data object UntrustedEnvironment : LoginSubmissionResult
     data class LockedOut(val remainingMillis: Long) : LoginSubmissionResult
 }
 
@@ -31,9 +32,9 @@ private fun Result<Unit>.toLoginSubmissionResult(): LoginSubmissionResult {
     }
 
     val error = exceptionOrNull()
-    return if (error is AuthException.LockedOut) {
-        LoginSubmissionResult.LockedOut(error.remainingMillis)
-    } else {
-        LoginSubmissionResult.Failure
+    return when (error) {
+        is AuthException.LockedOut -> LoginSubmissionResult.LockedOut(error.remainingMillis)
+        AuthException.UntrustedEnvironment -> LoginSubmissionResult.UntrustedEnvironment
+        else -> LoginSubmissionResult.Failure
     }
 }

@@ -164,6 +164,8 @@ private object PreviewAuthRepository : AuthRepository {
 
     override fun isLocked(): Flow<Boolean> = flowOf(true)
 
+    override suspend fun verifyPassword(password: String): Result<Unit> = Result.success(Unit)
+
     override suspend fun lock(): Result<Unit> = Result.success(Unit)
 
     override suspend fun unlock(password: String): Result<Unit> = Result.success(Unit)

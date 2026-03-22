@@ -3,6 +3,7 @@ package com.segnities007.crypto
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import java.security.KeyStore
+import java.nio.charset.StandardCharsets
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.crypto.Cipher
 import javax.crypto.SecretKey
@@ -42,8 +43,13 @@ class DataCipher {
         val cipher = Cipher.getInstance("AES/GCM/NoPadding")
         val key = keyStore.getKey(keyAlias, null) as SecretKey
         cipher.init(Cipher.ENCRYPT_MODE, key)
-        val encryptedData = cipher.doFinal(data.toByteArray())
-        return Pair(encryptedData, cipher.iv)
+        val plainBytes = data.toByteArray(StandardCharsets.UTF_8)
+        return try {
+            val encryptedData = cipher.doFinal(plainBytes)
+            Pair(encryptedData, cipher.iv)
+        } finally {
+            plainBytes.fill(0)
+        }
     }
 
     fun decrypt(encryptedData: ByteArray, iv: ByteArray): String {
@@ -53,7 +59,11 @@ class DataCipher {
         val spec = GCMParameterSpec(128, iv)
         cipher.init(Cipher.DECRYPT_MODE, key, spec)
         val decryptedData = cipher.doFinal(encryptedData)
-        return String(decryptedData)
+        return try {
+            String(decryptedData, StandardCharsets.UTF_8)
+        } finally {
+            decryptedData.fill(0)
+        }
     }
 
     private fun requireUnlockedSession() {

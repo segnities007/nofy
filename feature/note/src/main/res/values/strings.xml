@@ -19,6 +19,7 @@
     <string name="note_page_counter">%1$d / %2$d</string>
     <string name="note_toast_page_deleted">Page deleted</string>
     <string name="note_toast_load_failed">Failed to load notes</string>
+    <string name="note_toast_untrusted_environment">This device environment is not trusted. Notes were cleared from memory.</string>
     <string name="note_toast_save_failed">Failed to save note</string>
     <string name="note_toast_delete_failed">Failed to delete note</string>
     <string name="note_toast_lock_failed">Failed to lock app</string>

@@ -36,6 +36,7 @@ class MainActivity : FragmentActivity() {
     private val riskyEnvironmentDetector: RiskyEnvironmentDetector by inject()
     private var riskyEnvironment by mutableStateOf<RiskyEnvironment?>(null)
     private var idleLockJob: Job? = null
+    private var riskyEnvironmentMonitorJob: Job? = null
     private val navigationEntryInstallers by lazy {
         getKoin().getAll<NavigationEntryInstaller>()
     }
@@ -85,11 +86,13 @@ class MainActivity : FragmentActivity() {
     override fun onResume() {
         super.onResume()
         refreshRiskyEnvironment()
+        restartRiskyEnvironmentMonitor()
         restartIdleLockTimer()
     }
 
     override fun onStop() {
         cancelIdleLockTimer()
+        cancelRiskyEnvironmentMonitor()
         super.onStop()
     }
 
@@ -100,12 +103,27 @@ class MainActivity : FragmentActivity() {
 
     override fun onDestroy() {
         cancelIdleLockTimer()
+        cancelRiskyEnvironmentMonitor()
         ProcessLifecycleOwner.get().lifecycle.removeObserver(appLockObserver)
         super.onDestroy()
     }
 
     private fun refreshRiskyEnvironment() {
-        riskyEnvironment = riskyEnvironmentDetector.detect()
+        val detectedEnvironment = riskyEnvironmentDetector.detect()
+        val wasRisky = riskyEnvironment != null
+        val becameRisky = riskyEnvironment == null && detectedEnvironment != null
+        riskyEnvironment = detectedEnvironment
+        if (becameRisky) {
+            cancelIdleLockTimer()
+            lifecycleScope.launch {
+                authRepository.lock()
+            }
+            return
+        }
+
+        if (wasRisky && detectedEnvironment == null) {
+            restartIdleLockTimer()
+        }
     }
 
     private fun restartIdleLockTimer() {
@@ -120,6 +138,21 @@ class MainActivity : FragmentActivity() {
         }
     }
 
+    private fun restartRiskyEnvironmentMonitor() {
+        cancelRiskyEnvironmentMonitor()
+        riskyEnvironmentMonitorJob = lifecycleScope.launch {
+            while (true) {
+                delay(RiskyEnvironmentCheckIntervalMillis)
+                refreshRiskyEnvironment()
+            }
+        }
+    }
+
+    private fun cancelRiskyEnvironmentMonitor() {
+        riskyEnvironmentMonitorJob?.cancel()
+        riskyEnvironmentMonitorJob = null
+    }
+
     private fun cancelIdleLockTimer() {
         idleLockJob?.cancel()
         idleLockJob = null
@@ -127,5 +160,6 @@ class MainActivity : FragmentActivity() {
 
     private companion object {
         const val IdleLockTimeoutMillis = 2 * 60 * 1000L
+        const val RiskyEnvironmentCheckIntervalMillis = 1_000L
     }
 }
