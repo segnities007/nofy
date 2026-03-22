@@ -7,7 +7,7 @@ import org.junit.Test
 class PasswordPolicyTest {
     @Test
     fun shortPassword_returnsMinimumLengthViolation() {
-        val violation = PasswordPolicy.violationOrNull("shortpass")
+        val violation = PasswordPolicy.violationOrNull("fourteen-chars")
 
         assertEquals(
             PasswordPolicyViolation.TooShort(PasswordPolicy.MinimumLength),
@@ -27,5 +27,19 @@ class PasswordPolicyTest {
         val violation = PasswordPolicy.violationOrNull("Sufficiently-Long local vault passphrase")
 
         assertNull(violation)
+    }
+
+    @Test
+    fun repeatedCharacterPassword_isRejected() {
+        val violation = PasswordPolicy.violationOrNull("aaaaaaaaaaaaaaa")
+
+        assertEquals(PasswordPolicyViolation.TooCommon, violation)
+    }
+
+    @Test
+    fun sequentialPassword_isRejected() {
+        val violation = PasswordPolicy.violationOrNull("123456789012345")
+
+        assertEquals(PasswordPolicyViolation.TooCommon, violation)
     }
 }

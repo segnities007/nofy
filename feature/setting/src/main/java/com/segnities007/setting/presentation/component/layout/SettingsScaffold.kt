@@ -43,6 +43,7 @@ internal fun SettingsScaffold(
     onConfirmPasswordChange: (String) -> Unit,
     onEnableBiometric: () -> Unit,
     onDisableBiometric: () -> Unit,
+    onOpenOpenSourceLicenses: () -> Unit,
     onSavePassword: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -78,6 +79,7 @@ internal fun SettingsScaffold(
 
                     SettingsSection.App -> AppSection(
                         isResetting = uiState.isResetting,
+                        onOpenOpenSourceLicenses = onOpenOpenSourceLicenses,
                         onRequestReset = { isResetDialogVisible = true }
                     )
                 }
@@ -142,6 +144,7 @@ private fun SettingsScaffoldPreview() {
         onConfirmPasswordChange = {},
         onEnableBiometric = {},
         onDisableBiometric = {},
+        onOpenOpenSourceLicenses = {},
         onSavePassword = {}
     )
 }

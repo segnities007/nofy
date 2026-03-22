@@ -23,6 +23,7 @@ kotlinxSerialization = "1.9.0"
 kotlinxCoroutines = "1.9.0"
 markdownRenderer = "0.39.1"
 koinBom = "4.1.1"
+googlePlayServicesOssLicenses = "17.3.0"
 
 [libraries]
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
@@ -66,6 +67,7 @@ koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koinBom" }
 koin-core = { module = "io.insert-koin:koin-core" }
 koin-android = { module = "io.insert-koin:koin-android" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose" }
+google-play-services-oss-licenses = { group = "com.google.android.gms", name = "play-services-oss-licenses", version.ref = "googlePlayServicesOssLicenses" }
 
 [bundles]
 feature-ui = [

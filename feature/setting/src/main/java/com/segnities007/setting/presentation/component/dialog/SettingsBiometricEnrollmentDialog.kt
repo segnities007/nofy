@@ -9,11 +9,12 @@ import androidx.compose.ui.res.stringResource
 import com.segnities007.designsystem.molecule.dialog.NofyFormDialog
 import com.segnities007.designsystem.molecule.textfield.NofyPasswordField
 import com.segnities007.setting.R
+import java.nio.charset.StandardCharsets
 
 @Composable
 internal fun SettingsBiometricEnrollmentDialog(
     isLoading: Boolean,
-    onConfirm: (String) -> Unit,
+    onConfirm: (ByteArray) -> Unit,
     onDismiss: () -> Unit
 ) {
     var currentPassword by remember { mutableStateOf("") }
@@ -24,7 +25,11 @@ internal fun SettingsBiometricEnrollmentDialog(
         confirmLabel = stringResource(R.string.settings_biometric_dialog_confirm),
         dismissLabel = stringResource(R.string.settings_biometric_dialog_dismiss),
         confirmEnabled = currentPassword.isNotBlank() && !isLoading,
-        onConfirm = { onConfirm(currentPassword) },
+        onConfirm = {
+            val passwordBytes = currentPassword.toByteArray(StandardCharsets.UTF_8)
+            currentPassword = ""
+            onConfirm(passwordBytes)
+        },
         onDismiss = onDismiss
     ) {
         NofyPasswordField(

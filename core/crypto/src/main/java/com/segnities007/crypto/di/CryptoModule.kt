@@ -10,6 +10,6 @@ import org.koin.dsl.module
 val cryptoModule = module {
     single<PasswordPepper> { KeystorePasswordPepper() }
     single { PasswordHasher(get()) }
-    single { DataCipher() }
+    single { DataCipher(get()) }
     single { BiometricCipher() }
 }

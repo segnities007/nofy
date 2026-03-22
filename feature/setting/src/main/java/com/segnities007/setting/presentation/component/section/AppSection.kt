@@ -16,6 +16,7 @@ import com.segnities007.setting.presentation.component.layout.SettingsSectionLis
 @Composable
 internal fun AppSection(
     isResetting: Boolean,
+    onOpenOpenSourceLicenses: () -> Unit,
     onRequestReset: () -> Unit
 ) {
     SettingsSectionList {
@@ -29,6 +30,25 @@ internal fun AppSection(
                     text = stringResource(R.string.settings_app_storage_body),
                     style = NofyThemeTokens.typography.bodyMedium,
                     color = NofyThemeTokens.colorScheme.onSurfaceVariant
+                )
+            }
+        }
+
+        item {
+            NofyCardSurface {
+                NofyText(
+                    text = stringResource(R.string.settings_app_licenses_heading),
+                    style = NofyThemeTokens.typography.titleLarge
+                )
+                NofyText(
+                    text = stringResource(R.string.settings_app_licenses_body),
+                    style = NofyThemeTokens.typography.bodyMedium,
+                    color = NofyThemeTokens.colorScheme.onSurfaceVariant
+                )
+                NofyButton(
+                    text = stringResource(R.string.settings_app_licenses_button),
+                    onClick = onOpenOpenSourceLicenses,
+                    modifier = Modifier.fillMaxWidth()
                 )
             }
         }
@@ -65,6 +85,7 @@ private fun AppSectionPreview() {
     NofyPreviewSurface {
         AppSection(
             isResetting = false,
+            onOpenOpenSourceLicenses = {},
             onRequestReset = {}
         )
     }

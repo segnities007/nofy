@@ -25,22 +25,26 @@ internal class EncryptBiometricSecretOperation(
     private val biometricCipher: BiometricCipher
 ) {
     operator fun invoke(
-        password: String,
+        password: ByteArray,
         authenticationResult: BiometricPrompt.AuthenticationResult
     ): BiometricSecretEncryptionResult {
         val authenticatedCipher = authenticationResult.cryptoObject?.cipher
             ?: return BiometricSecretEncryptionResult.Failure
 
-        val (encryptedSecret, iv) = biometricCipher.encrypt(
-            password,
-            authenticatedCipher
-        )
-        return BiometricSecretEncryptionResult.Success(
-            secret = EncryptedBiometricSecret(
-                encryptedSecret = encryptedSecret,
-                iv = iv
+        return try {
+            val (encryptedSecret, iv) = biometricCipher.encrypt(
+                password,
+                authenticatedCipher
             )
-        )
+            BiometricSecretEncryptionResult.Success(
+                secret = EncryptedBiometricSecret(
+                    encryptedSecret = encryptedSecret,
+                    iv = iv
+                )
+            )
+        } catch (_: BiometricCipher.CredentialUnavailableException) {
+            BiometricSecretEncryptionResult.Failure
+        }
     }
 }
 

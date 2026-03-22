@@ -20,6 +20,7 @@ import com.segnities007.login.presentation.operation.BiometricSecretEncryptionRe
 import com.segnities007.login.presentation.operation.EncryptedBiometricSecret
 import com.segnities007.login.presentation.operation.EncryptBiometricSecretOperation
 import com.segnities007.login.presentation.operation.PrepareBiometricEnrollmentOperation
+import java.nio.charset.StandardCharsets
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -43,28 +44,34 @@ internal class RegisterViewModel(
     fun onIntent(intent: RegisterIntent) {
         when (intent) {
             is RegisterIntent.SubmitRegistration -> register(
-                password = intent.password,
-                confirmPassword = intent.confirmPassword
+                passwordBytes = intent.passwordBytes,
+                confirmPasswordBytes = intent.confirmPasswordBytes
             )
         }
     }
 
     private fun register(
-        password: String,
-        confirmPassword: String
+        passwordBytes: ByteArray,
+        confirmPasswordBytes: ByteArray
     ) {
-        val validatedPassword = validatedPasswordOrNull(
-            password = password,
-            confirmPassword = confirmPassword
+        val validatedPasswordBytes = validatedPasswordOrNull(
+            passwordBytes = passwordBytes,
+            confirmPasswordBytes = confirmPasswordBytes
         ) ?: return
-        submitRegistration(validatedPassword)
+        submitRegistration(validatedPasswordBytes)
     }
 
-    private fun submitRegistration(password: String) {
+    private fun submitRegistration(passwordBytes: ByteArray) {
         viewModelScope.launch {
             startLoading()
-            val result = executePasswordRegistration(password)
-            reducePasswordRegistration(password, result)
+            try {
+                val result = executePasswordRegistration(
+                    String(passwordBytes, StandardCharsets.UTF_8)
+                )
+                reducePasswordRegistration(passwordBytes, result)
+            } finally {
+                passwordBytes.fill(0)
+            }
         }
     }
 
@@ -75,11 +82,11 @@ internal class RegisterViewModel(
     }
 
     private suspend fun reducePasswordRegistration(
-        password: String,
+        passwordBytes: ByteArray,
         result: PasswordRegistrationResult
     ) {
         when (result) {
-            PasswordRegistrationResult.Success -> continueBiometricEnrollment(password)
+            PasswordRegistrationResult.Success -> continueBiometricEnrollment(passwordBytes)
             is PasswordRegistrationResult.TooShort -> handlePasswordTooShort(result.minimumLength)
             PasswordRegistrationResult.TooCommon -> handlePasswordTooCommon()
             PasswordRegistrationResult.UntrustedEnvironment -> handleUntrustedEnvironment()
@@ -87,11 +94,11 @@ internal class RegisterViewModel(
         }
     }
 
-    private suspend fun continueBiometricEnrollment(password: String) {
+    private suspend fun continueBiometricEnrollment(passwordBytes: ByteArray) {
         val request = executeBiometricEnrollmentPreparation() ?: return
         val authentication = executeBiometricEnrollmentAuthentication(request.cryptoObject) ?: return
         val secret = executeBiometricSecretEncryption(
-            password = password,
+            passwordBytes = passwordBytes,
             authenticationResult = authentication
         ) ?: return
         val result = executeBiometricSecretPersistence(secret)
@@ -121,12 +128,12 @@ internal class RegisterViewModel(
     }
 
     private suspend fun executeBiometricSecretEncryption(
-        password: String,
+        passwordBytes: ByteArray,
         authenticationResult: BiometricPrompt.AuthenticationResult
     ): EncryptedBiometricSecret? {
         return when (
             val result = encryptBiometricSecretOperation(
-                password = password,
+                password = passwordBytes,
                 authenticationResult = authenticationResult
             )
         ) {
@@ -158,18 +165,22 @@ internal class RegisterViewModel(
     }
 
     private fun validatedPasswordOrNull(
-        password: String,
-        confirmPassword: String
-    ): String? {
-        if (password.isEmpty()) {
+        passwordBytes: ByteArray,
+        confirmPasswordBytes: ByteArray
+    ): ByteArray? {
+        if (passwordBytes.isEmpty()) {
+            confirmPasswordBytes.fill(0)
             emitError(R.string.register_error_empty_password)
             return null
         }
-        if (password != confirmPassword) {
+        if (!passwordBytes.contentEquals(confirmPasswordBytes)) {
+            passwordBytes.fill(0)
+            confirmPasswordBytes.fill(0)
             emitError(R.string.register_error_passwords_do_not_match)
             return null
         }
-        return password
+        confirmPasswordBytes.fill(0)
+        return passwordBytes
     }
 
     private suspend fun handleRegistrationFailure() {

@@ -2,8 +2,8 @@ package com.segnities007.crypto
 
 import com.lambdapioneer.argon2kt.Argon2Kt
 import com.lambdapioneer.argon2kt.Argon2Mode
-import java.nio.charset.StandardCharsets
 import java.nio.ByteBuffer
+import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
 import java.security.SecureRandom
 import java.text.Normalizer
@@ -14,9 +14,10 @@ import java.util.Base64
  * AGENTS.mdの原則に基づき、最新の安定版 API を使用。
  */
 class PasswordHasher(
-    private val passwordPepper: PasswordPepper
+    private val passwordPepper: PasswordPepper,
+    private val argonHash: (ByteArray, ByteArray, Int, Int, Int) -> ByteArray =
+        DefaultArgonPasswordHashProvider::derive
 ) {
-    private val argon2 = Argon2Kt()
     private val secureRandom = SecureRandom()
 
     private val tCost = 3
@@ -33,16 +34,13 @@ class PasswordHasher(
         var pepperedHash: ByteArray? = null
 
         return try {
-            val result = argon2.hash(
-                mode = Argon2Mode.ARGON2_ID,
-                password = passwordBytes,
-                salt = salt,
-                tCostInIterations = tCost,
-                mCostInKibibyte = mCost,
-                parallelism = parallelism
+            hashBytes = argonHash(
+                passwordBytes,
+                salt,
+                tCost,
+                mCost,
+                parallelism
             )
-
-            hashBytes = result.rawHash.toByteArray()
             pepperedHash = passwordPepper.pepper(
                 hash = hashBytes,
                 salt = salt,
@@ -85,16 +83,13 @@ class PasswordHasher(
         var actualHash: ByteArray? = null
 
         return try {
-            val result = argon2.hash(
-                mode = Argon2Mode.ARGON2_ID,
-                password = passwordBytes,
-                salt = salt,
-                tCostInIterations = tCost,
-                mCostInKibibyte = mCost,
-                parallelism = parallelism
+            rawHash = argonHash(
+                passwordBytes,
+                salt,
+                tCost,
+                mCost,
+                parallelism
             )
-
-            rawHash = result.rawHash.toByteArray()
             actualHash = passwordPepper.pepper(
                 hash = rawHash,
                 salt = salt,
@@ -122,13 +117,35 @@ class PasswordHasher(
         }.getOrNull()
     }
 
+    private companion object {
+        const val HashVersion = "v2"
+    }
+}
+
+private object DefaultArgonPasswordHashProvider {
+    private val argon2 = Argon2Kt()
+
     private fun ByteBuffer.toByteArray(): ByteArray {
         val bytes = ByteArray(remaining())
         get(bytes)
         return bytes
     }
 
-    private companion object {
-        const val HashVersion = "v2"
+    fun derive(
+        password: ByteArray,
+        salt: ByteArray,
+        tCost: Int,
+        mCost: Int,
+        parallelism: Int
+    ): ByteArray {
+        val result = argon2.hash(
+            mode = Argon2Mode.ARGON2_ID,
+            password = password,
+            salt = salt,
+            tCostInIterations = tCost,
+            mCostInKibibyte = mCost,
+            parallelism = parallelism
+        )
+        return result.rawHash.toByteArray()
     }
 }

@@ -27,6 +27,10 @@
     <string name="settings_biometric_dialog_dismiss">Cancel</string>
     <string name="settings_app_storage_heading">Security</string>
     <string name="settings_app_storage_body">Notes, password data, and UI preferences are stored securely on-device.</string>
+    <string name="settings_app_licenses_heading">Open source licenses</string>
+    <string name="settings_app_licenses_body">Review the licenses for open source libraries bundled with this app.</string>
+    <string name="settings_app_licenses_button">View licenses</string>
+    <string name="settings_app_licenses_screen_title">Open source licenses</string>
     <string name="settings_app_reset_heading">Danger Zone</string>
     <string name="settings_app_reset_body">Resetting the app removes all encrypted data and returns to the registration screen.</string>
     <string name="settings_app_reset_button">Reset App</string>

@@ -3,6 +3,7 @@ package com.segnities007.note.data.repository
 import com.segnities007.auth.domain.security.SensitiveOperationBlockedException
 import com.segnities007.auth.domain.security.SensitiveOperationGuard
 import com.segnities007.crypto.DataCipher
+import com.segnities007.crypto.DataCipherDecryptionResult
 import com.segnities007.crypto.DataCipherException
 import com.segnities007.note.data.local.NoteLocalDataSource
 import com.segnities007.note.data.local.NoteLocalRecord
@@ -25,13 +26,18 @@ internal class NoteRepositoryImpl(
     override fun getNotes(): Flow<List<Note>> {
         return noteLocalDataSource.observeRecords().map { records ->
             ensureSensitiveOperationAllowed()
-            records.map(::decryptRecord)
+            buildList(records.size) {
+                records.forEach { record ->
+                    add(decryptRecord(record))
+                }
+            }
         }
     }
 
     override suspend fun getNoteById(id: Long): Note? {
         ensureSensitiveOperationAllowed()
-        return noteLocalDataSource.getRecordById(id)?.let(::decryptRecord)
+        val record = noteLocalDataSource.getRecordById(id) ?: return null
+        return decryptRecord(record)
     }
 
     override suspend fun saveNote(note: Note): Result<Note> {
@@ -69,20 +75,41 @@ internal class NoteRepositoryImpl(
         }
     }
 
-    private fun decryptRecord(record: NoteLocalRecord): Note {
-        val content = try {
+    private suspend fun decryptRecord(record: NoteLocalRecord): Note {
+        val decryptionResult = try {
             dataCipher.decrypt(record.encryptedContent, record.iv)
         } catch (_: DataCipherException.SessionLocked) {
             throw NoteRepositoryException.DatabaseLocked
         } catch (e: Exception) {
             throw NoteRepositoryException.DecryptionFailed(record.id, e)
         }
+        migrateLegacyEncryptionIfNeeded(
+            record = record,
+            decryptionResult = decryptionResult
+        )
         return Note(
             id = record.id,
-            content = content,
+            content = decryptionResult.plainText,
             createdAt = record.createdAt,
             updatedAt = record.updatedAt
         )
+    }
+
+    private suspend fun migrateLegacyEncryptionIfNeeded(
+        record: NoteLocalRecord,
+        decryptionResult: DataCipherDecryptionResult
+    ) {
+        if (!decryptionResult.requiresMigration) {
+            return
+        }
+
+        val (encryptedContent, iv) = dataCipher.encrypt(decryptionResult.plainText)
+        noteLocalDataSource.saveRecord(
+            record.copy(
+                encryptedContent = encryptedContent,
+                iv = iv
+            )
+        ).getOrThrow()
     }
 
     private fun ensureSensitiveOperationAllowed() {

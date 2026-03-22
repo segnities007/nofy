@@ -6,6 +6,7 @@ import com.segnities007.auth.domain.repository.AuthRepository
 import com.segnities007.crypto.BiometricCipher
 import com.segnities007.login.domain.usecase.LoginSubmissionResult
 import com.segnities007.login.domain.usecase.UnlockWithBiometricUseCase
+import java.nio.charset.StandardCharsets
 
 internal class PrepareBiometricUnlockOperation(
     private val authRepository: AuthRepository,
@@ -49,13 +50,18 @@ internal class DecryptBiometricPasswordOperation(
             ?: return BiometricPasswordDecryptionResult.Failure
 
         return try {
-            val password = biometricCipher.decrypt(
+            val passwordBytes = biometricCipher.decryptToByteArray(
                 request.encryptedSecret,
                 authenticatedCipher
             )
-            BiometricPasswordDecryptionResult.Success(
-                submissionResult = unlockWithBiometricUseCase(password)
-            )
+            try {
+                val password = String(passwordBytes, StandardCharsets.UTF_8)
+                BiometricPasswordDecryptionResult.Success(
+                    submissionResult = unlockWithBiometricUseCase(password)
+                )
+            } finally {
+                passwordBytes.fill(0)
+            }
         } catch (_: BiometricCipher.CredentialUnavailableException) {
             BiometricPasswordDecryptionResult.CredentialUnavailable
         }

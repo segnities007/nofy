@@ -19,6 +19,7 @@ import com.segnities007.login.R
 import com.segnities007.login.presentation.contract.RegisterIntent
 import com.segnities007.login.presentation.contract.RegisterState
 import com.segnities007.login.presentation.preview.previewRegisterState
+import java.nio.charset.StandardCharsets
 
 @Composable
 internal fun RegisterContent(
@@ -47,8 +48,10 @@ internal fun RegisterContent(
                 onSubmitRegistration = {
                     onIntent(
                         RegisterIntent.SubmitRegistration(
-                            password = password,
-                            confirmPassword = confirmPassword
+                            passwordBytes = password.toByteArray(StandardCharsets.UTF_8),
+                            confirmPasswordBytes = confirmPassword.toByteArray(
+                                StandardCharsets.UTF_8
+                            )
                         )
                     )
                     password = ""

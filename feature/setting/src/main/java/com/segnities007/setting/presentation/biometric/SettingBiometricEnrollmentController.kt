@@ -70,7 +70,7 @@ internal class SettingBiometricEnrollmentController(
     private val biometricCipher: BiometricCipher,
     private val promptContent: SettingBiometricPromptContent
 ) {
-    suspend fun enroll(password: String): SettingBiometricEnrollmentResult {
+    suspend fun enroll(password: ByteArray): SettingBiometricEnrollmentResult {
         val authenticator = biometricAuthenticator
             ?: return SettingBiometricEnrollmentResult.Failure(promptContent.unavailableMessage)
         if (!authenticator.isStrongBiometricAvailable()) {

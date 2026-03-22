@@ -29,8 +29,10 @@ import com.segnities007.setting.presentation.component.dialog.SettingsBiometricE
 import com.segnities007.setting.presentation.component.layout.SettingsScaffold
 import com.segnities007.setting.presentation.contract.SettingEffect
 import com.segnities007.setting.presentation.contract.SettingIntent
+import com.segnities007.setting.presentation.navigation.openOpenSourceLicenses
 import com.segnities007.setting.presentation.preview.previewSettingState
 import com.segnities007.setting.presentation.viewmodel.SettingViewModel
+import java.nio.charset.StandardCharsets
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.Flow
 import org.koin.compose.koinInject
@@ -100,6 +102,12 @@ fun SettingsScreen(
                     showToast(context, messageRes)
                 }
             },
+            onOpenOpenSourceLicenses = {
+                openOpenSourceLicenses(
+                    context = context,
+                    title = context.getString(R.string.settings_app_licenses_screen_title)
+                )
+            },
             onSavePassword = {
                 viewModel.onIntent(
                     SettingIntent.SavePassword(
@@ -118,45 +126,51 @@ fun SettingsScreen(
     if (isBiometricDialogVisible) {
         SettingsBiometricEnrollmentDialog(
             isLoading = isBiometricActionInProgress,
-            onConfirm = { password ->
+            onConfirm = { passwordBytes ->
                 scope.launch {
                     isBiometricActionInProgress = true
-                    val verification = authRepository.verifyPassword(password)
-                    if (verification.isFailure) {
+                    try {
+                        val verification = authRepository.verifyPassword(
+                            String(passwordBytes, StandardCharsets.UTF_8)
+                        )
+                        if (verification.isFailure) {
+                            showToast(
+                                context,
+                                resolveBiometricPasswordFailureMessage(verification)
+                            )
+                            return@launch
+                        }
+
+                        when (val result = biometricEnrollmentController.enroll(passwordBytes)) {
+                            is SettingBiometricEnrollmentResult.Success -> {
+                                val saveResult = authRepository.saveBiometricSecret(
+                                    encryptedSecret = result.secret.encryptedSecret,
+                                    iv = result.secret.iv
+                                )
+                                val messageRes = if (saveResult.isSuccess) {
+                                    R.string.settings_toast_biometric_updated
+                                } else {
+                                    R.string.settings_toast_biometric_update_failed
+                                }
+                                showToast(context, messageRes)
+                            }
+
+                            is SettingBiometricEnrollmentResult.Failure -> {
+                                showToast(context, result.message)
+                            }
+
+                            SettingBiometricEnrollmentResult.CredentialUnavailable -> {
+                                showToast(
+                                    context,
+                                    R.string.settings_toast_biometric_reenroll_required
+                                )
+                            }
+                        }
+                    } finally {
+                        passwordBytes.fill(0)
                         isBiometricActionInProgress = false
                         isBiometricDialogVisible = false
-                        showToast(
-                            context,
-                            resolveBiometricPasswordFailureMessage(verification)
-                        )
-                        return@launch
                     }
-
-                    when (val result = biometricEnrollmentController.enroll(password)) {
-                        is SettingBiometricEnrollmentResult.Success -> {
-                            val saveResult = authRepository.saveBiometricSecret(
-                                encryptedSecret = result.secret.encryptedSecret,
-                                iv = result.secret.iv
-                            )
-                            val messageRes = if (saveResult.isSuccess) {
-                                R.string.settings_toast_biometric_updated
-                            } else {
-                                R.string.settings_toast_biometric_update_failed
-                            }
-                            showToast(context, messageRes)
-                        }
-
-                        is SettingBiometricEnrollmentResult.Failure -> {
-                            showToast(context, result.message)
-                        }
-
-                        SettingBiometricEnrollmentResult.CredentialUnavailable -> {
-                            showToast(context, R.string.settings_toast_biometric_reenroll_required)
-                        }
-                    }
-
-                    isBiometricActionInProgress = false
-                    isBiometricDialogVisible = false
                 }
             },
             onDismiss = {
@@ -232,6 +246,7 @@ private fun SettingsScreenPreview() {
             onConfirmPasswordChange = {},
             onEnableBiometric = {},
             onDisableBiometric = {},
+            onOpenOpenSourceLicenses = {},
             onSavePassword = {}
         )
     }

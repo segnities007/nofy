@@ -63,7 +63,7 @@ class AuthRepositoryImpl(
             ensurePasswordPolicySatisfied(password)
             storePasswordHash(password)
             unlockDatabase(password)
-            dataCipher.unlockSession()
+            dataCipher.unlockSession(password)
             clearPasswordAttemptState()
             lockedState.value = false
         }
@@ -74,7 +74,7 @@ class AuthRepositoryImpl(
             ensureSensitiveOperationAllowed()
             verifyPasswordForPasswordEntry(password)
             unlockDatabase(password)
-            dataCipher.unlockSession()
+            dataCipher.unlockSession(password)
             clearPasswordAttemptState()
             lockedState.value = false
         }.recoverCatching(::recoverFromPasswordEntryFailure)
@@ -85,7 +85,7 @@ class AuthRepositoryImpl(
             ensureSensitiveOperationAllowed()
             ensurePasswordMatches(decryptedPassword)
             unlockDatabase(decryptedPassword)
-            dataCipher.unlockSession()
+            dataCipher.unlockSession(decryptedPassword)
             clearPasswordAttemptState()
             lockedState.value = false
         }
@@ -130,6 +130,7 @@ class AuthRepositoryImpl(
 
     private fun performReset() {
         dataCipher.lockSession()
+        dataCipher.clearState()
         authLocalDataSource.clearAuthState()
         registeredState.value = false
         biometricEnabledState.value = false
@@ -215,13 +216,35 @@ class AuthRepositoryImpl(
 
     private fun applyPasswordChange(currentPassword: String, newPassword: String) {
         databaseController.changePassphrase(currentPassword, newPassword)
-        dataCipher.unlockSession()
+        try {
+            dataCipher.changePassword(
+                currentPassword = currentPassword,
+                newPassword = newPassword
+            )
+        } catch (error: Throwable) {
+            rollbackDatabasePasswordChange(
+                currentPassword = currentPassword,
+                newPassword = newPassword,
+                originalError = error
+            )
+        }
         storePasswordHash(newPassword)
 
         // Existing biometric credentials are tied to the old password and must be re-enrolled.
         authLocalDataSource.clearBiometricSecret()
         biometricEnabledState.value = false
         lockedState.value = false
+    }
+
+    private fun rollbackDatabasePasswordChange(
+        currentPassword: String,
+        newPassword: String,
+        originalError: Throwable
+    ): Nothing {
+        runCatching {
+            databaseController.changePassphrase(newPassword, currentPassword)
+        }.onFailure(originalError::addSuppressed)
+        throw originalError
     }
 
     private fun verifyPasswordForPasswordEntry(password: String) {

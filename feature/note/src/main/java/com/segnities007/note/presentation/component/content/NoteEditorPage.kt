@@ -2,15 +2,11 @@ package com.segnities007.note.presentation.component.content
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.relocation.BringIntoViewRequester
@@ -24,13 +20,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.segnities007.designsystem.atom.floatingbar.NofyFloatingBarDefaults
 import com.segnities007.designsystem.atom.text.NofyText
 import com.segnities007.designsystem.theme.NofyPreview
 import com.segnities007.designsystem.theme.NofyPreviewSurface
@@ -48,6 +42,7 @@ internal fun NoteEditorPage(
     val editorValue = remember { mutableStateOf(TextFieldValue(text = content)) }
     val isFocused = remember { mutableStateOf(false) }
     val cursorRect = remember { mutableStateOf<Rect?>(null) }
+    val density = LocalDensity.current
 
     LaunchedEffect(content) {
         if (content != editorValue.value.text) {
@@ -59,17 +54,25 @@ internal fun NoteEditorPage(
         }
     }
 
-    LaunchedEffect(isFocused.value) {
+    val topContentPadding = notePageTopContentPadding()
+
+    LaunchedEffect(isFocused.value, topContentPadding, density) {
         if (!isFocused.value) return@LaunchedEffect
         delay(FocusBringIntoViewDelayMillis)
-        val currentCursorRect = cursorRect.value ?: return@LaunchedEffect
-        bringIntoViewRequester.bringIntoView(currentCursorRect)
+        val requestRect = cursorRect.value?.toBringIntoViewRect(
+            topContentPadding = topContentPadding,
+            density = density
+        ) ?: return@LaunchedEffect
+        bringIntoViewRequester.bringIntoView(requestRect)
     }
 
-    LaunchedEffect(cursorRect.value, editorValue.value.selection, isFocused.value) {
-        val currentCursorRect = cursorRect.value ?: return@LaunchedEffect
+    LaunchedEffect(cursorRect.value, editorValue.value.selection, isFocused.value, topContentPadding, density) {
         if (!isFocused.value) return@LaunchedEffect
-        bringIntoViewRequester.bringIntoView(currentCursorRect)
+        val requestRect = cursorRect.value?.toBringIntoViewRect(
+            topContentPadding = topContentPadding,
+            density = density
+        ) ?: return@LaunchedEffect
+        bringIntoViewRequester.bringIntoView(requestRect)
     }
 
     BoxWithConstraints(
@@ -77,7 +80,6 @@ internal fun NoteEditorPage(
             .fillMaxSize()
             .imePadding()
     ) {
-        val editorInnerTopPadding = rememberEditorInnerTopPadding()
         val editorMinHeight = maxHeight
         val listState = rememberLazyListState()
         ObserveNoteBarsVisibilityOnScroll(
@@ -87,8 +89,7 @@ internal fun NoteEditorPage(
 
         LazyColumn(
             state = listState,
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(bottom = 48.dp)
+            modifier = Modifier.fillMaxSize()
         ) {
             item {
                 Box(
@@ -125,7 +126,7 @@ internal fun NoteEditorPage(
                             Box(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(top = editorInnerTopPadding)
+                                    .padding(top = topContentPadding)
                             ) {
                                 if (editorValue.value.text.isBlank()) {
                                     NofyText(
@@ -140,18 +141,28 @@ internal fun NoteEditorPage(
                     )
                 }
             }
+
+            item {
+                NotePageBottomSpacer()
+            }
         }
     }
 }
 
 private const val FocusBringIntoViewDelayMillis = 250L
-private val EditorInnerContentPadding = 12.dp
 
-@Composable
-private fun rememberEditorInnerTopPadding(): Dp {
-    return WindowInsets.statusBars.asPaddingValues().calculateTopPadding() +
-        NofyFloatingBarDefaults.TopBarOverlayHeight +
-        EditorInnerContentPadding
+private fun Rect.toBringIntoViewRect(
+    topContentPadding: androidx.compose.ui.unit.Dp,
+    density: androidx.compose.ui.unit.Density
+): Rect {
+    val topOffset = with(density) { topContentPadding.toPx() }
+    val bottomClearance = with(density) { NotePageBottomContentPadding.toPx() }
+    return Rect(
+        left = left,
+        top = top + topOffset,
+        right = right,
+        bottom = bottom + topOffset + bottomClearance
+    )
 }
 
 @NofyPreview

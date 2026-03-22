@@ -54,27 +54,37 @@ class BiometricCipher {
     }
 
     fun encrypt(data: String, cipher: Cipher): Pair<ByteArray, ByteArray> {
+        val plainBytes = data.toByteArray(StandardCharsets.UTF_8)
         return try {
-            val plainBytes = data.toByteArray(StandardCharsets.UTF_8)
-            try {
-                val encryptedData = cipher.doFinal(plainBytes)
-                Pair(encryptedData, cipher.iv)
-            } finally {
-                plainBytes.fill(0)
-            }
+            encrypt(plainBytes, cipher)
+        } finally {
+            plainBytes.fill(0)
+        }
+    }
+
+    fun encrypt(data: ByteArray, cipher: Cipher): Pair<ByteArray, ByteArray> {
+        return try {
+            Pair(cipher.doFinal(data), cipher.iv)
         } catch (error: Exception) {
             throw error.toCredentialUnavailable()
         }
     }
 
     fun decrypt(encryptedData: ByteArray, cipher: Cipher): String {
+        val decryptedData = decryptToByteArray(encryptedData, cipher)
         return try {
-            val decryptedData = cipher.doFinal(encryptedData)
-            try {
-                String(decryptedData, StandardCharsets.UTF_8)
-            } finally {
-                decryptedData.fill(0)
-            }
+            String(decryptedData, StandardCharsets.UTF_8)
+        } finally {
+            decryptedData.fill(0)
+        }
+    }
+
+    fun decryptToByteArray(
+        encryptedData: ByteArray,
+        cipher: Cipher
+    ): ByteArray {
+        return try {
+            cipher.doFinal(encryptedData)
         } catch (error: Exception) {
             throw error.toCredentialUnavailable()
         }

@@ -18,6 +18,7 @@ dependencies {
     implementation(project(":shared:settings"))
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
+    implementation(libs.google.play.services.oss.licenses)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
