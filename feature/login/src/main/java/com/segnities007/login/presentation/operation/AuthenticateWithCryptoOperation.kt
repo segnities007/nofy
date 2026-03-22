@@ -11,7 +11,7 @@ internal class AuthenticateWithCryptoOperation(
     suspend operator fun invoke(
         cryptoObject: BiometricPrompt.CryptoObject
     ): BiometricAuthenticationResult = suspendCancellableCoroutine { continuation ->
-        biometricHandler.authenticateWithCrypto(
+        biometricHandler.authenticate(
             cryptoObject = cryptoObject,
             onSuccess = { result ->
                 if (continuation.isActive) {

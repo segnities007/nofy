@@ -34,12 +34,7 @@ fun LoginScreen(
     modifier: Modifier = Modifier
 ) {
     val biometricHandler = rememberLoginBiometricHandler(
-        authenticatePrompt = BiometricPromptContent(
-            title = stringResource(R.string.biometric_title),
-            subtitle = stringResource(R.string.biometric_subtitle),
-            failureMessage = stringResource(R.string.biometric_failed)
-        ),
-        cryptoPrompt = BiometricPromptContent(
+        prompt = BiometricPromptContent(
             title = stringResource(R.string.biometric_authorize_title),
             subtitle = stringResource(R.string.biometric_authorize_subtitle),
             failureMessage = stringResource(R.string.biometric_failed)

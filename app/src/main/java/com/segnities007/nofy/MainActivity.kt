@@ -21,6 +21,7 @@ import com.segnities007.designsystem.theme.NofyTheme
 import com.segnities007.nofy.navigation.NofyNavHost
 import com.segnities007.nofy.security.RiskyEnvironment
 import com.segnities007.nofy.security.RiskyEnvironmentDetector
+import com.segnities007.nofy.security.RiskyEnvironmentSnapshotHolder
 import com.segnities007.nofy.security.RiskyEnvironmentScreen
 import com.segnities007.navigation.NavigationEntryInstaller
 import com.segnities007.settings.UiSettingsRepository
@@ -34,6 +35,7 @@ class MainActivity : FragmentActivity() {
     private val uiSettingsRepository: UiSettingsRepository by inject()
     private val authRepository: AuthRepository by inject()
     private val riskyEnvironmentDetector: RiskyEnvironmentDetector by inject()
+    private val riskyEnvironmentSnapshotHolder: RiskyEnvironmentSnapshotHolder by inject()
     private var riskyEnvironment by mutableStateOf<RiskyEnvironment?>(null)
     private var idleLockJob: Job? = null
     private var riskyEnvironmentMonitorJob: Job? = null
@@ -110,6 +112,7 @@ class MainActivity : FragmentActivity() {
 
     private fun refreshRiskyEnvironment() {
         val detectedEnvironment = riskyEnvironmentDetector.detect()
+        riskyEnvironmentSnapshotHolder.publish(detectedEnvironment)
         val wasRisky = riskyEnvironment != null
         val becameRisky = riskyEnvironment == null && detectedEnvironment != null
         riskyEnvironment = detectedEnvironment

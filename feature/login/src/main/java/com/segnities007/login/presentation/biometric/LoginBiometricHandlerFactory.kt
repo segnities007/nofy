@@ -5,21 +5,12 @@ import com.segnities007.biometric.BiometricAuthenticator
 
 internal fun createLoginBiometricHandler(
     biometricAuthenticator: BiometricAuthenticator?,
-    authenticatePrompt: BiometricPromptContent,
-    cryptoPrompt: BiometricPromptContent = authenticatePrompt
+    prompt: BiometricPromptContent
 ): LoginBiometricHandler {
     return biometricAuthenticator
         ?.takeIf(BiometricAuthenticator::isStrongBiometricAvailable)
-        ?.let {
-        LoginBiometricHandlerImpl(
-            biometricAuthenticator = it,
-            authenticatePrompt = authenticatePrompt,
-            cryptoPrompt = cryptoPrompt
-        )
-    } ?: UnavailableLoginBiometricHandler(
-        authenticateFailureMessage = authenticatePrompt.failureMessage,
-        cryptoFailureMessage = cryptoPrompt.failureMessage
-    )
+        ?.let { LoginBiometricHandlerImpl(biometricAuthenticator = it, prompt = prompt) }
+        ?: UnavailableLoginBiometricHandler(failureMessage = prompt.failureMessage)
 }
 
 internal fun LoginBiometricHandler.isBiometricAvailable(): Boolean {
@@ -27,21 +18,13 @@ internal fun LoginBiometricHandler.isBiometricAvailable(): Boolean {
 }
 
 private class UnavailableLoginBiometricHandler(
-    private val authenticateFailureMessage: String,
-    private val cryptoFailureMessage: String
+    private val failureMessage: String
 ) : LoginBiometricHandler {
     override fun authenticate(
-        onSuccess: (BiometricPrompt.AuthenticationResult) -> Unit,
-        onError: (String) -> Unit
-    ) {
-        onError(authenticateFailureMessage)
-    }
-
-    override fun authenticateWithCrypto(
         cryptoObject: BiometricPrompt.CryptoObject,
         onSuccess: (BiometricPrompt.AuthenticationResult) -> Unit,
         onError: (String) -> Unit
     ) {
-        onError(cryptoFailureMessage)
+        onError(failureMessage)
     }
 }

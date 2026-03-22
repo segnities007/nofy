@@ -12,8 +12,7 @@ import org.koin.core.parameter.parametersOf
 
 @Composable
 internal fun rememberLoginBiometricHandler(
-    authenticatePrompt: BiometricPromptContent,
-    cryptoPrompt: BiometricPromptContent = authenticatePrompt
+    prompt: BiometricPromptContent
 ): LoginBiometricHandler {
     val activity = LocalActivity.current as? androidx.fragment.app.FragmentActivity
     val biometricAuthenticator = activity?.let { fragmentActivity ->
@@ -22,11 +21,10 @@ internal fun rememberLoginBiometricHandler(
         )
     }
 
-    return remember(biometricAuthenticator, authenticatePrompt, cryptoPrompt) {
+    return remember(biometricAuthenticator, prompt) {
         createLoginBiometricHandler(
             biometricAuthenticator = biometricAuthenticator,
-            authenticatePrompt = authenticatePrompt,
-            cryptoPrompt = cryptoPrompt
+            prompt = prompt
         )
     }
 }
@@ -36,7 +34,7 @@ internal fun rememberLoginBiometricHandler(
 private fun RememberLoginBiometricHandlerPreview() {
     val handler = createLoginBiometricHandler(
         biometricAuthenticator = null,
-        authenticatePrompt = BiometricPromptContent(
+        prompt = BiometricPromptContent(
             title = "Authenticate",
             subtitle = "Preview",
             failureMessage = "Unavailable"

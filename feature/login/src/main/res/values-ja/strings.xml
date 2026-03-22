@@ -4,7 +4,6 @@
     <string name="login_form_title">Nofy</string>
     <string name="login_form_body">データは開くまで端末内で暗号化されたまま保持されます。</string>
     <string name="biometric_title">生体認証でログイン</string>
-    <string name="biometric_subtitle">生体認証を使ってログインします</string>
     <string name="biometric_authorize_title">認証</string>
     <string name="biometric_authorize_subtitle">生体認証でサインインを確認してください</string>
     <string name="biometric_failed">生体認証に失敗しました</string>

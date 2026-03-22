@@ -149,16 +149,16 @@ internal class RiskyEnvironmentDetector(
         }
     }
 
-    private companion object {
-        const val PROC_SELF_STATUS_PATH = "/proc/self/status"
-        const val PROC_SELF_MAPS_PATH = "/proc/self/maps"
-        const val PROC_NET_TCP_PATH = "/proc/net/tcp"
-        const val PROC_NET_TCP6_PATH = "/proc/net/tcp6"
-        const val PROC_MOUNTS_PATH = "/proc/mounts"
-        const val SELINUX_ENFORCE_PATH = "/sys/fs/selinux/enforce"
-        const val LD_PRELOAD_ENV = "LD_PRELOAD"
+    internal companion object {
+        private const val PROC_SELF_STATUS_PATH = "/proc/self/status"
+        private const val PROC_SELF_MAPS_PATH = "/proc/self/maps"
+        private const val PROC_NET_TCP_PATH = "/proc/net/tcp"
+        private const val PROC_NET_TCP6_PATH = "/proc/net/tcp6"
+        private const val PROC_MOUNTS_PATH = "/proc/mounts"
+        private const val SELINUX_ENFORCE_PATH = "/sys/fs/selinux/enforce"
+        private const val LD_PRELOAD_ENV = "LD_PRELOAD"
 
-        val knownRootArtifacts = listOf(
+        private val knownRootArtifacts = listOf(
             "/system/app/Superuser.apk",
             "/system/bin/su",
             "/system/xbin/su",
@@ -174,7 +174,11 @@ internal class RiskyEnvironmentDetector(
             "/init.magisk.rc"
         )
 
-        val knownRootPackages = listOf(
+        /**
+         * Package names must also appear in `app` manifest `<queries>` so
+         * [PackageManager.getPackageInfo] works on API 30+.
+         */
+        private val knownRootPackages = listOf(
             "com.topjohnwu.magisk",
             "com.thirdparty.superuser",
             "eu.chainfire.supersu",
@@ -184,7 +188,8 @@ internal class RiskyEnvironmentDetector(
             "com.ramdroid.appquarantine"
         )
 
-        val knownHookPackages = listOf(
+        /** See [knownRootPackages] re: manifest `<queries>`. */
+        private val knownHookPackages = listOf(
             "de.robv.android.xposed.installer",
             "org.lsposed.manager",
             "io.github.libxposed.manager",
@@ -192,7 +197,7 @@ internal class RiskyEnvironmentDetector(
             "me.weishu.exp"
         )
 
-        val suspiciousMapIndicators = listOf(
+        private val suspiciousMapIndicators = listOf(
             "frida",
             "xposed",
             "substrate",
@@ -202,7 +207,11 @@ internal class RiskyEnvironmentDetector(
             "zygisk"
         )
 
-        val knownFridaPorts = setOf(27042, 27043)
+        private val knownFridaPorts = setOf(27042, 27043)
+
+        /** `app` モジュール `AndroidManifest.xml` の `<queries>` と一致させること。 */
+        internal fun allManifestQueryPackageNames(): List<String> =
+            knownRootPackages + knownHookPackages
     }
 }
 

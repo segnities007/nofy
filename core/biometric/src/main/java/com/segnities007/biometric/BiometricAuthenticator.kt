@@ -9,13 +9,6 @@ import javax.crypto.Cipher
 class BiometricAuthenticator(
     private val activity: FragmentActivity
 ) {
-    fun isBiometricAvailable(): Boolean {
-        return canAuthenticate(
-            BiometricManager.Authenticators.BIOMETRIC_STRONG or
-                BiometricManager.Authenticators.DEVICE_CREDENTIAL
-        )
-    }
-
     fun isStrongBiometricAvailable(): Boolean {
         return canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)
     }
@@ -23,7 +16,7 @@ class BiometricAuthenticator(
     fun authenticate(
         title: String,
         subtitle: String,
-        cryptoObject: BiometricPrompt.CryptoObject? = null,
+        cryptoObject: BiometricPrompt.CryptoObject,
         onSuccess: (BiometricPrompt.AuthenticationResult) -> Unit,
         onError: (Int, CharSequence) -> Unit,
         onFailed: () -> Unit
@@ -47,28 +40,14 @@ class BiometricAuthenticator(
                 }
             })
 
-        val promptInfoBuilder = BiometricPrompt.PromptInfo.Builder()
+        val promptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle(title)
             .setSubtitle(subtitle)
+            .setNegativeButtonText("Cancel")
+            .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG)
+            .build()
 
-        if (cryptoObject == null) {
-            // CryptoObjectがない場合は、デバイスの認証情報（PIN/パターン）も許可する
-            promptInfoBuilder.setAllowedAuthenticators(
-                BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL
-            )
-        } else {
-            // CryptoObjectがある場合は、BIOMETRIC_STRONGのみ
-            promptInfoBuilder.setNegativeButtonText("Cancel")
-            promptInfoBuilder.setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG)
-        }
-
-        val promptInfo = promptInfoBuilder.build()
-
-        if (cryptoObject != null) {
-            biometricPrompt.authenticate(promptInfo, cryptoObject)
-        } else {
-            biometricPrompt.authenticate(promptInfo)
-        }
+        biometricPrompt.authenticate(promptInfo, cryptoObject)
     }
 
     private fun canAuthenticate(authenticators: Int): Boolean {

@@ -4,7 +4,6 @@
     <string name="login_form_title">Nofy</string>
     <string name="login_form_body">Everything stays on-device and encrypted until you open it.</string>
     <string name="biometric_title">Biometric Login</string>
-    <string name="biometric_subtitle">Log in using your biometric credential</string>
     <string name="biometric_authorize_title">Authorize</string>
     <string name="biometric_authorize_subtitle">Confirm biometric sign-in</string>
     <string name="biometric_failed">Biometric authentication failed</string>

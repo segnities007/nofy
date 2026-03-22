@@ -11,7 +11,7 @@ import net.zetetic.database.sqlcipher.SupportOpenHelperFactory
 @Database(
     entities = [NoteEntity::class],
     version = 2,
-    exportSchema = false
+    exportSchema = true
 )
 internal abstract class NoteDatabase : RoomDatabase() {
     abstract fun noteDao(): NoteDao

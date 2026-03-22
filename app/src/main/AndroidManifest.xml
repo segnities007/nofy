@@ -2,6 +2,26 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!--
+      Package visibility (API 30+): RiskyEnvironmentDetector uses PackageManager#getPackageInfo
+      for these package names. Keep this list in sync with
+      RiskyEnvironmentDetector.knownRootPackages and knownHookPackages.
+    -->
+    <queries>
+        <package android:name="com.topjohnwu.magisk" />
+        <package android:name="com.thirdparty.superuser" />
+        <package android:name="eu.chainfire.supersu" />
+        <package android:name="com.koushikdutta.superuser" />
+        <package android:name="com.kingroot.kinguser" />
+        <package android:name="com.zachspong.temprootremovejb" />
+        <package android:name="com.ramdroid.appquarantine" />
+        <package android:name="de.robv.android.xposed.installer" />
+        <package android:name="org.lsposed.manager" />
+        <package android:name="io.github.libxposed.manager" />
+        <package android:name="com.saurik.substrate" />
+        <package android:name="me.weishu.exp" />
+    </queries>
+
     <uses-permission
         android:name="android.permission.HIDE_OVERLAY_WINDOWS"
         tools:targetApi="s" />
@@ -19,9 +39,11 @@
         android:theme="@style/Theme.Nofy">
         <activity
             android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
+            android:exported="false"
             android:theme="@style/Theme.Nofy.OssLicenses" />
         <activity
             android:name="com.google.android.gms.oss.licenses.OssLicensesActivity"
+            android:exported="false"
             android:theme="@style/Theme.Nofy.OssLicenses" />
         <activity
             android:name=".MainActivity"

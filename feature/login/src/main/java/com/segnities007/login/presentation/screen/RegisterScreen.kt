@@ -32,7 +32,7 @@ fun RegisterScreen(
     modifier: Modifier = Modifier
 ) {
     val biometricHandler = rememberLoginBiometricHandler(
-        authenticatePrompt = BiometricPromptContent(
+        prompt = BiometricPromptContent(
             title = stringResource(R.string.register_biometric_title),
             subtitle = stringResource(R.string.register_biometric_subtitle),
             failureMessage = stringResource(R.string.biometric_failed)

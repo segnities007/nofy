@@ -7,6 +7,10 @@ android {
     namespace = "com.segnities007.note"
 }
 
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+}
+
 dependencies {
     implementation(platform(libs.koin.bom))
     implementation(project(":feature:note:api"))
