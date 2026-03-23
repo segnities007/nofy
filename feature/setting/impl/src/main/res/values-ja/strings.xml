@@ -5,6 +5,7 @@
     <string name="settings_tab_app">アプリ</string>
     <string name="settings_cd_back_to_notes">ノートへ戻る</string>
     <string name="settings_cd_lock_app">アプリをロック</string>
+    <string name="settings_cd_go_back">戻る</string>
     <string name="settings_theme_heading">テーマ</string>
     <string name="settings_theme_light">ライト</string>
     <string name="settings_theme_dark">ダーク</string>
@@ -61,4 +62,23 @@
     <string name="settings_toast_reset_invalid_password">現在のパスワードが正しくないため、リセットを中止しました</string>
     <string name="settings_toast_reset_failed">リセットに失敗しました</string>
     <string name="settings_toast_lock_failed">アプリをロックできませんでした</string>
+    <string name="settings_vault_transfer_heading">別端末へボルトを移す</string>
+    <string name="settings_vault_transfer_body">同じ Wi‑Fi に接続してください。QR には一時鍵と IPv4 が含まれ、ペア後の転送は暗号化されます。新端末では元と同じボルトのパスワードが必要です。</string>
+    <string name="settings_vault_send_title">ボルトを送る（この端末）</string>
+    <string name="settings_vault_receive_title">ボルトを受け取る（この端末）</string>
+    <string name="settings_vault_back">戻る</string>
+    <string name="settings_vault_password_label">ボルトのパスワード</string>
+    <string name="settings_vault_receive_starting">受信の準備中…</string>
+    <string name="settings_vault_receive_scan_hint">もう一方の端末で「ボルトを送る」を開き、この QR を読み取らせてください。転送が終わるまでこの画面を開いたままにしてください。</string>
+    <string name="settings_vault_receive_qr_cd">接続用 QR コード</string>
+    <string name="settings_vault_receive_waiting">暗号化データの受信待ち…</string>
+    <string name="settings_vault_receive_password_prompt">旧端末と同じボルトのパスワードを入力してからインポートしてください。</string>
+    <string name="settings_vault_receive_import">インポートしてロック解除</string>
+    <string name="settings_vault_importing">インポート中…</string>
+    <string name="settings_vault_send_intro">送信用にパックするにはボルトのパスワードを入力してください。その後、受信側に表示された QR を読み取ります。</string>
+    <string name="settings_vault_send_prepare">準備して受信側の QR を読む</string>
+    <string name="settings_vault_exporting">暗号化パッケージを準備中…</string>
+    <string name="settings_vault_send_scan_hint">受信側の QR コードにカメラを向けてください。</string>
+    <string name="settings_vault_camera_denied">QR を読むにはカメラの許可が必要です。</string>
+    <string name="settings_vault_sending">暗号化ボルトを送信中…</string>
 </resources>

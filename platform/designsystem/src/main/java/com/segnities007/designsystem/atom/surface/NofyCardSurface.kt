@@ -16,10 +16,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.segnities007.designsystem.atom.text.NofyText
-import com.segnities007.designsystem.theme.NofyTheme
+import com.segnities007.designsystem.theme.NofyElevation
+import com.segnities007.designsystem.theme.NofyPreview
+import com.segnities007.designsystem.theme.NofyPreviewSurface
+import com.segnities007.designsystem.theme.NofySpacing
 import com.segnities007.designsystem.theme.NofyThemeTokens
 
 @Composable
@@ -27,9 +28,9 @@ fun NofyCardSurface(
     modifier: Modifier = Modifier,
     containerColor: Color = NofyThemeTokens.colorScheme.surfaceContainer,
     shape: Shape = NofyThemeTokens.shapes.large,
-    contentPadding: PaddingValues = PaddingValues(20.dp),
-    tonalElevation: androidx.compose.ui.unit.Dp = 2.dp,
-    shadowElevation: androidx.compose.ui.unit.Dp = 0.dp,
+    contentPadding: PaddingValues = PaddingValues(NofySpacing.screenEdgeGutter),
+    tonalElevation: androidx.compose.ui.unit.Dp = NofyElevation.cardTonal,
+    shadowElevation: androidx.compose.ui.unit.Dp = NofyElevation.none,
     content: @Composable ColumnScope.() -> Unit
 ) {
     Surface(
@@ -37,7 +38,7 @@ fun NofyCardSurface(
             .fillMaxWidth()
             .border(
                 border = BorderStroke(
-                    width = 1.dp,
+                    width = NofySpacing.hairlineWidth,
                     color = NofyThemeTokens.colorScheme.outlineVariant.copy(alpha = 0.25f)
                 ),
                 shape = shape
@@ -49,21 +50,21 @@ fun NofyCardSurface(
     ) {
         Column(
             modifier = Modifier.padding(contentPadding),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.spacedBy(NofySpacing.lg),
             content = content
         )
     }
 }
 
-@Preview(showBackground = true)
+@NofyPreview
 @Composable
 private fun NofyCardSurfacePreview() {
-    NofyTheme {
+    NofyPreviewSurface {
         NofySurface {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(24.dp),
+                    .padding(NofySpacing.previewCanvasPadding),
                 contentAlignment = Alignment.Center
             ) {
                 NofyCardSurface {

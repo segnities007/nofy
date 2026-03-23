@@ -25,6 +25,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+/** ログイン画面の状態と、パスワード／生体によるロック解除フローを扱う。 */
 internal class LoginViewModel(
     private val unlockWithPasswordUseCase: UnlockWithPasswordUseCase,
     private val observeBiometricEnabledUseCase: ObserveBiometricEnabledUseCase,
@@ -34,12 +35,15 @@ internal class LoginViewModel(
     private val decryptBiometricPasswordOperation: DecryptBiometricPasswordOperation
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(LoginState())
+
+    /** 画面が購読する単一の UI 状態。 */
     val uiState = _uiState.asStateFlow()
 
     init {
         observeBiometricEnabled()
     }
 
+    /** UI からの操作を 1 入口で処理する。 */
     fun onIntent(intent: LoginIntent) {
         when (intent) {
             is LoginIntent.SubmitPassword -> unlock(intent.password)

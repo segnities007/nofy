@@ -30,6 +30,7 @@ class BiometricCipher {
         }
     }
 
+    /** 生体必須の Keystore 鍵で AES-GCM 暗号化モードの [Cipher] を返す。 */
     fun getEncryptCipher(): Cipher {
         return runCatching(::createEncryptCipher)
             .getOrElse { initialError ->
@@ -41,6 +42,7 @@ class BiometricCipher {
             }
     }
 
+    /** 保存した IV で復号モードの [Cipher] を返す。 */
     fun getDecryptCipher(iv: ByteArray): Cipher {
         return try {
             val cipher = Cipher.getInstance("AES/GCM/NoPadding")
@@ -53,6 +55,7 @@ class BiometricCipher {
         }
     }
 
+    /** 平文文字列を暗号化し、(暗号文, IV) を返す。平文バッファは使用後ゼロクリアする。 */
     fun encrypt(data: String, cipher: Cipher): Pair<ByteArray, ByteArray> {
         val plainBytes = data.toByteArray(StandardCharsets.UTF_8)
         return try {
@@ -62,6 +65,7 @@ class BiometricCipher {
         }
     }
 
+    /** 平文バイト列を暗号化し、(暗号文, IV) を返す。 */
     fun encrypt(data: ByteArray, cipher: Cipher): Pair<ByteArray, ByteArray> {
         return try {
             Pair(cipher.doFinal(data), cipher.iv)
@@ -70,6 +74,7 @@ class BiometricCipher {
         }
     }
 
+    /** 暗号文を UTF-8 文字列へ復号する。復号バッファは使用後ゼロクリアする。 */
     fun decrypt(encryptedData: ByteArray, cipher: Cipher): String {
         val decryptedData = decryptToByteArray(encryptedData, cipher)
         return try {
@@ -79,6 +84,7 @@ class BiometricCipher {
         }
     }
 
+    /** 暗号文を生のバイト列で復号する（パスワードバイト列向け）。 */
     fun decryptToByteArray(
         encryptedData: ByteArray,
         cipher: Cipher

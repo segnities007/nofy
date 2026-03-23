@@ -9,12 +9,12 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.segnities007.designsystem.atom.floatingbar.NofyFloatingBar
 import com.segnities007.designsystem.atom.floatingbar.NofyFloatingBarDefaults
 import com.segnities007.designsystem.atom.text.NofyText
-import com.segnities007.designsystem.theme.NofyTheme
+import com.segnities007.designsystem.theme.NofyPreview
+import com.segnities007.designsystem.theme.NofyPreviewSurface
+import com.segnities007.designsystem.theme.NofySpacing
 
 @Composable
 fun NofyFloatingTopBar(
@@ -34,17 +34,20 @@ fun NofyFloatingTopBar(
     ) {
         NofyFloatingBar(
             minHeight = NofyFloatingBarDefaults.TopBarHeight,
-            shadowElevation = 6.dp,
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+            shadowElevation = NofySpacing.floatingBarTopShadowElevation,
+            contentPadding = PaddingValues(
+                horizontal = NofySpacing.floatingBarTopRowPaddingHorizontal,
+                vertical = NofySpacing.floatingBarInnerVertical,
+            ),
             content = content
         )
     }
 }
 
-@Preview
+@NofyPreview
 @Composable
 private fun NofyFloatingTopBarPreview() {
-    NofyTheme {
+    NofyPreviewSurface {
         NofyFloatingTopBar {
             NofyText(text = "Floating Top Bar")
         }

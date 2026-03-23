@@ -11,17 +11,22 @@ import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
 import kotlin.coroutines.resume
 
+/** 設定から生体登録したあと [AuthRepository.saveBiometricSecret] へ渡す暗号文。 */
 internal data class SettingEncryptedBiometricSecret(
     val encryptedSecret: ByteArray,
     val iv: ByteArray
 )
 
+/** 設定画面の生体プロンプトに表示するタイトル・補足・利用不可メッセージ。 */
 internal data class SettingBiometricPromptContent(
     val title: String,
     val subtitle: String,
     val unavailableMessage: String
 )
 
+/**
+ * 設定画面からパスワードを生体で包んで保存するフローの結果。
+ */
 internal sealed interface SettingBiometricEnrollmentResult {
     data class Success(
         val secret: SettingEncryptedBiometricSecret
@@ -34,6 +39,9 @@ internal sealed interface SettingBiometricEnrollmentResult {
     data object CredentialUnavailable : SettingBiometricEnrollmentResult
 }
 
+/**
+ * 設定フロー内の生体プロンプト 1 回分の結果。
+ */
 private sealed interface BiometricAuthenticationAttempt {
     data class Success(
         val result: BiometricPrompt.AuthenticationResult
@@ -44,6 +52,7 @@ private sealed interface BiometricAuthenticationAttempt {
     ) : BiometricAuthenticationAttempt
 }
 
+/** [SettingBiometricEnrollmentController] を composition スコープで保持する。 */
 @Composable
 internal fun rememberSettingBiometricEnrollmentController(
     promptContent: SettingBiometricPromptContent
@@ -65,6 +74,10 @@ internal fun rememberSettingBiometricEnrollmentController(
     }
 }
 
+/**
+ * 設定でマスターパスワードを生体鍵で暗号化し、[SettingEncryptedBiometricSecret] として返す。
+ * Activity が無い・生体が使えない場合は [SettingBiometricEnrollmentResult] で失敗を返す。
+ */
 internal class SettingBiometricEnrollmentController(
     private val biometricAuthenticator: BiometricAuthenticator?,
     private val biometricCipher: BiometricCipher,

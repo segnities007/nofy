@@ -2,11 +2,11 @@ package com.segnities007.designsystem.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Shapes
-import androidx.compose.ui.unit.dp
 
+/** Material3 [Shapes] と [NofyCornerRadius] を対応づけたアプリ既定形状。 */
 val Shapes = Shapes(
-    small = RoundedCornerShape(18.dp),
-    medium = RoundedCornerShape(24.dp),
-    large = RoundedCornerShape(24.dp),
-    extraLarge = RoundedCornerShape(28.dp)
+    small = RoundedCornerShape(NofyCornerRadius.small),
+    medium = RoundedCornerShape(NofyCornerRadius.medium),
+    large = RoundedCornerShape(NofyCornerRadius.large),
+    extraLarge = RoundedCornerShape(NofyCornerRadius.extraLarge)
 )

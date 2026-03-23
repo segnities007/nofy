@@ -27,6 +27,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+/** 新規登録（マスターパスワード設定と任意の生体登録）を扱う。 */
 internal class RegisterViewModel(
     private val registerPasswordUseCase: RegisterPasswordUseCase,
     private val prepareBiometricEnrollmentOperation: PrepareBiometricEnrollmentOperation,
@@ -35,8 +36,11 @@ internal class RegisterViewModel(
     private val saveBiometricSecretUseCase: SaveBiometricSecretUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(RegisterState())
+
+    /** 画面が購読する単一の UI 状態。 */
     val uiState = _uiState.asStateFlow()
 
+    /** UI からの操作を 1 入口で処理する。 */
     fun onIntent(intent: RegisterIntent) {
         when (intent) {
             is RegisterIntent.SubmitRegistration -> register(

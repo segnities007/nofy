@@ -11,15 +11,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.segnities007.designsystem.atom.button.NofyButton
+import com.segnities007.designsystem.atom.floatingbar.NofyFloatingBarDefaults
 import com.segnities007.designsystem.atom.indicator.NofyLoadingIndicator
 import com.segnities007.designsystem.atom.surface.NofyCardSurface
-import com.segnities007.designsystem.atom.text.NofyText
+import com.segnities007.designsystem.molecule.layout.NofyCardIntroActionsColumn
+import com.segnities007.designsystem.molecule.layout.NofyScreenCenteredBox
 import com.segnities007.designsystem.theme.NofyPreview
 import com.segnities007.designsystem.theme.NofyPreviewSurface
-import com.segnities007.designsystem.theme.NofyThemeTokens
 import com.segnities007.note.R
 import com.segnities007.note.presentation.contract.NoteState
 import com.segnities007.note.presentation.preview.previewNoteState
@@ -89,10 +88,7 @@ private fun NoteBodyPreview() {
 
 @Composable
 private fun NoteLoadingState() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
+    NofyScreenCenteredBox {
         NofyLoadingIndicator()
     }
 }
@@ -104,24 +100,20 @@ private fun NoteLoadErrorState(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(20.dp),
+            .padding(NofyFloatingBarDefaults.ContentInset),
         contentAlignment = Alignment.Center
     ) {
         NofyCardSurface {
-            NofyText(
-                text = stringResource(R.string.note_error_title),
-                style = NofyThemeTokens.typography.titleLarge
-            )
-            NofyText(
-                text = stringResource(R.string.note_error_body),
-                style = NofyThemeTokens.typography.bodyMedium,
-                color = NofyThemeTokens.colorScheme.onSurfaceVariant
-            )
-            NofyButton(
-                text = stringResource(R.string.note_retry_action),
-                onClick = onRetry,
-                modifier = Modifier.fillMaxWidth()
-            )
+            NofyCardIntroActionsColumn(
+                title = stringResource(R.string.note_error_title),
+                supporting = stringResource(R.string.note_error_body),
+            ) {
+                NofyButton(
+                    text = stringResource(R.string.note_retry_action),
+                    onClick = onRetry,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
         }
     }
 }

@@ -2,10 +2,10 @@ package com.segnities007.designsystem.molecule.dialog
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import com.segnities007.designsystem.atom.button.NofyTextButton
 import com.segnities007.designsystem.atom.text.NofyText
-import com.segnities007.designsystem.theme.NofyTheme
+import com.segnities007.designsystem.theme.NofyPreview
+import com.segnities007.designsystem.theme.NofyPreviewSurface
 
 @Composable
 fun NofyConfirmationDialog(
@@ -43,10 +43,10 @@ fun NofyConfirmationDialog(
     )
 }
 
-@Preview(showBackground = true)
+@NofyPreview
 @Composable
 private fun NofyConfirmationDialogPreview() {
-    NofyTheme {
+    NofyPreviewSurface {
         NofyConfirmationDialog(
             title = "Delete page?",
             message = "This action cannot be undone.",

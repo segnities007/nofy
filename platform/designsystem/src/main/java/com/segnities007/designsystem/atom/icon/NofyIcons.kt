@@ -12,6 +12,7 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.TextFields
 import androidx.compose.material.icons.filled.Tune
 
+/** アプリ共通の Material Icons エイリアス（ツールバー・設定など）。 */
 object NofyIcons {
     val Back = Icons.AutoMirrored.Filled.ArrowBack
     val Forward = Icons.AutoMirrored.Filled.ArrowForward

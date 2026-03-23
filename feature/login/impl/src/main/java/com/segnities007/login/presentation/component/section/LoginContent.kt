@@ -1,7 +1,5 @@
 package com.segnities007.login.presentation.component.section
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -10,12 +8,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.segnities007.designsystem.atom.button.NofyButton
 import com.segnities007.designsystem.atom.button.NofyTextButton
+import com.segnities007.designsystem.molecule.layout.NofyFormFieldColumn
+import com.segnities007.designsystem.molecule.layout.NofyLogoTitleBlock
+import com.segnities007.designsystem.molecule.layout.NofyWeightedFormShell
+import com.segnities007.designsystem.molecule.textfield.NofyPasswordField
 import com.segnities007.designsystem.theme.NofyPreview
 import com.segnities007.designsystem.theme.NofyPreviewSurface
-import com.segnities007.designsystem.molecule.textfield.NofyPasswordField
 import com.segnities007.login.R
 import com.segnities007.login.presentation.contract.LoginIntent
 import com.segnities007.login.presentation.contract.LoginState
@@ -29,12 +29,10 @@ internal fun LoginContent(
 ) {
     var password by remember { mutableStateOf("") }
 
-    AuthScreenLayout(
+    NofyWeightedFormShell(
         modifier = modifier,
         hero = {
-            AuthHeroSection(
-                title = stringResource(R.string.login_form_title)
-            )
+            NofyLogoTitleBlock(title = stringResource(R.string.login_form_title))
         },
         form = {
             LoginFormCard(
@@ -58,11 +56,8 @@ private fun LoginFormCard(
     onPasswordChange: (String) -> Unit,
     onSubmitPassword: () -> Unit,
     onIntent: (LoginIntent) -> Unit
-){
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(AuthFormSpacing)
-    ) {
+) {
+    NofyFormFieldColumn {
         NofyPasswordField(
             value = password,
             onValueChange = onPasswordChange,
@@ -86,8 +81,6 @@ private fun LoginFormCard(
         }
     }
 }
-
-private val AuthFormSpacing = 24.dp
 
 @NofyPreview
 @Composable

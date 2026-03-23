@@ -10,13 +10,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.segnities007.designsystem.atom.floatingbar.NofyFloatingBarDefaults
 import com.segnities007.designsystem.atom.icon.NofyIcon
 import com.segnities007.designsystem.atom.icon.NofyIcons
 import com.segnities007.designsystem.atom.surface.NofySurface
-import com.segnities007.designsystem.theme.NofyTheme
+import com.segnities007.designsystem.theme.NofyPreview
+import com.segnities007.designsystem.theme.NofyPreviewSurface
+import com.segnities007.designsystem.theme.NofySpacing
 import com.segnities007.designsystem.theme.NofyThemeTokens
 
 @Composable
@@ -75,15 +75,15 @@ fun NofyIconButton(
     }
 }
 
-@Preview
+@NofyPreview
 @Composable
 private fun NofyIconButtonPreview() {
-    NofyTheme {
+    NofyPreviewSurface {
         NofySurface {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(24.dp),
+                    .padding(NofySpacing.previewCanvasPadding),
                 contentAlignment = Alignment.Center
             ) {
                 NofyIconButton(

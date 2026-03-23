@@ -4,12 +4,12 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.segnities007.designsystem.atom.button.NofyTextButton
 import com.segnities007.designsystem.atom.text.NofyText
 import com.segnities007.designsystem.molecule.textfield.NofyPasswordField
-import com.segnities007.designsystem.theme.NofyTheme
+import com.segnities007.designsystem.theme.NofyPreview
+import com.segnities007.designsystem.theme.NofyPreviewSurface
+import com.segnities007.designsystem.theme.NofySpacing
 
 @Composable
 fun NofyFormDialog(
@@ -56,16 +56,16 @@ private fun DialogFormBody(
     message: String,
     content: @Composable () -> Unit
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(NofySpacing.md)) {
         NofyText(text = message)
         content()
     }
 }
 
-@Preview(showBackground = true)
+@NofyPreview
 @Composable
 private fun NofyFormDialogPreview() {
-    NofyTheme {
+    NofyPreviewSurface {
         NofyFormDialog(
             title = "Re-enable biometric login",
             message = "Confirm your current password and complete biometric authentication.",

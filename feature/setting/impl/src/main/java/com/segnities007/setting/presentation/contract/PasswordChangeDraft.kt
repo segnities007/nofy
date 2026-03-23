@@ -25,10 +25,20 @@ package com.segnities007.setting.presentation.contract
  * 参照: リポジトリルート `AGENTS.md` §4、`docs/compose-screen-micro-template.md`
  */
 data class PasswordChangeDraft(
+    /** 現在のマスターパスワード。 */
     val current: String = "",
+
+    /** 新しいマスターパスワード。 */
     val new: String = "",
+
+    /** 新パスワードの確認入力。 */
     val confirm: String = "",
 ) {
+    /**
+     * 送信ボタンを押せるか。空欄や更新中は false。
+     *
+     * 新と確認の一致は VM 側で検証する想定（本メソッドでは見ない）。
+     */
     fun canSubmit(isPasswordUpdating: Boolean): Boolean {
         if (isPasswordUpdating) return false
         if (current.isBlank()) return false

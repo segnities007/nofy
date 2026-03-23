@@ -7,6 +7,7 @@ import com.segnities007.crypto.PasswordHasher
 import com.segnities007.crypto.PasswordPepper
 import org.koin.dsl.module
 
+/** [PasswordHasher]・[DataCipher]・[BiometricCipher] と Keystore ペッパー。 */
 val cryptoModule = module {
     single<PasswordPepper> { KeystorePasswordPepper() }
     single { PasswordHasher(get()) }

@@ -1,5 +1,6 @@
 package com.segnities007.datastore
 
+/** UI 設定（テーマ・フォントスケール）のキー値アクセス。 */
 class SettingsLocalDataSource(
     private val store: KeystorePreferencesStore
 ) {

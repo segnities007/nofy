@@ -6,9 +6,12 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import com.segnities007.designsystem.atom.textfield.NofyTextField
-import com.segnities007.designsystem.theme.NofyTheme
+import com.segnities007.designsystem.theme.NofyPreview
+import com.segnities007.designsystem.theme.NofyPreviewSurface
+import com.segnities007.designsystem.theme.NofySpacing
 
 @Composable
 fun NofyPasswordField(
@@ -34,14 +37,17 @@ fun NofyPasswordField(
     )
 }
 
-@Preview
+@NofyPreview
 @Composable
 private fun NofyPasswordFieldPreview() {
-    NofyTheme {
+    NofyPreviewSurface {
         NofyPasswordField(
             value = "",
             onValueChange = {},
-            label = "Password"
+            label = "Password",
+            modifier = Modifier
+                .padding(NofySpacing.previewCanvasPadding)
+                .fillMaxWidth()
         )
     }
 }

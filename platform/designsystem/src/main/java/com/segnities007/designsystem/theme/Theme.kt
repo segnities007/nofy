@@ -9,9 +9,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
-import androidx.compose.ui.unit.dp
 import com.segnities007.designsystem.atom.surface.NofySurface
 import com.segnities007.designsystem.atom.text.NofyText
 import com.segnities007.settings.ThemeMode
@@ -83,14 +81,14 @@ fun NofyTheme(
     }
 }
 
-@Preview(showBackground = true)
+@NofyPreview
 @Composable
 private fun NofyThemePreview() {
     NofyTheme {
         NofySurface {
             NofyText(
                 text = "Theme Preview",
-                modifier = Modifier.padding(24.dp)
+                modifier = Modifier.padding(NofySpacing.previewCanvasPadding)
             )
         }
     }

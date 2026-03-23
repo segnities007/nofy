@@ -71,4 +71,6 @@ private object PreviewAuthRepository : AuthRepository {
         currentPassword: String,
         newPassword: String
     ): Result<Unit> = Result.success(Unit)
+
+    override suspend fun adoptImportedVault(password: String): Result<Unit> = Result.success(Unit)
 }

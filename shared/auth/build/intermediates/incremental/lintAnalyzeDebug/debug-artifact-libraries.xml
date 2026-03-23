@@ -1,10 +1,10 @@
 <libraries>
   <library
       name=":@@:platform:crypto::debug"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/fd6dfc5a4a09da8cb810db48dd290298/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/fd6dfc5a4a09da8cb810db48dd290298/transformed/out/jars/libs/R.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/e3bd3c0384f00fbcf711078aecf66756/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/e3bd3c0384f00fbcf711078aecf66756/transformed/out/jars/libs/R.jar"
       resolved="nofy.platform:crypto:unspecified"
       partialResultsDir="/home/segnities007/AndroidStudioProjects/nofy/platform/crypto/build/intermediates/lint_partial_results/debug/lintAnalyzeDebug/out"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/fd6dfc5a4a09da8cb810db48dd290298/transformed/out"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/e3bd3c0384f00fbcf711078aecf66756/transformed/out"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -15,10 +15,10 @@
       proguardRules="proguard.txt"/>
   <library
       name=":@@:platform:database::debug"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/49fcba44c7bd2e86f0fd1f1f010245a3/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/49fcba44c7bd2e86f0fd1f1f010245a3/transformed/out/jars/libs/R.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/367a932d1aff0d17de64b6eed600d439/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/367a932d1aff0d17de64b6eed600d439/transformed/out/jars/libs/R.jar"
       resolved="nofy.platform:database:unspecified"
       partialResultsDir="/home/segnities007/AndroidStudioProjects/nofy/platform/database/build/intermediates/lint_partial_results/debug/lintAnalyzeDebug/out"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/49fcba44c7bd2e86f0fd1f1f010245a3/transformed/out"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/367a932d1aff0d17de64b6eed600d439/transformed/out"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -29,10 +29,10 @@
       proguardRules="proguard.txt"/>
   <library
       name=":@@:platform:storage::debug"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/e6bd71f8dde019fabf9ffd5ed60bba92/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/e6bd71f8dde019fabf9ffd5ed60bba92/transformed/out/jars/libs/R.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/88b332866e1bb987e7f2c1e7144e34c0/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/88b332866e1bb987e7f2c1e7144e34c0/transformed/out/jars/libs/R.jar"
       resolved="nofy.platform:storage:unspecified"
       partialResultsDir="/home/segnities007/AndroidStudioProjects/nofy/platform/storage/build/intermediates/lint_partial_results/debug/lintAnalyzeDebug/out"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/e6bd71f8dde019fabf9ffd5ed60bba92/transformed/out"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/88b332866e1bb987e7f2c1e7144e34c0/transformed/out"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -43,10 +43,10 @@
       proguardRules="proguard.txt"/>
   <library
       name=":@@:platform:biometric::debug"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/0f80ad48cb53a8a15d7b031dad1051e7/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/0f80ad48cb53a8a15d7b031dad1051e7/transformed/out/jars/libs/R.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/478a06faacde2ba4f3b88f6c3ef52638/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/478a06faacde2ba4f3b88f6c3ef52638/transformed/out/jars/libs/R.jar"
       resolved="nofy.platform:biometric:unspecified"
       partialResultsDir="/home/segnities007/AndroidStudioProjects/nofy/platform/biometric/build/intermediates/lint_partial_results/debug/lintAnalyzeDebug/out"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/0f80ad48cb53a8a15d7b031dad1051e7/transformed/out"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/478a06faacde2ba4f3b88f6c3ef52638/transformed/out"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -57,9 +57,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.biometric:biometric:1.1.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/c457ef827a244f772f05c93a9fef3c05/transformed/biometric-1.1.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/b27d66dc7d99cfe37fc1f0e74ac9dbd8/transformed/biometric-1.1.0/jars/classes.jar"
       resolved="androidx.biometric:biometric:1.1.0"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/c457ef827a244f772f05c93a9fef3c05/transformed/biometric-1.1.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/b27d66dc7d99cfe37fc1f0e74ac9dbd8/transformed/biometric-1.1.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -70,9 +70,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.fragment:fragment:1.8.9@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/e33949c16c93a392eb400d62a6be5d99/transformed/fragment-1.8.9/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/784d76ebd02e482d2833c25339409a67/transformed/fragment-1.8.9/jars/classes.jar"
       resolved="androidx.fragment:fragment:1.8.9"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/e33949c16c93a392eb400d62a6be5d99/transformed/fragment-1.8.9"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/784d76ebd02e482d2833c25339409a67/transformed/fragment-1.8.9"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -83,9 +83,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.fragment:fragment-ktx:1.8.9@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/a9b4a02c9afa2756fa0acbc65ac711b2/transformed/fragment-ktx-1.8.9/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/fc9e4af921b649678860c0cb25e86337/transformed/fragment-ktx-1.8.9/jars/classes.jar"
       resolved="androidx.fragment:fragment-ktx:1.8.9"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/a9b4a02c9afa2756fa0acbc65ac711b2/transformed/fragment-ktx-1.8.9"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/fc9e4af921b649678860c0cb25e86337/transformed/fragment-ktx-1.8.9"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -100,9 +100,9 @@
       resolved="io.insert-koin:koin-core-jvm:4.1.1"/>
   <library
       name="androidx.activity:activity:1.8.1@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/d8b6f13bddd0f20b30fc775a2ad5702c/transformed/activity-1.8.1/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/9ddd6d5ba8fe464b3c7a7b9a84fb95fe/transformed/activity-1.8.1/jars/classes.jar"
       resolved="androidx.activity:activity:1.8.1"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/d8b6f13bddd0f20b30fc775a2ad5702c/transformed/activity-1.8.1"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/9ddd6d5ba8fe464b3c7a7b9a84fb95fe/transformed/activity-1.8.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -113,9 +113,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.activity:activity-ktx:1.8.1@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/a13451ecca33c0854675a59d3bea55f3/transformed/activity-ktx-1.8.1/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/08e99308784a719503fe1fbf641b108d/transformed/activity-ktx-1.8.1/jars/classes.jar"
       resolved="androidx.activity:activity-ktx:1.8.1"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/a13451ecca33c0854675a59d3bea55f3/transformed/activity-ktx-1.8.1"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/08e99308784a719503fe1fbf641b108d/transformed/activity-ktx-1.8.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -131,9 +131,9 @@
       provided="true"/>
   <library
       name="androidx.loader:loader:1.0.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/278cffcf3c2771083661ab6959df09d6/transformed/loader-1.0.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/1473c2beab8cebc7db58c235e7d10541/transformed/loader-1.0.0/jars/classes.jar"
       resolved="androidx.loader:loader:1.0.0"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/278cffcf3c2771083661ab6959df09d6/transformed/loader-1.0.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/1473c2beab8cebc7db58c235e7d10541/transformed/loader-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -144,10 +144,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-livedata:2.6.1@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/f918fd72f891ed0a110099883fe5399f/transformed/lifecycle-livedata-2.6.1/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/11b76a7053fe64b9fe9aec193b0c485b/transformed/lifecycle-livedata-2.6.1/jars/classes.jar"
       resolved="androidx.lifecycle:lifecycle-livedata:2.6.1"
       provided="true"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/f918fd72f891ed0a110099883fe5399f/transformed/lifecycle-livedata-2.6.1"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/11b76a7053fe64b9fe9aec193b0c485b/transformed/lifecycle-livedata-2.6.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -163,10 +163,10 @@
       provided="true"/>
   <library
       name="androidx.lifecycle:lifecycle-runtime-ktx:2.6.1@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/21134ee392b5fdde4c639555d4bf8864/transformed/lifecycle-runtime-ktx-2.6.1/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/9d42e02a616edc641644f92083afcede/transformed/lifecycle-runtime-ktx-2.6.1/jars/classes.jar"
       resolved="androidx.lifecycle:lifecycle-runtime-ktx:2.6.1"
       provided="true"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/21134ee392b5fdde4c639555d4bf8864/transformed/lifecycle-runtime-ktx-2.6.1"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/9d42e02a616edc641644f92083afcede/transformed/lifecycle-runtime-ktx-2.6.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -177,10 +177,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/3fbe2eba40dc3466cc6dc6f170b9f09e/transformed/lifecycle-viewmodel-savedstate-2.6.1/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/2608f3953f2885e02d7343e23c86c8f9/transformed/lifecycle-viewmodel-savedstate-2.6.1/jars/classes.jar"
       resolved="androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1"
       provided="true"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/3fbe2eba40dc3466cc6dc6f170b9f09e/transformed/lifecycle-viewmodel-savedstate-2.6.1"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/2608f3953f2885e02d7343e23c86c8f9/transformed/lifecycle-viewmodel-savedstate-2.6.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -191,10 +191,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-viewmodel:2.6.1@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/3a6d66492a81bb00e26ddf2c5bcc28af/transformed/lifecycle-viewmodel-2.6.1/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/17ee3b2bd9332f2eee4d6bd49ec246bd/transformed/lifecycle-viewmodel-2.6.1/jars/classes.jar"
       resolved="androidx.lifecycle:lifecycle-viewmodel:2.6.1"
       provided="true"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/3a6d66492a81bb00e26ddf2c5bcc28af/transformed/lifecycle-viewmodel-2.6.1"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/17ee3b2bd9332f2eee4d6bd49ec246bd/transformed/lifecycle-viewmodel-2.6.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -205,10 +205,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-livedata-core:2.6.1@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/179f4dbb6eec02f569e6263ec4af0874/transformed/lifecycle-livedata-core-2.6.1/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/0bcee8504ca15558e921029466aa86d0/transformed/lifecycle-livedata-core-2.6.1/jars/classes.jar"
       resolved="androidx.lifecycle:lifecycle-livedata-core:2.6.1"
       provided="true"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/179f4dbb6eec02f569e6263ec4af0874/transformed/lifecycle-livedata-core-2.6.1"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/0bcee8504ca15558e921029466aa86d0/transformed/lifecycle-livedata-core-2.6.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -219,9 +219,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.viewpager:viewpager:1.0.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/e7adb5632659d4e377fb9bdcd590bf83/transformed/viewpager-1.0.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/0ebc246538980326498c62baf6d335a8/transformed/viewpager-1.0.0/jars/classes.jar"
       resolved="androidx.viewpager:viewpager:1.0.0"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/e7adb5632659d4e377fb9bdcd590bf83/transformed/viewpager-1.0.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/0ebc246538980326498c62baf6d335a8/transformed/viewpager-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -232,10 +232,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.core:core-ktx:1.9.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/5cd557e57e7d3dc128e0ccea381bbdb3/transformed/core-ktx-1.9.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/55d2d6eb25623661536fb1ba9eb86204/transformed/core-ktx-1.9.0/jars/classes.jar"
       resolved="androidx.core:core-ktx:1.9.0"
       provided="true"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/5cd557e57e7d3dc128e0ccea381bbdb3/transformed/core-ktx-1.9.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/55d2d6eb25623661536fb1ba9eb86204/transformed/core-ktx-1.9.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -246,10 +246,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.customview:customview:1.0.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/2ac4f350014d10282e29cf7871e33475/transformed/customview-1.0.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/9651dd0e02a56a367cbf4d1452599491/transformed/customview-1.0.0/jars/classes.jar"
       resolved="androidx.customview:customview:1.0.0"
       provided="true"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/2ac4f350014d10282e29cf7871e33475/transformed/customview-1.0.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/9651dd0e02a56a367cbf4d1452599491/transformed/customview-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -260,10 +260,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.core:core:1.9.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/e8ba49e0d7e120564b36d276574a7695/transformed/core-1.9.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/09b325206a296fd9fa24dba81314512c/transformed/core-1.9.0/jars/classes.jar"
       resolved="androidx.core:core:1.9.0"
       provided="true"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/e8ba49e0d7e120564b36d276574a7695/transformed/core-1.9.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/09b325206a296fd9fa24dba81314512c/transformed/core-1.9.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -274,10 +274,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-runtime:2.6.1@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/0fbddd978b3ed175ec816339b3e0d3af/transformed/lifecycle-runtime-2.6.1/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/3cf4ab4692314c1fcb7c2d45ec69e372/transformed/lifecycle-runtime-2.6.1/jars/classes.jar"
       resolved="androidx.lifecycle:lifecycle-runtime:2.6.1"
       provided="true"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/0fbddd978b3ed175ec816339b3e0d3af/transformed/lifecycle-runtime-2.6.1"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/3cf4ab4692314c1fcb7c2d45ec69e372/transformed/lifecycle-runtime-2.6.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -288,10 +288,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/ba06393e9aa3f5a68aa87c79371e3edf/transformed/lifecycle-viewmodel-ktx-2.6.1/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/a15fcc7980456815c470f62e22e00b80/transformed/lifecycle-viewmodel-ktx-2.6.1/jars/classes.jar"
       resolved="androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
       provided="true"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/ba06393e9aa3f5a68aa87c79371e3edf/transformed/lifecycle-viewmodel-ktx-2.6.1"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/a15fcc7980456815c470f62e22e00b80/transformed/lifecycle-viewmodel-ktx-2.6.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -302,10 +302,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-livedata-core-ktx:2.6.1@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/17e89769da37572213bbd0765c1c08ec/transformed/lifecycle-livedata-core-ktx-2.6.1/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/4d50acec603e4bea3e8c58fc106d252d/transformed/lifecycle-livedata-core-ktx-2.6.1/jars/classes.jar"
       resolved="androidx.lifecycle:lifecycle-livedata-core-ktx:2.6.1"
       provided="true"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/17e89769da37572213bbd0765c1c08ec/transformed/lifecycle-livedata-core-ktx-2.6.1"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/4d50acec603e4bea3e8c58fc106d252d/transformed/lifecycle-livedata-core-ktx-2.6.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -316,9 +316,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.savedstate:savedstate:1.2.1@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/e14a67560ba730b7e5baa2ab9a60cd10/transformed/savedstate-1.2.1/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/6e3676e15e7ffa1bf8f6ea5e011c2404/transformed/savedstate-1.2.1/jars/classes.jar"
       resolved="androidx.savedstate:savedstate:1.2.1"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/e14a67560ba730b7e5baa2ab9a60cd10/transformed/savedstate-1.2.1"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/6e3676e15e7ffa1bf8f6ea5e011c2404/transformed/savedstate-1.2.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -329,9 +329,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.savedstate:savedstate-ktx:1.2.1@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/21048b985439893dbf846121b0f1a29d/transformed/savedstate-ktx-1.2.1/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/685fa2cca6776e0ea3cdfff4a8501936/transformed/savedstate-ktx-1.2.1/jars/classes.jar"
       resolved="androidx.savedstate:savedstate-ktx:1.2.1"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/21048b985439893dbf846121b0f1a29d/transformed/savedstate-ktx-1.2.1"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/685fa2cca6776e0ea3cdfff4a8501936/transformed/savedstate-ktx-1.2.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -342,10 +342,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.annotation:annotation-experimental:1.4.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/f83c0cebcfb6fb1e241d44f61b35a832/transformed/annotation-experimental-1.4.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/045ee0f60041824e14551b746c0f1e6c/transformed/annotation-experimental-1.4.0/jars/classes.jar"
       resolved="androidx.annotation:annotation-experimental:1.4.0"
       provided="true"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/f83c0cebcfb6fb1e241d44f61b35a832/transformed/annotation-experimental-1.4.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/045ee0f60041824e14551b746c0f1e6c/transformed/annotation-experimental-1.4.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -385,9 +385,9 @@
       provided="true"/>
   <library
       name="androidx.versionedparcelable:versionedparcelable:1.1.1@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/e892046828ae94a0e81149016d3c6268/transformed/versionedparcelable-1.1.1/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/197b70224012607fbecb97d7aebb987e/transformed/versionedparcelable-1.1.1/jars/classes.jar"
       resolved="androidx.versionedparcelable:versionedparcelable:1.1.1"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/e892046828ae94a0e81149016d3c6268/transformed/versionedparcelable-1.1.1"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/197b70224012607fbecb97d7aebb987e/transformed/versionedparcelable-1.1.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -403,10 +403,10 @@
       provided="true"/>
   <library
       name="androidx.arch.core:core-runtime:2.1.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/6b084d1122a58059cdb6d509d5b79b6e/transformed/core-runtime-2.1.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/5a858da23ccde9d8380eaefeb463e1eb/transformed/core-runtime-2.1.0/jars/classes.jar"
       resolved="androidx.arch.core:core-runtime:2.1.0"
       provided="true"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/6b084d1122a58059cdb6d509d5b79b6e/transformed/core-runtime-2.1.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/5a858da23ccde9d8380eaefeb463e1eb/transformed/core-runtime-2.1.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -426,9 +426,9 @@
       provided="true"/>
   <library
       name="com.lambdapioneer.argon2kt:argon2kt:1.6.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/65d8d21bdf90726a1045f0ef2c81de09/transformed/argon2kt-1.6.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/73dcce899ff8eeb58dd5cc778aa02f7b/transformed/argon2kt-1.6.0/jars/classes.jar"
       resolved="com.lambdapioneer.argon2kt:argon2kt:1.6.0"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/65d8d21bdf90726a1045f0ef2c81de09/transformed/argon2kt-1.6.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/73dcce899ff8eeb58dd5cc778aa02f7b/transformed/argon2kt-1.6.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -439,9 +439,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="com.google.android.material:material:1.13.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/cc9bd43e609455f4b9ea9ac9be9fa13c/transformed/material-1.13.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/ec175df2d7f71ae712537cca43ebee74/transformed/material-1.13.0/jars/classes.jar"
       resolved="com.google.android.material:material:1.13.0"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/cc9bd43e609455f4b9ea9ac9be9fa13c/transformed/material-1.13.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/ec175df2d7f71ae712537cca43ebee74/transformed/material-1.13.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -452,9 +452,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.appcompat:appcompat-resources:1.7.1@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/ac17843ffa2151852aebb89cffc170a2/transformed/appcompat-resources-1.7.1/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/d254743d9d1cd047e26c722cd5e623c8/transformed/appcompat-resources-1.7.1/jars/classes.jar"
       resolved="androidx.appcompat:appcompat-resources:1.7.1"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/ac17843ffa2151852aebb89cffc170a2/transformed/appcompat-resources-1.7.1"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/d254743d9d1cd047e26c722cd5e623c8/transformed/appcompat-resources-1.7.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -465,9 +465,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.constraintlayout:constraintlayout:2.1.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/d3f4eca6fa82bb96fd4f721daed0b328/transformed/constraintlayout-2.1.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/5181aaa0e8415e94b7a15d19b22cf9d5/transformed/constraintlayout-2.1.0/jars/classes.jar"
       resolved="androidx.constraintlayout:constraintlayout:2.1.0"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/d3f4eca6fa82bb96fd4f721daed0b328/transformed/constraintlayout-2.1.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/5181aaa0e8415e94b7a15d19b22cf9d5/transformed/constraintlayout-2.1.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -478,9 +478,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.appcompat:appcompat:1.7.1@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/e3554753c17bc80f3fb2454cfce16551/transformed/appcompat-1.7.1/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/9c4db010cb7e7d04c4eeff199f8cb2e3/transformed/appcompat-1.7.1/jars/classes.jar"
       resolved="androidx.appcompat:appcompat:1.7.1"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/e3554753c17bc80f3fb2454cfce16551/transformed/appcompat-1.7.1"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/9c4db010cb7e7d04c4eeff199f8cb2e3/transformed/appcompat-1.7.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -491,9 +491,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.viewpager2:viewpager2:1.0.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/f2f5090db1d34e9df5937da0c1fba619/transformed/viewpager2-1.0.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/26c0726f11335db1887bfbb9b893fb03/transformed/viewpager2-1.0.0/jars/classes.jar"
       resolved="androidx.viewpager2:viewpager2:1.0.0"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/f2f5090db1d34e9df5937da0c1fba619/transformed/viewpager2-1.0.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/26c0726f11335db1887bfbb9b893fb03/transformed/viewpager2-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -504,9 +504,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.emoji2:emoji2-views-helper:1.3.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/d2e59360c355e60a9392be0b90bd4826/transformed/emoji2-views-helper-1.3.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/234485bf7c6dda06add217c4a61e4a67/transformed/emoji2-views-helper-1.3.0/jars/classes.jar"
       resolved="androidx.emoji2:emoji2-views-helper:1.3.0"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/d2e59360c355e60a9392be0b90bd4826/transformed/emoji2-views-helper-1.3.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/234485bf7c6dda06add217c4a61e4a67/transformed/emoji2-views-helper-1.3.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -517,9 +517,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.emoji2:emoji2:1.3.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/506485ad3dd799297adc9f4bc491bc18/transformed/emoji2-1.3.0/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/506485ad3dd799297adc9f4bc491bc18/transformed/emoji2-1.3.0/jars/libs/repackaged.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/816c443d2db96caa5a9027bfed3eaf7e/transformed/emoji2-1.3.0/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/816c443d2db96caa5a9027bfed3eaf7e/transformed/emoji2-1.3.0/jars/libs/repackaged.jar"
       resolved="androidx.emoji2:emoji2:1.3.0"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/506485ad3dd799297adc9f4bc491bc18/transformed/emoji2-1.3.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/816c443d2db96caa5a9027bfed3eaf7e/transformed/emoji2-1.3.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -530,9 +530,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.drawerlayout:drawerlayout:1.1.1@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/6d694d548e2239ace2fc9a7e3b5f34bc/transformed/drawerlayout-1.1.1/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/a90d00d742b8a2ad0775e1a1c8b07aa4/transformed/drawerlayout-1.1.1/jars/classes.jar"
       resolved="androidx.drawerlayout:drawerlayout:1.1.1"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/6d694d548e2239ace2fc9a7e3b5f34bc/transformed/drawerlayout-1.1.1"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/a90d00d742b8a2ad0775e1a1c8b07aa4/transformed/drawerlayout-1.1.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -543,9 +543,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.coordinatorlayout:coordinatorlayout:1.1.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/06860333e4c62b257d620c39469bd1fb/transformed/coordinatorlayout-1.1.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/3757cfc2c6c5a483905d2094c59d2c9c/transformed/coordinatorlayout-1.1.0/jars/classes.jar"
       resolved="androidx.coordinatorlayout:coordinatorlayout:1.1.0"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/06860333e4c62b257d620c39469bd1fb/transformed/coordinatorlayout-1.1.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/3757cfc2c6c5a483905d2094c59d2c9c/transformed/coordinatorlayout-1.1.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -556,9 +556,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.transition:transition:1.5.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/d06e60dd90532d7865fe4bc118f7f123/transformed/transition-1.5.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/f52bc4f33ba712e6f4a5bd3e2d105904/transformed/transition-1.5.0/jars/classes.jar"
       resolved="androidx.transition:transition:1.5.0"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/d06e60dd90532d7865fe4bc118f7f123/transformed/transition-1.5.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/f52bc4f33ba712e6f4a5bd3e2d105904/transformed/transition-1.5.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -569,9 +569,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.dynamicanimation:dynamicanimation:1.1.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/4bd839f8f4954886be67deebf8dbd50c/transformed/dynamicanimation-1.1.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/4e663ead0863fdcfcca6cd8dc3c952ed/transformed/dynamicanimation-1.1.0/jars/classes.jar"
       resolved="androidx.dynamicanimation:dynamicanimation:1.1.0"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/4bd839f8f4954886be67deebf8dbd50c/transformed/dynamicanimation-1.1.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/4e663ead0863fdcfcca6cd8dc3c952ed/transformed/dynamicanimation-1.1.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -582,9 +582,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.recyclerview:recyclerview:1.2.1@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/9c674b562a02cf7781abed4b065ae85b/transformed/recyclerview-1.2.1/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/88057e99ba8d35d05886048cf835aebf/transformed/recyclerview-1.2.1/jars/classes.jar"
       resolved="androidx.recyclerview:recyclerview:1.2.1"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/9c674b562a02cf7781abed4b065ae85b/transformed/recyclerview-1.2.1"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/88057e99ba8d35d05886048cf835aebf/transformed/recyclerview-1.2.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -595,9 +595,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.vectordrawable:vectordrawable-animated:1.1.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/742e7ecb09d5a44ae73134e38861751d/transformed/vectordrawable-animated-1.1.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/6e331ed0959808500f602645c5a710c3/transformed/vectordrawable-animated-1.1.0/jars/classes.jar"
       resolved="androidx.vectordrawable:vectordrawable-animated:1.1.0"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/742e7ecb09d5a44ae73134e38861751d/transformed/vectordrawable-animated-1.1.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/6e331ed0959808500f602645c5a710c3/transformed/vectordrawable-animated-1.1.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -608,9 +608,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.vectordrawable:vectordrawable:1.1.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/41d8782d660bec3498fcae77f2efe610/transformed/vectordrawable-1.1.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/b2de923fd0c8d45392affd93cf6b209f/transformed/vectordrawable-1.1.0/jars/classes.jar"
       resolved="androidx.vectordrawable:vectordrawable:1.1.0"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/41d8782d660bec3498fcae77f2efe610/transformed/vectordrawable-1.1.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/b2de923fd0c8d45392affd93cf6b209f/transformed/vectordrawable-1.1.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -621,9 +621,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.customview:customview:1.1.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/2ba666745d51096c26fdcc5e88b0666b/transformed/customview-1.1.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/595b72bead92d27c1c4e59f11f7202f7/transformed/customview-1.1.0/jars/classes.jar"
       resolved="androidx.customview:customview:1.1.0"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/2ba666745d51096c26fdcc5e88b0666b/transformed/customview-1.1.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/595b72bead92d27c1c4e59f11f7202f7/transformed/customview-1.1.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -634,9 +634,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.core:core:1.18.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/efdbad20ebb5c6dea9a1fd934f9707d2/transformed/core-1.18.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/a83120a3ed311fa90ae63c2073a865cc/transformed/core-1.18.0/jars/classes.jar"
       resolved="androidx.core:core:1.18.0"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/efdbad20ebb5c6dea9a1fd934f9707d2/transformed/core-1.18.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/a83120a3ed311fa90ae63c2073a865cc/transformed/core-1.18.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -647,9 +647,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.graphics:graphics-shapes-android:1.0.1@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/62a0a9b348e7dba7edc736b5abbdff36/transformed/graphics-shapes-release/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/35c9d8a8504f9a644d62aef55ffe536c/transformed/graphics-shapes-release/jars/classes.jar"
       resolved="androidx.graphics:graphics-shapes-android:1.0.1"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/62a0a9b348e7dba7edc736b5abbdff36/transformed/graphics-shapes-release"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/35c9d8a8504f9a644d62aef55ffe536c/transformed/graphics-shapes-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -660,9 +660,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-livedata:2.6.2@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/ef911e04d1bc528c5ab438d360a81180/transformed/lifecycle-livedata-2.6.2/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/14ce441ee3c120e34c3e1a8ad2166030/transformed/lifecycle-livedata-2.6.2/jars/classes.jar"
       resolved="androidx.lifecycle:lifecycle-livedata:2.6.2"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/ef911e04d1bc528c5ab438d360a81180/transformed/lifecycle-livedata-2.6.2"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/14ce441ee3c120e34c3e1a8ad2166030/transformed/lifecycle-livedata-2.6.2"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -673,9 +673,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/9c01c09a1f2dbf18761d72c4bb8f1132/transformed/lifecycle-viewmodel-ktx-2.6.2/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/77edf7597de7153106cb64bf866246c7/transformed/lifecycle-viewmodel-ktx-2.6.2/jars/classes.jar"
       resolved="androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/9c01c09a1f2dbf18761d72c4bb8f1132/transformed/lifecycle-viewmodel-ktx-2.6.2"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/77edf7597de7153106cb64bf866246c7/transformed/lifecycle-viewmodel-ktx-2.6.2"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -686,9 +686,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-viewmodel:2.6.2@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/d98c045b320b0fde12c26ad7898409f8/transformed/lifecycle-viewmodel-2.6.2/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/535254cf30be3616af6517e4d22455ae/transformed/lifecycle-viewmodel-2.6.2/jars/classes.jar"
       resolved="androidx.lifecycle:lifecycle-viewmodel:2.6.2"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/d98c045b320b0fde12c26ad7898409f8/transformed/lifecycle-viewmodel-2.6.2"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/535254cf30be3616af6517e4d22455ae/transformed/lifecycle-viewmodel-2.6.2"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -699,9 +699,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-runtime-ktx:2.6.2@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/8a068fda72a73cdbb7a1a4896908a24b/transformed/lifecycle-runtime-ktx-2.6.2/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/990dc61f402cd65f4c313c115f92de0b/transformed/lifecycle-runtime-ktx-2.6.2/jars/classes.jar"
       resolved="androidx.lifecycle:lifecycle-runtime-ktx:2.6.2"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/8a068fda72a73cdbb7a1a4896908a24b/transformed/lifecycle-runtime-ktx-2.6.2"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/990dc61f402cd65f4c313c115f92de0b/transformed/lifecycle-runtime-ktx-2.6.2"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -712,9 +712,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-process:2.6.2@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/6ea4a5bc58cb0cd716ff88031559f2d6/transformed/lifecycle-process-2.6.2/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/03cf861c9070bb34a2123312c6d066a4/transformed/lifecycle-process-2.6.2/jars/classes.jar"
       resolved="androidx.lifecycle:lifecycle-process:2.6.2"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/6ea4a5bc58cb0cd716ff88031559f2d6/transformed/lifecycle-process-2.6.2"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/03cf861c9070bb34a2123312c6d066a4/transformed/lifecycle-process-2.6.2"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -725,9 +725,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-livedata-core-ktx:2.6.2@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/175ec37344610f3315f2597802e69ec4/transformed/lifecycle-livedata-core-ktx-2.6.2/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/64360ae5a5e5e38205372c209b27507c/transformed/lifecycle-livedata-core-ktx-2.6.2/jars/classes.jar"
       resolved="androidx.lifecycle:lifecycle-livedata-core-ktx:2.6.2"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/175ec37344610f3315f2597802e69ec4/transformed/lifecycle-livedata-core-ktx-2.6.2"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/64360ae5a5e5e38205372c209b27507c/transformed/lifecycle-livedata-core-ktx-2.6.2"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -738,9 +738,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-livedata-core:2.6.2@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/6f5a3b8387b22bd4c93950c77415ba86/transformed/lifecycle-livedata-core-2.6.2/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/54ffdcd46a73ba12edb60c1a2f6f4867/transformed/lifecycle-livedata-core-2.6.2/jars/classes.jar"
       resolved="androidx.lifecycle:lifecycle-livedata-core:2.6.2"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/6f5a3b8387b22bd4c93950c77415ba86/transformed/lifecycle-livedata-core-2.6.2"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/54ffdcd46a73ba12edb60c1a2f6f4867/transformed/lifecycle-livedata-core-2.6.2"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -751,9 +751,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-runtime:2.6.2@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/9602d3305081d1b429aa99d5c667e8bd/transformed/lifecycle-runtime-2.6.2/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/960c43baca1f7278402f888574ce9b4c/transformed/lifecycle-runtime-2.6.2/jars/classes.jar"
       resolved="androidx.lifecycle:lifecycle-runtime:2.6.2"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/9602d3305081d1b429aa99d5c667e8bd/transformed/lifecycle-runtime-2.6.2"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/960c43baca1f7278402f888574ce9b4c/transformed/lifecycle-runtime-2.6.2"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -768,9 +768,9 @@
       resolved="androidx.lifecycle:lifecycle-common:2.6.2"/>
   <library
       name="androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.2@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/d57a12baa014f4b0a800d03dc1296039/transformed/lifecycle-viewmodel-savedstate-2.6.2/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/5fefb26a445f64d0b54bdd7162dbc9bd/transformed/lifecycle-viewmodel-savedstate-2.6.2/jars/classes.jar"
       resolved="androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.2"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/d57a12baa014f4b0a800d03dc1296039/transformed/lifecycle-viewmodel-savedstate-2.6.2"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/5fefb26a445f64d0b54bdd7162dbc9bd/transformed/lifecycle-viewmodel-savedstate-2.6.2"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -781,9 +781,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.core:core-ktx:1.18.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/298971a791dbb5b1a1e7349f5426d661/transformed/core-ktx-1.18.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/6e71fa1c20ae5818cd60f9b797caa3fe/transformed/core-ktx-1.18.0/jars/classes.jar"
       resolved="androidx.core:core-ktx:1.18.0"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/298971a791dbb5b1a1e7349f5426d661/transformed/core-ktx-1.18.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/6e71fa1c20ae5818cd60f9b797caa3fe/transformed/core-ktx-1.18.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -794,10 +794,10 @@
       proguardRules="proguard.txt"/>
   <library
       name=":@@:shared:settings::debug"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/eac888fc87cebd48614123ac588cf117/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/eac888fc87cebd48614123ac588cf117/transformed/out/jars/libs/R.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/c396c7ca0a2477d8dadac15ace99364a/transformed/out/jars/classes.jar:/home/segnities007/.gradle/caches/9.3.1/transforms/c396c7ca0a2477d8dadac15ace99364a/transformed/out/jars/libs/R.jar"
       resolved="nofy.shared:settings:unspecified"
       partialResultsDir="/home/segnities007/AndroidStudioProjects/nofy/shared/settings/build/intermediates/lint_partial_results/debug/lintAnalyzeDebug/out"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/eac888fc87cebd48614123ac588cf117/transformed/out"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/c396c7ca0a2477d8dadac15ace99364a/transformed/out"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -808,9 +808,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.cursoradapter:cursoradapter:1.0.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/777f99461e84f354b8477e6e8b3c9822/transformed/cursoradapter-1.0.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/a5aecf8861df47bfa9e68a7572dd3ab3/transformed/cursoradapter-1.0.0/jars/classes.jar"
       resolved="androidx.cursoradapter:cursoradapter:1.0.0"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/777f99461e84f354b8477e6e8b3c9822/transformed/cursoradapter-1.0.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/a5aecf8861df47bfa9e68a7572dd3ab3/transformed/cursoradapter-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -821,9 +821,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.profileinstaller:profileinstaller:1.3.1@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/daf69064dfd1cea480b90186252670ec/transformed/profileinstaller-1.3.1/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/17ed962c3746e1b795d36f54a7e5016a/transformed/profileinstaller-1.3.1/jars/classes.jar"
       resolved="androidx.profileinstaller:profileinstaller:1.3.1"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/daf69064dfd1cea480b90186252670ec/transformed/profileinstaller-1.3.1"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/17ed962c3746e1b795d36f54a7e5016a/transformed/profileinstaller-1.3.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -838,9 +838,9 @@
       resolved="androidx.resourceinspection:resourceinspection-annotation:1.0.1"/>
   <library
       name="androidx.cardview:cardview:1.0.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/d95b10b1504a20c4cf4e7043972665ac/transformed/cardview-1.0.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/152e931860801e550299cf26eb926d39/transformed/cardview-1.0.0/jars/classes.jar"
       resolved="androidx.cardview:cardview:1.0.0"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/d95b10b1504a20c4cf4e7043972665ac/transformed/cardview-1.0.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/152e931860801e550299cf26eb926d39/transformed/cardview-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -851,9 +851,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.interpolator:interpolator:1.0.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/d74e99ef99c1b7fcd36e21c4919bc63b/transformed/interpolator-1.0.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/1abeba7cc0e12c35f578c1020dfc97f1/transformed/interpolator-1.0.0/jars/classes.jar"
       resolved="androidx.interpolator:interpolator:1.0.0"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/d74e99ef99c1b7fcd36e21c4919bc63b/transformed/interpolator-1.0.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/1abeba7cc0e12c35f578c1020dfc97f1/transformed/interpolator-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -864,9 +864,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.startup:startup-runtime:1.1.1@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/f3bb8e672874e5ae33e35bc5b17303ed/transformed/startup-runtime-1.1.1/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/63b812fc725911bf711294815694c7b2/transformed/startup-runtime-1.1.1/jars/classes.jar"
       resolved="androidx.startup:startup-runtime:1.1.1"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/f3bb8e672874e5ae33e35bc5b17303ed/transformed/startup-runtime-1.1.1"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/63b812fc725911bf711294815694c7b2/transformed/startup-runtime-1.1.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -877,9 +877,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.tracing:tracing:1.2.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/b37f59218c9ce43b6a483d0efe3a1e88/transformed/tracing-1.2.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/c07f10c03a04b147f5eadf0f8e01c4a3/transformed/tracing-1.2.0/jars/classes.jar"
       resolved="androidx.tracing:tracing:1.2.0"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/b37f59218c9ce43b6a483d0efe3a1e88/transformed/tracing-1.2.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/c07f10c03a04b147f5eadf0f8e01c4a3/transformed/tracing-1.2.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -902,9 +902,9 @@
       resolved="androidx.collection:collection-jvm:1.4.2"/>
   <library
       name="androidx.arch.core:core-runtime:2.2.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/4e6e694f2e9de8aceb6e7d48fc724bb7/transformed/core-runtime-2.2.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/720b512b224c5f973cbd56d81e81b114/transformed/core-runtime-2.2.0/jars/classes.jar"
       resolved="androidx.arch.core:core-runtime:2.2.0"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/4e6e694f2e9de8aceb6e7d48fc724bb7/transformed/core-runtime-2.2.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/720b512b224c5f973cbd56d81e81b114/transformed/core-runtime-2.2.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -919,9 +919,9 @@
       resolved="androidx.annotation:annotation-jvm:1.8.1"/>
   <library
       name="androidx.annotation:annotation-experimental:1.4.1@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/8794c868fc04010e9d9420e1c0c09dff/transformed/annotation-experimental-1.4.1/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/7abf3fa6bb359975cbd190992dc43fcc/transformed/annotation-experimental-1.4.1/jars/classes.jar"
       resolved="androidx.annotation:annotation-experimental:1.4.1"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/8794c868fc04010e9d9420e1c0c09dff/transformed/annotation-experimental-1.4.1"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/7abf3fa6bb359975cbd190992dc43fcc/transformed/annotation-experimental-1.4.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -932,9 +932,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.core:core-viewtree:1.0.0@aar"
-      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/45a5a06d5ad75c21261987773974ab83/transformed/core-viewtree-1.0.0/jars/classes.jar"
+      jars="/home/segnities007/.gradle/caches/9.3.1/transforms/b95489e7ef5205e1e8f9627847e7f634/transformed/core-viewtree-1.0.0/jars/classes.jar"
       resolved="androidx.core:core-viewtree:1.0.0"
-      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/45a5a06d5ad75c21261987773974ab83/transformed/core-viewtree-1.0.0"
+      folder="/home/segnities007/.gradle/caches/9.3.1/transforms/b95489e7ef5205e1e8f9627847e7f634/transformed/core-viewtree-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"

@@ -3,6 +3,7 @@ package com.segnities007.note.presentation.state
 import com.segnities007.note.domain.model.Note
 import com.segnities007.note.presentation.contract.NoteState
 
+/** ページ切替後の [NoteState] と、空ページ削除で消えたページ（あれば）。 */
 internal data class PageChangeResolution(
     val state: NoteState,
     val removedPage: NotePageUiState? = null

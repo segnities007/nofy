@@ -29,12 +29,15 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+/** ノート一覧・ページ編集・ロック／ナビ要求を [NoteState] に集約する。 */
 class NoteViewModel(
     private val noteRepository: NoteRepository,
     private val authRepository: AuthRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(NoteState())
+
+    /** 画面が購読する単一の UI 状態。 */
     val uiState = _uiState.asStateFlow()
 
     private val saveJobs = mutableMapOf<String, Job>()
@@ -44,6 +47,7 @@ class NoteViewModel(
         loadNotes()
     }
 
+    /** UI からの操作を 1 入口で処理する。 */
     fun onIntent(intent: NoteIntent) {
         when (intent) {
             is NoteIntent.EditContent -> editContent(intent.pageId, intent.content)

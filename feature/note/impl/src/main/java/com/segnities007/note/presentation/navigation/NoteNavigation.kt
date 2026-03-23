@@ -9,6 +9,7 @@ import com.segnities007.note.api.NoteRoute
 import com.segnities007.note.presentation.screen.NoteScreen
 import com.segnities007.setting.api.SettingsRoute
 
+/** [NoteRoute] を Navigation3 の [EntryProviderScope] に登録する。 */
 internal class NoteNavigationEntryInstaller : NavigationEntryInstaller {
     override fun install(
         scope: EntryProviderScope<NavKey>,

@@ -7,6 +7,7 @@ import android.security.keystore.StrongBoxUnavailableException
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 
+/** Android Keystore 上に AES 秘密鍵を生成する（StrongBox を優先しつつフォールバック）。 */
 object KeystoreAesKeyFactory {
     fun generate(
         keyAlias: String,

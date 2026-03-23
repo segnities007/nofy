@@ -22,6 +22,7 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 
+/** ログイン・新規登録の ViewModel・ユースケース・生体オペレーション・ナビインストーラ。 */
 val loginFeatureModule = module {
     singleOf(::LoginNavigationEntryInstaller) bind NavigationEntryInstaller::class
     factory { UnlockWithPasswordUseCase(get()) }

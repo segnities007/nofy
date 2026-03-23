@@ -7,14 +7,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.segnities007.designsystem.atom.chip.NofyChoiceChip
 import com.segnities007.designsystem.atom.slider.NofySlider
 import com.segnities007.designsystem.atom.surface.NofyCardSurface
-import com.segnities007.designsystem.atom.text.NofyText
+import com.segnities007.designsystem.molecule.layout.NofyCardSectionHeader
+import com.segnities007.designsystem.atom.text.NofyTitleLargeText
 import com.segnities007.designsystem.theme.NofyPreview
 import com.segnities007.designsystem.theme.NofyPreviewSurface
-import com.segnities007.designsystem.theme.NofyThemeTokens
+import com.segnities007.designsystem.theme.NofySpacing
 import com.segnities007.setting.R
 import com.segnities007.setting.presentation.component.layout.SettingsSectionList
 import com.segnities007.setting.presentation.contract.SettingIntent
@@ -36,11 +36,8 @@ internal fun AppearanceSection(
     SettingsSectionList {
         item {
             NofyCardSurface {
-                NofyText(
-                    text = stringResource(R.string.settings_theme_heading),
-                    style = NofyThemeTokens.typography.titleLarge
-                )
-                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                NofyTitleLargeText(text = stringResource(R.string.settings_theme_heading))
+                Column(verticalArrangement = Arrangement.spacedBy(NofySpacing.md)) {
                     ThemeModeRow(
                         leftThemeMode = ThemeMode.Light,
                         rightThemeMode = ThemeMode.Dark,
@@ -59,14 +56,12 @@ internal fun AppearanceSection(
 
         item {
             NofyCardSurface {
-                NofyText(
-                    text = stringResource(R.string.settings_font_size_heading),
-                    style = NofyThemeTokens.typography.titleLarge
-                )
-                NofyText(
-                    text = stringResource(R.string.settings_font_size_value, (fontScale * 100).toInt()),
-                    style = NofyThemeTokens.typography.bodyMedium,
-                    color = NofyThemeTokens.colorScheme.onSurfaceVariant
+                NofyCardSectionHeader(
+                    title = stringResource(R.string.settings_font_size_heading),
+                    supporting = stringResource(
+                        R.string.settings_font_size_value,
+                        (fontScale * 100).toInt()
+                    ),
                 )
                 NofySlider(
                     value = selectedFontScaleIndex.toFloat(),
@@ -82,14 +77,9 @@ internal fun AppearanceSection(
 
         item {
             NofyCardSurface {
-                NofyText(
-                    text = stringResource(R.string.settings_language_heading),
-                    style = NofyThemeTokens.typography.titleLarge
-                )
-                NofyText(
-                    text = stringResource(R.string.settings_language_body),
-                    style = NofyThemeTokens.typography.bodyMedium,
-                    color = NofyThemeTokens.colorScheme.onSurfaceVariant
+                NofyCardSectionHeader(
+                    title = stringResource(R.string.settings_language_heading),
+                    supporting = stringResource(R.string.settings_language_body),
                 )
             }
         }
@@ -117,7 +107,7 @@ private fun ThemeModeRow(
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
+        horizontalArrangement = Arrangement.spacedBy(NofySpacing.md)
     ) {
         NofyChoiceChip(
             label = leftThemeMode.label(),

@@ -2,6 +2,7 @@ package com.segnities007.note.presentation.state
 
 import com.segnities007.note.presentation.contract.NoteState
 
+/** フローティングトップ／ボトムバーに渡す集約表示用状態。 */
 internal data class NoteBarState(
     val title: String,
     val canDelete: Boolean,
@@ -12,6 +13,7 @@ internal data class NoteBarState(
     val canShowBars: Boolean
 )
 
+/** [NoteState] からバー用のタイトル・ページャ・削除可否を導出する。 */
 internal fun NoteState.toBarState(untitledTitle: String): NoteBarState {
     val currentPage = currentPage
     return NoteBarState(

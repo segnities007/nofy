@@ -3,6 +3,7 @@ package com.segnities007.login.presentation.biometric
 import androidx.biometric.BiometricPrompt
 import com.segnities007.biometric.BiometricAuthenticator
 
+/** [BiometricAuthenticator] と文言 [BiometricPromptContent] で [LoginBiometricHandler] を実装する。 */
 internal class LoginBiometricHandlerImpl(
     private val biometricAuthenticator: BiometricAuthenticator,
     private val prompt: BiometricPromptContent

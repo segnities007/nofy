@@ -7,6 +7,7 @@ import android.security.keystore.StrongBoxUnavailableException
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 
+/** Android Keystore 上に HMAC 用秘密鍵を生成する（StrongBox を優先しつつフォールバック）。 */
 object KeystoreHmacKeyFactory {
     fun generate(
         keyAlias: String,

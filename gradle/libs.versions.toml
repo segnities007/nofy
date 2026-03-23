@@ -24,6 +24,10 @@ kotlinxCoroutines = "1.9.0"
 markdownRenderer = "0.39.1"
 koinBom = "4.1.1"
 googlePlayServicesOssLicenses = "17.3.0"
+bouncycastle = "1.78.1"
+zxing = "3.5.3"
+mlkitBarcode = "17.3.0"
+camerax = "1.4.1"
 
 [libraries]
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
@@ -68,6 +72,12 @@ koin-core = { module = "io.insert-koin:koin-core" }
 koin-android = { module = "io.insert-koin:koin-android" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose" }
 google-play-services-oss-licenses = { group = "com.google.android.gms", name = "play-services-oss-licenses", version.ref = "googlePlayServicesOssLicenses" }
+bouncycastle-bcprov = { group = "org.bouncycastle", name = "bcprov-jdk18on", version.ref = "bouncycastle" }
+zxing-core = { group = "com.google.zxing", name = "core", version.ref = "zxing" }
+mlkit-barcode-scanning = { group = "com.google.mlkit", name = "barcode-scanning", version.ref = "mlkitBarcode" }
+androidx-camera-camera2 = { group = "androidx.camera", name = "camera-camera2", version.ref = "camerax" }
+androidx-camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version.ref = "camerax" }
+androidx-camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "camerax" }
 
 [bundles]
 feature-ui = [

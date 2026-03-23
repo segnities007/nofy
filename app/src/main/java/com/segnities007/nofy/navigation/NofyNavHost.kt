@@ -54,6 +54,9 @@ fun NofyNavHost(
     )
 }
 
+/**
+ * 起動時の登録／ロック状態から最初の [NavKey] を 1 回確定する（[produceState]）。
+ */
 @Composable
 private fun rememberInitialRoute(
     authRepository: AuthRepository
@@ -65,6 +68,9 @@ private fun rememberInitialRoute(
     )
 }
 
+/**
+ * 認証状態の変化を購読し、バックスタックの強制置換に使う最新の [AuthNavigationState] を保持する。
+ */
 @Composable
 private fun rememberAuthNavigationState(
     authRepository: AuthRepository
@@ -72,6 +78,7 @@ private fun rememberAuthNavigationState(
     authRepository.observeAuthNavigationState().collect { value = it }
 }
 
+/** [MutableList] ベースの [AppNavigator] 実装（Navigation3 のバックスタックと同期）。 */
 private class BackStackNavigator(
     private val backStack: MutableList<NavKey>
 ) : AppNavigator {
@@ -114,6 +121,7 @@ private fun authGateRouteOrNull(
     return null
 }
 
+/** 初回表示用: 未登録・ロック時は認証ルート、それ以外はノート一覧。 */
 internal fun resolveInitialRoute(
     isRegistered: Boolean,
     isLocked: Boolean
@@ -121,6 +129,7 @@ internal fun resolveInitialRoute(
     return authGateRouteOrNull(isRegistered, isLocked) ?: NoteRoute.NoteList
 }
 
+/** 状態変化時: 認証ゲートが必要ならそのルート、不要なら `null`（置換しない）。 */
 internal fun resolveForcedRoute(
     isRegistered: Boolean,
     isLocked: Boolean

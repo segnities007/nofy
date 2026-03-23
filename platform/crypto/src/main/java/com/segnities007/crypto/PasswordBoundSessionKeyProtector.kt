@@ -23,28 +23,38 @@ private fun ByteBuffer.toByteArray(): ByteArray {
     return bytes
 }
 
+/** 永続化するセッション鍵のラップ結果（ソルト・IV・密文）。 */
 internal data class WrappedSessionKeyState(
     val salt: ByteArray,
     val iv: ByteArray,
     val wrappedKey: ByteArray
 )
 
+/** メモリ上の平文セッション鍵と、保存用ラップ状態のペア。 */
 internal data class SessionKeyStateSnapshot(
     val sessionKey: ByteArray,
     val wrappedState: WrappedSessionKeyState
 )
 
+/**
+ * パスワードとソルトからセッション用バイト列を導出する（Argon2 実装の差し替え点）。
+ */
 internal fun interface SessionKeyDeriver {
+    /**
+     * [password] と [salt] からセッション鍵導出用の固定長バイト列を返す（通常 Argon2）。
+     */
     fun derive(
         password: ByteArray,
         salt: ByteArray
     ): ByteArray
 }
 
+/** パスワード由来の KEK でランダムなセッション鍵をラップ／アンラップする。 */
 internal class PasswordBoundSessionKeyProtector(
     private val sessionKeyDeriver: SessionKeyDeriver = ArgonSessionKeyDeriver,
     private val secureRandom: SecureRandom = SecureRandom()
 ) {
+    /** 新規セッション鍵を生成し、[password] でラップした状態を返す。 */
     fun create(password: ByteArray): SessionKeyStateSnapshot {
         val sessionKey = ByteArray(SessionKeySizeBytes).also(secureRandom::nextBytes)
         val salt = ByteArray(SaltSizeBytes).also(secureRandom::nextBytes)
@@ -58,6 +68,7 @@ internal class PasswordBoundSessionKeyProtector(
         )
     }
 
+    /** [wrappedState] からセッション鍵の平文バイト列を復号する。 */
     fun unwrap(
         password: ByteArray,
         wrappedState: WrappedSessionKeyState
@@ -79,6 +90,7 @@ internal class PasswordBoundSessionKeyProtector(
         }
     }
 
+    /** 現在のパスワードでアンラップしたセッション鍵を、新パスワードで再ラップする。 */
     fun rewrap(
         currentPassword: ByteArray,
         newPassword: ByteArray,

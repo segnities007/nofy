@@ -9,12 +9,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import com.segnities007.designsystem.atom.button.NofyButton
-import com.segnities007.designsystem.atom.surface.NofySurface
-import com.segnities007.designsystem.atom.text.NofyText
+import com.segnities007.designsystem.atom.surface.NofyFullscreenSurface
+import com.segnities007.designsystem.atom.text.NofySupportingText
+import com.segnities007.designsystem.atom.text.NofyTitleLargeText
 import com.segnities007.designsystem.theme.NofyPreview
 import com.segnities007.designsystem.theme.NofyPreviewSurface
+import com.segnities007.designsystem.theme.NofySpacing
 import com.segnities007.designsystem.theme.NofyThemeTokens
 import com.segnities007.nofy.R
 
@@ -24,38 +25,28 @@ internal fun RiskyEnvironmentScreen(
     onCloseApp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    NofySurface(modifier = modifier.fillMaxSize()) {
+    NofyFullscreenSurface(modifier = modifier) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(24.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+                .padding(NofySpacing.xl),
+            verticalArrangement = Arrangement.spacedBy(NofySpacing.lg)
         ) {
-            NofyText(
-                text = stringResource(R.string.security_block_title),
-                style = NofyThemeTokens.typography.titleLarge
-            )
-            NofyText(
+            NofyTitleLargeText(text = stringResource(R.string.security_block_title))
+            NofySupportingText(
                 text = stringResource(R.string.security_block_body),
                 style = NofyThemeTokens.typography.bodyLarge,
-                color = NofyThemeTokens.colorScheme.onSurfaceVariant
             )
             Column(
                 modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(NofySpacing.stackedButtonGap)
             ) {
                 environment.reasons.forEach { reason ->
-                    NofyText(
-                        text = reason.toDisplayText(),
-                        style = NofyThemeTokens.typography.bodyMedium,
-                        color = NofyThemeTokens.colorScheme.onSurfaceVariant
-                    )
+                    NofySupportingText(text = reason.toDisplayText())
                 }
             }
-            NofyText(
+            NofySupportingText(
                 text = stringResource(R.string.security_block_footer),
-                style = NofyThemeTokens.typography.bodyMedium,
-                color = NofyThemeTokens.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Start
             )
             NofyButton(

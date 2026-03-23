@@ -12,8 +12,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.segnities007.designsystem.atom.button.NofyButton
@@ -21,7 +19,9 @@ import com.segnities007.designsystem.atom.button.NofyTextButton
 import com.segnities007.designsystem.atom.surface.NofyCardSurface
 import com.segnities007.designsystem.atom.text.NofyText
 import com.segnities007.designsystem.atom.textfield.NofyTextField
-import com.segnities007.designsystem.theme.NofyTheme
+import com.segnities007.designsystem.theme.NofyPreview
+import com.segnities007.designsystem.theme.NofyPreviewSurface
+import com.segnities007.designsystem.theme.NofySpacing
 import com.segnities007.designsystem.theme.NofyThemeTokens
 
 @Composable
@@ -61,7 +61,7 @@ fun NofyDestructiveConfirmDialog(
                 style = NofyThemeTokens.typography.bodyLarge,
                 color = NofyThemeTokens.colorScheme.onSurfaceVariant
             )
-            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Column(verticalArrangement = Arrangement.spacedBy(NofySpacing.md)) {
                 warnings.forEach { warning ->
                     WarningRow(text = warning)
                 }
@@ -104,17 +104,17 @@ private fun WarningRow(
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        horizontalArrangement = Arrangement.spacedBy(NofySpacing.md),
         verticalAlignment = Alignment.Top
     ) {
         Box(
             modifier = Modifier
-                .padding(top = 8.dp)
+                .padding(top = NofySpacing.sm)
                 .background(
                     color = NofyThemeTokens.colorScheme.error,
                     shape = CircleShape
                 )
-                .padding(4.dp)
+                .padding(NofySpacing.xs)
         )
         NofyText(
             text = text,
@@ -125,10 +125,10 @@ private fun WarningRow(
     }
 }
 
-@Preview
+@NofyPreview
 @Composable
 private fun NofyDestructiveConfirmDialogPreview() {
-    NofyTheme {
+    NofyPreviewSurface {
         NofyDestructiveConfirmDialog(
             title = "Reset app?",
             body = "This permanently deletes encrypted data on this device.",

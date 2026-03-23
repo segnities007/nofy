@@ -22,6 +22,7 @@ internal class NoteEditorFieldStateHolder(
     var cursorRect by mutableStateOf<Rect?>(null)
 }
 
+/** [NoteEditorPage] 用に [NoteEditorFieldStateHolder] を composition スコープで保持する。 */
 @Composable
 internal fun rememberNoteEditorFieldState(initialContent: String): NoteEditorFieldStateHolder {
     val bringIntoViewRequester = remember { BringIntoViewRequester() }

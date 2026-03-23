@@ -10,6 +10,9 @@ import com.segnities007.biometric.BiometricAuthenticator
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
 
+/**
+ * [LoginBiometricHandler] を composition スコープで生成する。Activity が取れない場合はハンドラが無効になる。
+ */
 @Composable
 internal fun rememberLoginBiometricHandler(
     prompt: BiometricPromptContent

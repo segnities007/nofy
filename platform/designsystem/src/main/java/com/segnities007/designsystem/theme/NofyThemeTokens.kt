@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import com.segnities007.designsystem.atom.text.NofyText
 
+/** [MaterialTheme] の colorScheme / typography へのアクセサとテキストプリセット。 */
 object NofyThemeTokens {
     val colorScheme
         @Composable

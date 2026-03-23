@@ -1,6 +1,7 @@
 package com.segnities007.designsystem.atom.textfield
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -8,9 +9,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import com.segnities007.designsystem.input.consumeObscuredTouches
-import com.segnities007.designsystem.theme.NofyTheme
+import com.segnities007.designsystem.theme.NofyPreview
+import com.segnities007.designsystem.theme.NofyPreviewSurface
+import com.segnities007.designsystem.theme.NofySpacing
 import com.segnities007.designsystem.theme.NofyThemeTokens
 
 @Composable
@@ -54,14 +56,17 @@ fun NofyTextField(
     )
 }
 
-@Preview
+@NofyPreview
 @Composable
 private fun NofyTextFieldPreview() {
-    NofyTheme {
+    NofyPreviewSurface {
         NofyTextField(
             value = "",
             onValueChange = {},
-            label = "Password"
+            label = "Password",
+            modifier = Modifier
+                .padding(NofySpacing.previewCanvasPadding)
+                .fillMaxWidth()
         )
     }
 }

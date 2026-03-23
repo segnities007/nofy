@@ -1,10 +1,12 @@
 package com.segnities007.auth.data.repository
 
+/** ローカルに永続化するパスワード試行回数とロックアウト終了時刻。 */
 internal data class PasswordEntryState(
     val failedAttempts: Int = 0,
     val lockoutEndsAtMillis: Long = 0L
 )
 
+/** 段階的ロックアウト（5 回ごとに延長）の純粋ロジック。 */
 internal object PasswordEntryPolicy {
     private const val AttemptsPerStage = 5
     private val lockoutDurationsMillis = longArrayOf(

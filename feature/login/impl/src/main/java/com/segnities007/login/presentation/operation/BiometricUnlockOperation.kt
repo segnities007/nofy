@@ -8,6 +8,7 @@ import com.segnities007.login.domain.usecase.LoginSubmissionResult
 import com.segnities007.login.domain.usecase.UnlockWithBiometricUseCase
 import java.nio.charset.StandardCharsets
 
+/** 保存済み生体シークレットと復号用 [BiometricPrompt.CryptoObject] を組み立てる。 */
 internal class PrepareBiometricUnlockOperation(
     private val authRepository: AuthRepository,
     private val biometricCipher: BiometricCipher
@@ -38,6 +39,7 @@ internal class PrepareBiometricUnlockOperation(
     }
 }
 
+/** 生体認証成功後にマスターパスワードを復号し、[UnlockWithBiometricUseCase] でロック解除する。 */
 internal class DecryptBiometricPasswordOperation(
     private val biometricCipher: BiometricCipher,
     private val unlockWithBiometricUseCase: UnlockWithBiometricUseCase
@@ -68,6 +70,9 @@ internal class DecryptBiometricPasswordOperation(
     }
 }
 
+/**
+ * 保存済み生体シークレットと復号用 Cipher を組み立てた結果。
+ */
 internal sealed interface BiometricUnlockPreparationResult {
     data object MissingSecret : BiometricUnlockPreparationResult
     data object CredentialUnavailable : BiometricUnlockPreparationResult
@@ -77,11 +82,15 @@ internal sealed interface BiometricUnlockPreparationResult {
     ) : BiometricUnlockPreparationResult
 }
 
+/** [DecryptBiometricPasswordOperation] に渡す暗号文とプロンプト用 CryptoObject。 */
 internal data class BiometricUnlockRequest(
     val encryptedSecret: ByteArray,
     val cryptoObject: BiometricPrompt.CryptoObject
 )
 
+/**
+ * 生体認証後にパスワードを復号しログイン試行へつなげた結果。
+ */
 internal sealed interface BiometricPasswordDecryptionResult {
     data class Success(
         val submissionResult: LoginSubmissionResult

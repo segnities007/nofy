@@ -26,6 +26,9 @@ class DataCipher internal constructor(
     private val sessionKeyLock = Any()
     private var sessionKey: ByteArray? = null
 
+    /**
+     * [password] でラップ済みセッション鍵を復号しメモリに保持する。初回は状態を生成して保存する。
+     */
     fun unlockSession(password: String) {
         val passwordBytes = password.toByteArray(StandardCharsets.UTF_8)
         val nextSessionKey = try {
@@ -49,6 +52,7 @@ class DataCipher internal constructor(
         replaceSessionKey(nextSessionKey)
     }
 
+    /** メモリ上のセッション鍵をゼロクリアして破棄する。 */
     fun lockSession() {
         synchronized(sessionKeyLock) {
             sessionKey?.fill(0)
@@ -56,6 +60,7 @@ class DataCipher internal constructor(
         }
     }
 
+    /** 永続状態とセッション鍵の両方を消去する（リセット時）。 */
     fun clearState() {
         lockSession()
         try {
@@ -65,6 +70,31 @@ class DataCipher internal constructor(
         }
     }
 
+    /** 転送用に、Prefs に保存されているラップ済み鍵状態をコピーで返す。未設定なら `null`。 */
+    fun exportPersistedFieldCipherState(): ExportedVaultCryptoState? {
+        val w = stateStore.load() ?: return null
+        return ExportedVaultCryptoState(
+            salt = w.salt.copyOf(),
+            iv = w.iv.copyOf(),
+            wrappedSessionKey = w.wrappedKey.copyOf()
+        )
+    }
+
+    /** 他端末から取り込んだラップ状態を Prefs に保存する（既存セッションは破棄）。 */
+    fun importPersistedFieldCipherState(state: ExportedVaultCryptoState) {
+        lockSession()
+        stateStore.save(
+            WrappedSessionKeyState(
+                salt = state.salt.copyOf(),
+                iv = state.iv.copyOf(),
+                wrappedKey = state.wrappedSessionKey.copyOf()
+            )
+        )
+    }
+
+    /**
+     * マスターパスワード変更に合わせてラップ済みセッション鍵を付け替え、メモリのセッション鍵も更新する。
+     */
     fun changePassword(
         currentPassword: String,
         newPassword: String
@@ -99,6 +129,7 @@ class DataCipher internal constructor(
         replaceSessionKey(nextState.sessionKey)
     }
 
+    /** 現在のセッション鍵で AES-GCM 暗号化し、(暗号文, IV) を返す。 */
     fun encrypt(data: String): Pair<ByteArray, ByteArray> {
         val sessionKeyCopy = requireSessionKeyCopy()
         val plainBytes = data.toByteArray(StandardCharsets.UTF_8)
@@ -114,6 +145,9 @@ class DataCipher internal constructor(
         }
     }
 
+    /**
+     * セッション鍵で復号する。旧 Keystore 鍵でしか読めない場合は [DataCipherDecryptionResult.requiresMigration] が `true`。
+     */
     fun decrypt(
         encryptedData: ByteArray,
         iv: ByteArray
@@ -226,26 +260,34 @@ class DataCipher internal constructor(
     }
 }
 
+/** 復号結果と、旧キーで読んだため再暗号化が必要かどうか。 */
 data class DataCipherDecryptionResult(
     val plainText: String,
     val requiresMigration: Boolean
 )
 
+/** [DataCipher] のセッション・永続状態・暗号処理の失敗。 */
 sealed class DataCipherException(
     message: String,
     cause: Throwable? = null
 ) : IllegalStateException(message, cause) {
+    /** [unlockSession] 前に暗号操作をした。 */
     data object SessionLocked : DataCipherException("Data cipher session is locked")
+
+    /** 保存済みラップ状態の読み取り・形式が壊れている。 */
     class KeyStateCorrupted(cause: Throwable? = null) :
         DataCipherException("Data cipher key state is corrupted", cause)
 
+    /** 暗号化処理が失敗した。 */
     class EncryptionFailed(cause: Throwable? = null) :
         DataCipherException("Failed to encrypt data", cause)
 
+    /** 復号処理が失敗した。 */
     class DecryptionFailed(cause: Throwable? = null) :
         DataCipherException("Failed to decrypt data", cause)
 }
 
+/** [DataCipher] のラップ済みセッション鍵を SharedPreferences に保存する。 */
 private class DataCipherStateStore(
     context: Context
 ) {

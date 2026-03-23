@@ -11,11 +11,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.segnities007.designsystem.input.consumeObscuredTouches
 import com.segnities007.designsystem.atom.surface.NofySurface
-import com.segnities007.designsystem.theme.NofyTheme
+import com.segnities007.designsystem.input.consumeObscuredTouches
+import com.segnities007.designsystem.theme.NofyPreview
+import com.segnities007.designsystem.theme.NofyPreviewSurface
+import com.segnities007.designsystem.theme.NofySpacing
 
 @Composable
 fun NofySwitch(
@@ -37,15 +37,15 @@ fun NofySwitch(
     )
 }
 
-@Preview
+@NofyPreview
 @Composable
 private fun NofySwitchPreview() {
-    NofyTheme {
+    NofyPreviewSurface {
         NofySurface {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(24.dp),
+                    .padding(NofySpacing.previewCanvasPadding),
                 contentAlignment = Alignment.Center
             ) {
                 var checked by remember { mutableStateOf(true) }

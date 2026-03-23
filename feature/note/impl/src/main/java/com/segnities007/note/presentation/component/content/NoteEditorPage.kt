@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.text.BasicTextField
@@ -18,21 +17,13 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.sp
-import com.segnities007.designsystem.atom.text.NofyText
+import com.segnities007.designsystem.atom.text.NofySupportingText
+import com.segnities007.designsystem.theme.NofyEditorTypography
 import com.segnities007.designsystem.theme.NofyPreview
 import com.segnities007.designsystem.theme.NofyPreviewSurface
 import com.segnities007.designsystem.theme.NofyThemeTokens
 import com.segnities007.note.R
 
-/**
- * ノート本文エディタ（スクロール可能な 1 カラム + 下部スペーサ）。
- *
- * 構成（上から読むと UI の骨格が追える）:
- * 1. フィールド状態の remember
- * 2. 親テキスト同期・カーソル bringIntoView の effect
- * 3. LazyColumn で「本文フィールド」「フローティングバー用余白」を積む
- */
 @Composable
 internal fun NoteEditorPage(
     content: String,
@@ -40,7 +31,7 @@ internal fun NoteEditorPage(
     onBarsVisibilityChange: (Boolean) -> Unit
 ) {
     val fieldState = rememberNoteEditorFieldState(initialContent = content)
-    val topContentPadding = notePageTopContentPadding()
+    val topContentPadding = NoteUnderFloatingBars.topContentPadding()
     val density = LocalDensity.current
 
     NoteEditorSyncContentFromParent(content = content, fieldState = fieldState)
@@ -78,21 +69,16 @@ private fun NoteEditorScrollScaffold(
             onBarsVisibilityChange = onBarsVisibilityChange
         )
 
-        LazyColumn(
+        NoteUnderFloatingBars.LazyMainColumn(
             state = listState,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
         ) {
-            item {
-                NoteEditorBodyField(
-                    fieldState = fieldState,
-                    topContentPadding = topContentPadding,
-                    minHeight = editorMinHeight,
-                    onContentChange = onContentChange
-                )
-            }
-            item {
-                NotePageBottomSpacer()
-            }
+            NoteEditorBodyField(
+                fieldState = fieldState,
+                topContentPadding = topContentPadding,
+                minHeight = editorMinHeight,
+                onContentChange = onContentChange
+            )
         }
     }
 }
@@ -122,11 +108,7 @@ private fun NoteEditorBodyField(
                 .onFocusChanged { focusState ->
                     fieldState.isFocused = focusState.isFocused
                 },
-            textStyle = NofyThemeTokens.typography.bodyLarge.copy(
-                color = NofyThemeTokens.colorScheme.onSurface,
-                fontSize = 20.sp,
-                lineHeight = 28.sp
-            ),
+            textStyle = NofyEditorTypography.bodyStyle(),
             cursorBrush = SolidColor(NofyThemeTokens.colorScheme.primary),
             onTextLayout = { layoutResult ->
                 val cursorOffset = fieldState.editorValue.selection.end.coerceIn(
@@ -158,10 +140,11 @@ private fun NoteEditorDecorationBox(
             .padding(top = topContentPadding)
     ) {
         if (showPlaceholder) {
-            NofyText(
+            NofySupportingText(
                 text = stringResource(R.string.note_placeholder),
-                style = NofyThemeTokens.typography.bodyLarge,
-                color = NofyThemeTokens.colorScheme.onSurfaceVariant
+                style = NofyEditorTypography.bodyStyle(
+                    color = NofyThemeTokens.colorScheme.onSurfaceVariant,
+                ),
             )
         }
         innerTextField()

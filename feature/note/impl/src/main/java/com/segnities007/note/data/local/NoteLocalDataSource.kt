@@ -7,6 +7,10 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 
+/**
+ * [NoteDatabaseProvider] 経由で [NoteDao] にアクセスする。
+ * DB がロック中のときは [NoteRepositoryException.DatabaseLocked] を返す。
+ */
 internal class NoteLocalDataSource(
     private val noteDatabaseProvider: NoteDatabaseProvider
 ) {
@@ -44,6 +48,7 @@ internal class NoteLocalDataSource(
     }
 }
 
+/** ドメイン層へ渡す前の、暗号化済みノート行の表現。 */
 internal data class NoteLocalRecord(
     val id: Long,
     val encryptedContent: ByteArray,

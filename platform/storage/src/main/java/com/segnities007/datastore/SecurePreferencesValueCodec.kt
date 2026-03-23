@@ -1,5 +1,6 @@
 package com.segnities007.datastore
 
+/** Encrypted SharedPreferences 用にプリミティブを型判別付き文字列へ直列化する。 */
 internal object SecurePreferencesValueCodec {
     private const val STRING_PREFIX = "s:"
     private const val BOOLEAN_PREFIX = "b:"

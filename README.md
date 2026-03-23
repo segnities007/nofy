@@ -11,7 +11,7 @@ Password-protected vault, SQLCipher-backed Room, field-level AES-GCM, optional s
 
 ## Why Nofy
 
-- **Privacy**: No `INTERNET` permission; data stays on the device.
+- **Privacy**: Data stays on the device by default. `INTERNET` is declared for **local Wi‑Fi vault transfer** (TCP on your LAN); the app does not use cloud sync.
 - **Encryption**: SQLCipher for the database file; note bodies encrypted with a password-bound session key; sensitive prefs wrapped with Keystore-backed AES-GCM.
 - **Modern stack**: Jetpack Compose, Navigation 3, Coroutines / Flow, Room + KSP, Koin.
 
@@ -66,6 +66,7 @@ See **[`platform/README.md`](platform/README.md)** and **[`shared/README.md`](sh
 | Doc | Description |
 |-----|-------------|
 | [`docs/tech.md`](docs/tech.md) | Technical choices and architecture notes (Japanese). |
+| [`docs/release-signing-play.md`](docs/release-signing-play.md) | Play signing, upload key, CI secrets, key rotation (Japanese). |
 | [`AGENTS.md`](AGENTS.md) | AI / contributor guidelines (Compose, design system, security). |
 | [`app/README.md`](app/README.md) | Application shell, DI entry, security gate. |
 | [`feature/README.md`](feature/README.md) | Feature modules (`login`, `note`, `setting`). |
@@ -100,7 +101,8 @@ Versions are centralized in [`gradle/libs.versions.toml`](gradle/libs.versions.t
 
 - `allowBackup="false"`, cleartext traffic disabled, `FLAG_SECURE` on the main window.
 - Release builds combine **risky-environment detection** with a **snapshot-based** `SensitiveOperationGuard` so UI and data-layer checks stay aligned.
-- See `docs/tech.md` and `AGENTS.md` for the threat model and coding rules.
+- **Dependency visibility**: Dependabot (Gradle + GitHub Actions), [dependency graph submission](.github/workflows/dependency-submission.yml) on the default branch, and [dependency review](.github/workflows/ci.yml) on pull requests.
+- See `docs/tech.md` and `AGENTS.md` for the threat model and coding rules. Release signing and upload-key rotation: `docs/release-signing-play.md`.
 
 ---
 

@@ -21,11 +21,14 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+/** 設定画面の [SettingState] を集約し、[SettingIntent] を処理する。 */
 class SettingViewModel(
     private val authRepository: AuthRepository,
     private val uiSettingsRepository: UiSettingsRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(SettingState())
+
+    /** 画面が購読する単一の UI 状態。 */
     val uiState = _uiState.asStateFlow()
 
     init {
@@ -46,6 +49,7 @@ class SettingViewModel(
         }
     }
 
+    /** UI からの操作・副作用要求を 1 入口で処理する。 */
     fun onIntent(intent: SettingIntent) {
         when (intent) {
             is SettingIntent.SelectSection -> updateCurrentSection(intent.section)

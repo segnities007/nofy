@@ -11,13 +11,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import com.segnities007.designsystem.atom.button.NofyIconButton
 import com.segnities007.designsystem.atom.icon.NofyIcons
 import com.segnities007.designsystem.atom.text.NofyText
 import com.segnities007.designsystem.molecule.bar.NofyFloatingBottomBar
 import com.segnities007.designsystem.theme.NofyPreview
 import com.segnities007.designsystem.theme.NofyPreviewSurface
+import com.segnities007.designsystem.theme.NofySpacing
 import com.segnities007.designsystem.theme.NofyThemeTokens
 import com.segnities007.note.R
 
@@ -54,7 +54,10 @@ internal fun NoteBottomBar(
                 modifier = Modifier
                     .clip(NofyThemeTokens.shapes.small)
                     .background(NofyThemeTokens.colorScheme.surfaceContainerHigh.copy(alpha = 0.82f))
-                    .padding(horizontal = 24.dp, vertical = 12.dp)
+                    .padding(
+                        horizontal = NofySpacing.xl,
+                        vertical = NofySpacing.md,
+                    )
             ) {
                 NofyText(
                     text = stringResource(R.string.note_page_counter, currentPage + 1, totalPages),

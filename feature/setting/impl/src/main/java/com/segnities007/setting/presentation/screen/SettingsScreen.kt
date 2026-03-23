@@ -1,6 +1,5 @@
 package com.segnities007.setting.presentation.screen
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -8,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.segnities007.designsystem.atom.surface.NofySurface
+import com.segnities007.designsystem.atom.surface.NofyFullscreenSurface
 import com.segnities007.designsystem.theme.NofyPreview
 import com.segnities007.designsystem.theme.NofyPreviewSurface
 import com.segnities007.setting.R
@@ -27,6 +26,8 @@ fun SettingsScreen(
     onNavigateBack: () -> Unit,
     onNavigateToLogin: () -> Unit,
     onNavigateToSignUp: () -> Unit,
+    onNavigateToVaultSend: () -> Unit,
+    onNavigateToVaultReceive: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val viewModel: SettingViewModel = koinViewModel()
@@ -52,7 +53,9 @@ fun SettingsScreen(
         uiState = uiState,
         passwordDraftHolder = passwordDraftHolder,
         onIntent = viewModel::onIntent,
-        onNavigateBack = onNavigateBack
+        onNavigateBack = onNavigateBack,
+        onOpenVaultSend = onNavigateToVaultSend,
+        onOpenVaultReceive = onNavigateToVaultReceive
     )
 
     SettingsBiometricEnrollmentDialogHost(
@@ -69,7 +72,9 @@ private fun SettingsScreenContent(
     uiState: SettingState,
     passwordDraftHolder: SettingsPasswordDraftHolder,
     onIntent: (SettingIntent) -> Unit,
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
+    onOpenVaultSend: () -> Unit,
+    onOpenVaultReceive: () -> Unit
 ) {
     LaunchedEffect(uiState.passwordDraftClearNonce) {
         if (uiState.passwordDraftClearNonce != 0) {
@@ -78,7 +83,7 @@ private fun SettingsScreenContent(
     }
     val context = LocalContext.current
     val licensesScreenTitle = stringResource(R.string.settings_app_licenses_screen_title)
-    NofySurface(modifier = modifier.fillMaxSize()) {
+    NofyFullscreenSurface(modifier = modifier) {
         SettingsScaffold(
             uiState = uiState,
             onIntent = onIntent,
@@ -89,6 +94,8 @@ private fun SettingsScreenContent(
                     title = licensesScreenTitle
                 )
             },
+            onOpenVaultSend = onOpenVaultSend,
+            onOpenVaultReceive = onOpenVaultReceive,
             passwordDraftHolder = passwordDraftHolder
         )
     }
@@ -104,6 +111,8 @@ private fun SettingsScreenPreview() {
             onIntent = {},
             onNavigateBack = {},
             onOpenOpenSourceLicenses = {},
+            onOpenVaultSend = {},
+            onOpenVaultReceive = {},
             passwordDraftHolder = passwordDraftHolder
         )
     }

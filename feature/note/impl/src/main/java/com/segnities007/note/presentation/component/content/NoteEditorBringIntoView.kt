@@ -69,7 +69,7 @@ internal fun Rect.toNoteEditorBringIntoViewRect(
     density: Density
 ): Rect {
     val topOffset = with(density) { topContentPadding.toPx() }
-    val bottomClearance = with(density) { NotePageBottomContentPadding.toPx() }
+    val bottomClearance = with(density) { NoteUnderFloatingBars.bottomContentInset.toPx() }
     return Rect(
         left = left,
         top = top + topOffset,

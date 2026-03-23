@@ -19,23 +19,25 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import com.segnities007.designsystem.atom.surface.NofySurface
 import com.segnities007.designsystem.atom.text.NofyText
+import com.segnities007.designsystem.theme.NofyElevation
+import com.segnities007.designsystem.theme.NofySpacing
 import com.segnities007.designsystem.theme.NofyTheme
 import com.segnities007.designsystem.theme.NofyThemeTokens
 import com.segnities007.designsystem.theme.Shapes
 
+/** フローティングバーの高さ・パディング・形状・アクション色の既定値。 */
 object NofyFloatingBarDefaults {
-    val HorizontalPadding = 16.dp
-    val TopPadding = 16.dp
-    val BottomPadding = 16.dp
-    val TopBarHeight = 72.dp
-    val BottomBarHeight = 84.dp
+    val HorizontalPadding = NofySpacing.lg
+    val TopPadding = NofySpacing.lg
+    val BottomPadding = NofySpacing.lg
+    val TopBarHeight = NofySpacing.floatingBarTopMinHeight
+    val BottomBarHeight = NofySpacing.floatingBarBottomMinHeight
     val ContainerShape = Shapes.extraLarge
     val TopBarOverlayHeight = TopPadding + TopBarHeight
     val BottomBarReservedSpace = BottomPadding + BottomBarHeight
-    val ContentInset = 20.dp
+    val ContentInset = NofySpacing.screenEdgeGutter
 
     @Composable
     @ReadOnlyComposable
@@ -68,9 +70,12 @@ fun NofyFloatingBar(
     minHeight: Dp,
     modifier: Modifier = Modifier,
     shape: Shape = NofyFloatingBarDefaults.ContainerShape,
-    contentPadding: PaddingValues = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
-    tonalElevation: Dp = 8.dp,
-    shadowElevation: Dp = 8.dp,
+    contentPadding: PaddingValues = PaddingValues(
+        horizontal = NofySpacing.sm,
+        vertical = NofySpacing.xs,
+    ),
+    tonalElevation: Dp = NofyElevation.floatingBarSurface,
+    shadowElevation: Dp = NofyElevation.floatingBarSurface,
     content: @Composable RowScope.() -> Unit
 ) {
     Surface(
@@ -79,7 +84,7 @@ fun NofyFloatingBar(
             .heightIn(min = minHeight)
             .border(
                 border = BorderStroke(
-                    width = 1.dp,
+                    width = NofySpacing.hairlineWidth,
                     color = NofyThemeTokens.colorScheme.outlineVariant.copy(alpha = 0.35f)
                 ),
                 shape = shape
@@ -107,7 +112,7 @@ private fun NofyFloatingBarPreview() {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(24.dp),
+                    .padding(NofySpacing.xl),
                 contentAlignment = Alignment.TopCenter
             ) {
                 NofyFloatingBar(minHeight = NofyFloatingBarDefaults.TopBarHeight) {

@@ -66,6 +66,7 @@ fun NoteScreen(
     )
 }
 
+/** Toast と [NoteNavigationRequest] を消費する。 */
 @Composable
 private fun ObservePendingNoteUi(
     uiState: NoteState,
@@ -92,6 +93,7 @@ private fun ObservePendingNoteUi(
     }
 }
 
+/** VM の [NoteState.currentPageIndex] へ Pager の表示ページを追従させる。 */
 @Composable
 private fun SyncPagerWithState(
     pagerState: PagerState,
@@ -106,6 +108,7 @@ private fun SyncPagerWithState(
     }
 }
 
+/** ユーザー操作で Pager が動いたときに VM へ [NoteIntent.PageChanged] を送り、バー表示を更新する。 */
 @Composable
 private fun SyncStateWithPager(
     pagerState: PagerState,

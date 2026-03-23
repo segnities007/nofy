@@ -8,12 +8,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.segnities007.designsystem.atom.floatingbar.NofyFloatingBar
 import com.segnities007.designsystem.atom.floatingbar.NofyFloatingBarDefaults
 import com.segnities007.designsystem.atom.text.NofyText
-import com.segnities007.designsystem.theme.NofyTheme
+import com.segnities007.designsystem.theme.NofyPreview
+import com.segnities007.designsystem.theme.NofyPreviewSurface
+import com.segnities007.designsystem.theme.NofySpacing
 
 @Composable
 fun NofyFloatingBottomBar(
@@ -32,16 +32,19 @@ fun NofyFloatingBottomBar(
     ) {
         NofyFloatingBar(
             minHeight = NofyFloatingBarDefaults.BottomBarHeight,
-            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
+            contentPadding = PaddingValues(
+                horizontal = NofySpacing.floatingBarBottomRowPaddingHorizontal,
+                vertical = NofySpacing.floatingBarInnerVertical,
+            ),
             content = content
         )
     }
 }
 
-@Preview
+@NofyPreview
 @Composable
 private fun NofyFloatingBottomBarPreview() {
-    NofyTheme {
+    NofyPreviewSurface {
         NofyFloatingBottomBar {
             NofyText(text = "Floating Bottom Bar")
         }

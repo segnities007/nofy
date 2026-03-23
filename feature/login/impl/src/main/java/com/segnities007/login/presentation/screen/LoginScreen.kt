@@ -1,7 +1,6 @@
 package com.segnities007.login.presentation.screen
 
 import android.content.Context
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -9,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.segnities007.designsystem.atom.surface.NofySurface
+import com.segnities007.designsystem.atom.surface.NofyFullscreenSurface
 import com.segnities007.designsystem.util.showShortToast
 import com.segnities007.designsystem.theme.NofyPreview
 import com.segnities007.designsystem.theme.NofyPreviewSurface
@@ -58,7 +57,7 @@ fun LoginScreen(
         }
     )
 
-    NofySurface(modifier = modifier.fillMaxSize()) {
+    NofyFullscreenSurface(modifier = modifier) {
         LoginContent(
             uiState = uiState,
             onIntent = viewModel::onIntent
@@ -66,6 +65,7 @@ fun LoginScreen(
     }
 }
 
+/** Toast・ロックアウト表示と [LoginNavigationRequest] の消費。 */
 @Composable
 private fun ObservePendingLoginUi(
     uiState: LoginState,
@@ -103,6 +103,7 @@ private fun ObserveBiometricAvailability(
     }
 }
 
+/** 試行制限中の残り秒をフォーマットして Toast 表示する。 */
 private fun showLockoutToast(
     context: Context,
     remainingMillis: Long

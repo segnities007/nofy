@@ -1,21 +1,15 @@
 package com.segnities007.setting.presentation.component.layout
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.segnities007.designsystem.atom.surface.NofyFullscreenSurface
+import com.segnities007.designsystem.template.NofyBrushedFloatingBarScreen
 import com.segnities007.designsystem.theme.NofyPreview
 import com.segnities007.setting.presentation.component.bar.SettingsBottomBar
 import com.segnities007.setting.presentation.component.bar.SettingsTopBar
@@ -36,57 +30,54 @@ internal fun SettingsScaffold(
     onIntent: (SettingIntent) -> Unit,
     onNavigateBack: () -> Unit,
     onOpenOpenSourceLicenses: () -> Unit,
+    onOpenVaultSend: () -> Unit,
+    onOpenVaultReceive: () -> Unit,
     passwordDraftHolder: SettingsPasswordDraftHolder,
     modifier: Modifier = Modifier
 ) {
     var isResetDialogVisible by rememberSaveable { mutableStateOf(false) }
 
-    Box(modifier = modifier.fillMaxSize()) {
-        SettingsSectionCrossfade(
-            uiState = uiState,
-            onIntent = onIntent,
-            onRequestReset = { isResetDialogVisible = true },
-            onOpenOpenSourceLicenses = onOpenOpenSourceLicenses,
-            passwordDraftHolder = passwordDraftHolder
-        )
-
-        AnimatedVisibility(
-            visible = true,
-            modifier = Modifier.align(Alignment.TopCenter),
-            enter = fadeIn() + slideInVertically(initialOffsetY = { -it / 2 }),
-            exit = fadeOut() + slideOutVertically(targetOffsetY = { -it })
-        ) {
+    NofyBrushedFloatingBarScreen(
+        modifier = modifier,
+        showEdgeBrushes = false,
+        body = {
+            SettingsSectionCrossfade(
+                uiState = uiState,
+                onIntent = onIntent,
+                onRequestReset = { isResetDialogVisible = true },
+                onOpenOpenSourceLicenses = onOpenOpenSourceLicenses,
+                onOpenVaultSend = onOpenVaultSend,
+                onOpenVaultReceive = onOpenVaultReceive,
+                passwordDraftHolder = passwordDraftHolder
+            )
+        },
+        header = { topModifier ->
             SettingsTopBar(
+                modifier = topModifier,
                 currentSection = uiState.currentSection,
                 onNavigateBack = onNavigateBack,
                 onLock = { onIntent(SettingIntent.Lock) }
             )
-        }
-
-        AnimatedVisibility(
-            visible = true,
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .navigationBarsPadding(),
-            enter = fadeIn() + slideInVertically(initialOffsetY = { it / 2 }),
-            exit = fadeOut() + slideOutVertically(targetOffsetY = { it })
-        ) {
+        },
+        footer = { bottomModifier ->
             SettingsBottomBar(
+                modifier = bottomModifier,
                 currentSection = uiState.currentSection,
                 onSectionSelected = { onIntent(SettingIntent.SelectSection(it)) }
             )
+        },
+        overlay = {
+            if (isResetDialogVisible) {
+                SettingsResetDialog(
+                    onConfirm = { pwd ->
+                        isResetDialogVisible = false
+                        onIntent(SettingIntent.ResetApp(pwd))
+                    },
+                    onDismiss = { isResetDialogVisible = false }
+                )
+            }
         }
-
-        if (isResetDialogVisible) {
-            SettingsResetDialog(
-                onConfirm = { pwd ->
-                    isResetDialogVisible = false
-                    onIntent(SettingIntent.ResetApp(pwd))
-                },
-                onDismiss = { isResetDialogVisible = false }
-            )
-        }
-    }
+    )
 }
 
 @Composable
@@ -95,6 +86,8 @@ private fun SettingsSectionCrossfade(
     onIntent: (SettingIntent) -> Unit,
     onRequestReset: () -> Unit,
     onOpenOpenSourceLicenses: () -> Unit,
+    onOpenVaultSend: () -> Unit,
+    onOpenVaultReceive: () -> Unit,
     passwordDraftHolder: SettingsPasswordDraftHolder,
     modifier: Modifier = Modifier
 ) {
@@ -114,7 +107,9 @@ private fun SettingsSectionCrossfade(
                 uiState = uiState,
                 passwordDraft = passwordDraftHolder.passwordDraft,
                 onPasswordDraftChange = passwordDraftHolder::setPasswordDraft,
-                onIntent = onIntent
+                onIntent = onIntent,
+                onOpenVaultSend = onOpenVaultSend,
+                onOpenVaultReceive = onOpenVaultReceive
             )
 
             SettingsSection.App -> AppSection(
@@ -130,11 +125,15 @@ private fun SettingsSectionCrossfade(
 @Composable
 private fun SettingsScaffoldPreview() {
     val passwordDraftHolder = rememberSettingsPasswordDraftHolder()
-    SettingsScaffold(
-        uiState = previewSettingState(currentSection = SettingsSection.Appearance),
-        onIntent = {},
-        onNavigateBack = {},
-        onOpenOpenSourceLicenses = {},
-        passwordDraftHolder = passwordDraftHolder
-    )
+    NofyFullscreenSurface {
+        SettingsScaffold(
+            uiState = previewSettingState(currentSection = SettingsSection.Appearance),
+            onIntent = {},
+            onNavigateBack = {},
+            onOpenOpenSourceLicenses = {},
+            onOpenVaultSend = {},
+            onOpenVaultReceive = {},
+            passwordDraftHolder = passwordDraftHolder
+        )
+    }
 }

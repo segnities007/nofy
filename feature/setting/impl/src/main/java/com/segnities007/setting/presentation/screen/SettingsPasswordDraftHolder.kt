@@ -12,11 +12,17 @@ import com.segnities007.setting.presentation.contract.PasswordChangeDraft
  * 詳細は [PasswordChangeDraft] の KDoc を参照。
  */
 internal interface SettingsPasswordDraftHolder {
+    /** パスワード変更フォームの現在の下書き（平文は StateFlow に載せない）。 */
     val passwordDraft: PasswordChangeDraft
+
+    /** 下書き全体を置き換える。 */
     fun setPasswordDraft(value: PasswordChangeDraft)
+
+    /** 下書きを空に戻す。 */
     fun clearPasswordDraft()
 }
 
+/** composition スコープで [SettingsPasswordDraftHolder] を保持する。 */
 @Composable
 internal fun rememberSettingsPasswordDraftHolder(): SettingsPasswordDraftHolder {
     return remember { SettingsPasswordDraftHolderImpl() }

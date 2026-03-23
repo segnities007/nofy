@@ -9,9 +9,14 @@ import com.segnities007.nofy.BuildConfig
 import java.io.File
 import java.util.Locale
 
+/**
+ * リリースビルド向けの実行環境ヒューリスティック（デバッグビルドでは常に「安全」）。
+ * いずれかの条件に該当すると [RiskyEnvironment] を返す。
+ */
 internal class RiskyEnvironmentDetector(
     private val context: Context
 ) {
+    /** 該当理由が無ければ `null`。 */
     fun detect(): RiskyEnvironment? {
         if (BuildConfig.DEBUG) {
             return null

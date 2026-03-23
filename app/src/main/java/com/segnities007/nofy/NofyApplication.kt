@@ -9,6 +9,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 
+/** Koin 初期化と起動時の危険環境スナップショット同期。 */
 class NofyApplication : Application() {
     override fun onCreate() {
         super.onCreate()

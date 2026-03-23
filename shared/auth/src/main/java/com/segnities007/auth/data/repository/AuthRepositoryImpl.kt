@@ -16,6 +16,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
+/**
+ * 認証・ロック・生体・SQLCipher／[DataCipher] のオーケストレーションを担う [AuthRepository] 実装。
+ */
 class AuthRepositoryImpl(
     private val authLocalDataSource: AuthLocalDataSource,
     private val passwordHasher: PasswordHasher,
@@ -169,6 +172,19 @@ class AuthRepositoryImpl(
             applyPasswordChange(currentPassword, newPassword)
             clearPasswordAttemptState()
         }.recoverCatching { passwordEntryGate.recoverFromPasswordEntryFailure(it) }
+    }
+
+    override suspend fun adoptImportedVault(password: String): Result<Unit> {
+        return runCatching {
+            ensureSensitiveOperationAllowed()
+            unlockDatabase(password)
+            dataCipher.unlockSession(password)
+            storePasswordHash(password)
+            authLocalDataSource.clearBiometricSecret()
+            biometricEnabledState.value = false
+            clearPasswordAttemptState()
+            lockedState.value = false
+        }
     }
 
     private fun ensureNotRegistered() {

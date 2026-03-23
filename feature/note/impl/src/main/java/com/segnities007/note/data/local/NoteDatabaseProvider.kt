@@ -9,6 +9,10 @@ import kotlinx.coroutines.flow.map
 import java.nio.charset.StandardCharsets
 import net.zetetic.database.sqlcipher.SQLiteDatabase
 
+/**
+ * SQLCipher で開いた [NoteDatabase] を保持し、[SecureDatabaseController] として
+ * アンロック・ロック・パスフレーズ変更・ファイル削除を担う。
+ */
 internal class NoteDatabaseProvider(
     private val context: Context
 ) : SecureDatabaseController {

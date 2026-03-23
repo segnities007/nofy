@@ -8,6 +8,7 @@ import com.segnities007.datastore.SecureUiSettingsRepository
 import com.segnities007.settings.UiSettingsRepository
 import org.koin.dsl.module
 
+/** Keystore バックの preferences と認証／UI 設定のデータソース。 */
 val datastoreModule = module {
     single { KeystorePreferencesStore(get<Context>()) }
     single { AuthLocalDataSource(get()) }

@@ -5,6 +5,7 @@
     <string name="settings_tab_app">App</string>
     <string name="settings_cd_back_to_notes">Back to notes</string>
     <string name="settings_cd_lock_app">Lock app</string>
+    <string name="settings_cd_go_back">Go back</string>
     <string name="settings_theme_heading">Theme</string>
     <string name="settings_theme_light">Light</string>
     <string name="settings_theme_dark">Dark</string>
@@ -61,4 +62,23 @@
     <string name="settings_toast_reset_invalid_password">Reset blocked. Current password is incorrect.</string>
     <string name="settings_toast_reset_failed">Reset failed</string>
     <string name="settings_toast_lock_failed">Failed to lock app</string>
+    <string name="settings_vault_transfer_heading">Move vault to another device</string>
+    <string name="settings_vault_transfer_body">Use the same Wi‑Fi network. QR encodes a one-time key and your IPv4 address; transfer is encrypted after pairing. Your vault password on the new device must match the old one.</string>
+    <string name="settings_vault_send_title">Send vault (this device)</string>
+    <string name="settings_vault_receive_title">Receive vault (this device)</string>
+    <string name="settings_vault_back">Back</string>
+    <string name="settings_vault_password_label">Vault password</string>
+    <string name="settings_vault_receive_starting">Preparing receiver…</string>
+    <string name="settings_vault_receive_scan_hint">On the other phone, open Send vault and scan this QR code. Stay on this screen until transfer finishes.</string>
+    <string name="settings_vault_receive_qr_cd">Connection QR code</string>
+    <string name="settings_vault_receive_waiting">Waiting for encrypted transfer…</string>
+    <string name="settings_vault_receive_password_prompt">Enter the same vault password you used on the old device, then import.</string>
+    <string name="settings_vault_receive_import">Import and unlock</string>
+    <string name="settings_vault_importing">Importing…</string>
+    <string name="settings_vault_send_intro">Enter your vault password to pack the database for sending. Then scan the QR shown on the receiving device.</string>
+    <string name="settings_vault_send_prepare">Prepare and scan receiver QR</string>
+    <string name="settings_vault_exporting">Preparing encrypted package…</string>
+    <string name="settings_vault_send_scan_hint">Point the camera at the receiver QR code.</string>
+    <string name="settings_vault_camera_denied">Camera permission is required to scan the QR code.</string>
+    <string name="settings_vault_sending">Sending encrypted vault…</string>
 </resources>

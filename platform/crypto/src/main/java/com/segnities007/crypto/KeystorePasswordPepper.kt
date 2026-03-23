@@ -5,6 +5,7 @@ import java.security.KeyStore
 import javax.crypto.Mac
 import javax.crypto.SecretKey
 
+/** Keystore 保持の HMAC 鍵で Argon2 ハッシュへ追加の [PasswordPepper] をかける。 */
 class KeystorePasswordPepper : PasswordPepper {
     private val keyStore = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
 

@@ -2,15 +2,17 @@ package com.segnities007.designsystem.atom.button
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.segnities007.designsystem.input.consumeObscuredTouches
 import com.segnities007.designsystem.atom.text.NofyText
-import com.segnities007.designsystem.theme.NofyTheme
+import com.segnities007.designsystem.input.consumeObscuredTouches
+import com.segnities007.designsystem.theme.NofyElevation
+import com.segnities007.designsystem.theme.NofyPreview
+import com.segnities007.designsystem.theme.NofyPreviewSurface
+import com.segnities007.designsystem.theme.NofySpacing
 import com.segnities007.designsystem.theme.NofyThemeTokens
 
 @Composable
@@ -30,14 +32,14 @@ fun NofyButton(
                 onBlocked = onObscuredTouch
             )
             .fillMaxWidth()
-            .height(58.dp),
+            .height(NofySpacing.primaryButtonMinHeight),
         enabled = enabled,
         shape = NofyThemeTokens.shapes.large,
         contentPadding = ButtonDefaults.ContentPadding,
         elevation = ButtonDefaults.buttonElevation(
-            defaultElevation = 0.dp,
-            pressedElevation = 0.dp,
-            disabledElevation = 0.dp
+            defaultElevation = NofyElevation.none,
+            pressedElevation = NofyElevation.none,
+            disabledElevation = NofyElevation.none,
         )
     ) {
         NofyText(
@@ -47,13 +49,14 @@ fun NofyButton(
     }
 }
 
-@Preview
+@NofyPreview
 @Composable
 private fun NofyButtonPreview() {
-    NofyTheme {
+    NofyPreviewSurface {
         NofyButton(
             text = "Login",
-            onClick = {}
+            onClick = {},
+            modifier = Modifier.padding(NofySpacing.previewCanvasPadding)
         )
     }
 }

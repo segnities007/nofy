@@ -1,6 +1,5 @@
 package com.segnities007.login.presentation.screen
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -8,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.segnities007.designsystem.atom.surface.NofySurface
+import com.segnities007.designsystem.atom.surface.NofyFullscreenSurface
 import com.segnities007.designsystem.util.showShortToast
 import com.segnities007.designsystem.theme.NofyPreview
 import com.segnities007.designsystem.theme.NofyPreviewSurface
@@ -50,7 +49,7 @@ fun RegisterScreen(
         onRegisterSuccess = onRegisterSuccess
     )
 
-    NofySurface(modifier = modifier.fillMaxSize()) {
+    NofyFullscreenSurface(modifier = modifier) {
         RegisterContent(
             uiState = uiState,
             onIntent = viewModel::onIntent
@@ -58,6 +57,7 @@ fun RegisterScreen(
     }
 }
 
+/** Toast とログインへのナビ（前置き Toast 含む）を消費する。 */
 @Composable
 private fun ObservePendingRegisterUi(
     uiState: RegisterState,

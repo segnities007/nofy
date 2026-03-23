@@ -5,6 +5,7 @@ import com.segnities007.login.presentation.biometric.LoginBiometricHandler
 import kotlin.coroutines.resume
 import kotlinx.coroutines.suspendCancellableCoroutine
 
+/** [LoginBiometricHandler] 経由で生体プロンプトを suspend で待つ。 */
 internal class BiometricAuthenticateOperation(
     private val biometricHandler: LoginBiometricHandler
 ) {
@@ -27,6 +28,9 @@ internal class BiometricAuthenticateOperation(
     }
 }
 
+/**
+ * ログイン画面での生体認証プロンプトの成否。
+ */
 internal sealed interface BiometricAuthenticationResult {
     data class Authenticated(
         val result: BiometricPrompt.AuthenticationResult

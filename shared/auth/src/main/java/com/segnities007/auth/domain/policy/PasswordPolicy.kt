@@ -3,6 +3,7 @@ package com.segnities007.auth.domain.policy
 import java.util.Locale
 import java.text.Normalizer
 
+/** マスターパスワードの最小長・禁止パターンを判定するドメインポリシー。 */
 object PasswordPolicy {
     const val MinimumLength = 15
 
@@ -97,7 +98,13 @@ object PasswordPolicy {
     )
 }
 
+/**
+ * [PasswordPolicy] に照らしたパスワードの不備（短すぎる・ありふれている等）。
+ */
 sealed interface PasswordPolicyViolation {
+    /** [PasswordPolicy.MinimumLength] 未満。 */
     data class TooShort(val minimumLength: Int) : PasswordPolicyViolation
+
+    /** 単純・よくあるパスワードや連続・同一文字パターン。 */
     data object TooCommon : PasswordPolicyViolation
 }

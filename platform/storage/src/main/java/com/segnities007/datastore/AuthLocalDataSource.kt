@@ -1,5 +1,6 @@
 package com.segnities007.datastore
 
+/** パスワードハッシュ・生体シークレット・ロックアウト状態を [KeystorePreferencesStore] に保存する。 */
 class AuthLocalDataSource(
     private val store: KeystorePreferencesStore
 ) {

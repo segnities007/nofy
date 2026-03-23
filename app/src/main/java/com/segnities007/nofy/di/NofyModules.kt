@@ -14,6 +14,7 @@ import com.segnities007.setting.di.settingFeatureModule
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
+/** アプリ起動時に `startKoin` に渡すモジュール一覧（危険環境スナップショット用の app 専用定義を含む）。 */
 val nofyModules: List<Module> = listOf(
     biometricModule,
     cryptoModule,

@@ -1,8 +1,9 @@
 package com.segnities007.note.presentation.component.content
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -11,6 +12,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import com.segnities007.designsystem.atom.text.NofyText
 import com.segnities007.designsystem.theme.NofyPreview
 import com.segnities007.designsystem.theme.NofyPreviewSurface
@@ -64,12 +66,12 @@ private fun ObserveNoteBarsVisibilityOnScrollPreview() {
             onBarsVisibilityChange = { areBarsVisible = it }
         )
 
-        LazyColumn(state = listState) {
-            item {
+        NoteUnderFloatingBars.LazyMainColumn(state = listState, modifier = Modifier.fillMaxSize()) {
+            Column(Modifier.fillMaxWidth()) {
                 NofyText(text = "Bars visible: $areBarsVisible")
-            }
-            items((1..20).toList()) { index ->
-                NofyText(text = "Item $index")
+                for (index in 1..20) {
+                    NofyText(text = "Item $index")
+                }
             }
         }
     }

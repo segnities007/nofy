@@ -1,7 +1,5 @@
 package com.segnities007.login.presentation.component.section
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -10,8 +8,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.segnities007.designsystem.atom.button.NofyButton
+import com.segnities007.designsystem.molecule.layout.NofyFormFieldColumn
+import com.segnities007.designsystem.molecule.layout.NofyLogoTitleBlock
+import com.segnities007.designsystem.molecule.layout.NofyWeightedFormShell
 import com.segnities007.designsystem.molecule.textfield.NofyPasswordField
 import com.segnities007.designsystem.theme.NofyPreview
 import com.segnities007.designsystem.theme.NofyPreviewSurface
@@ -30,12 +30,12 @@ internal fun RegisterContent(
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
 
-    AuthScreenLayout(
+    NofyWeightedFormShell(
         modifier = modifier,
         hero = {
-            AuthHeroSection(
+            NofyLogoTitleBlock(
                 title = stringResource(R.string.register_title),
-                description = stringResource(R.string.register_body)
+                subtitle = stringResource(R.string.register_body),
             )
         },
         form = {
@@ -57,7 +57,6 @@ internal fun RegisterContent(
                     password = ""
                     confirmPassword = ""
                 },
-                onIntent = onIntent
             )
         }
     )
@@ -71,12 +70,8 @@ private fun RegisterFormCard(
     onPasswordChange: (String) -> Unit,
     onConfirmPasswordChange: (String) -> Unit,
     onSubmitRegistration: () -> Unit,
-    onIntent: (RegisterIntent) -> Unit
 ) {
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(24.dp)
-    ) {
+    NofyFormFieldColumn {
         NofyPasswordField(
             value = password,
             onValueChange = onPasswordChange,

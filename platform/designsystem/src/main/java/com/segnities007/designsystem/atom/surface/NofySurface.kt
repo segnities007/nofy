@@ -6,10 +6,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.segnities007.designsystem.atom.text.NofyText
-import com.segnities007.designsystem.theme.NofyTheme
+import com.segnities007.designsystem.theme.NofyPreview
+import com.segnities007.designsystem.theme.NofyPreviewSurface
+import com.segnities007.designsystem.theme.NofySpacing
 import com.segnities007.designsystem.theme.NofyThemeTokens
 
 @Composable
@@ -25,14 +25,14 @@ fun NofySurface(
     )
 }
 
-@Preview(showBackground = true)
+@NofyPreview
 @Composable
 private fun NofySurfacePreview() {
-    NofyTheme {
+    NofyPreviewSurface {
         NofySurface(modifier = Modifier.fillMaxSize()) {
             NofyText(
                 text = "Surface",
-                modifier = Modifier.padding(24.dp)
+                modifier = Modifier.padding(NofySpacing.previewCanvasPadding)
             )
         }
     }

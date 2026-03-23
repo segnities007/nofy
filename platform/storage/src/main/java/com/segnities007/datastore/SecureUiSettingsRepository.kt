@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
+/** [SettingsLocalDataSource] 経由でテーマとフォント倍率を永続化し、[StateFlow] で公開する。 */
 class SecureUiSettingsRepository(
     private val settingsLocalDataSource: SettingsLocalDataSource
 ) : UiSettingsRepository {

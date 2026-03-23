@@ -7,7 +7,10 @@ import com.segnities007.navigation.AppNavigator
 import com.segnities007.navigation.NavigationEntryInstaller
 import com.segnities007.setting.api.SettingsRoute
 import com.segnities007.setting.presentation.screen.SettingsScreen
+import com.segnities007.setting.presentation.screen.VaultTransferReceiveScreen
+import com.segnities007.setting.presentation.screen.VaultTransferSendScreen
 
+/** 設定およびボルト送受信ルートを Navigation3 に登録する。 */
 internal class SettingNavigationEntryInstaller : NavigationEntryInstaller {
     override fun install(
         scope: EntryProviderScope<NavKey>,
@@ -30,7 +33,19 @@ private fun EntryProviderScope<NavKey>.settingsEntry(
             },
             onNavigateToSignUp = {
                 navigator.replaceWith(LoginRoute.SignUp)
+            },
+            onNavigateToVaultSend = {
+                navigator.navigateTo(SettingsRoute.VaultTransferSend)
+            },
+            onNavigateToVaultReceive = {
+                navigator.navigateTo(SettingsRoute.VaultTransferReceive)
             }
         )
+    }
+    entry<SettingsRoute.VaultTransferSend> {
+        VaultTransferSendScreen(onNavigateBack = navigator::pop)
+    }
+    entry<SettingsRoute.VaultTransferReceive> {
+        VaultTransferReceiveScreen(onNavigateBack = navigator::pop)
     }
 }

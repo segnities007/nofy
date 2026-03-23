@@ -31,6 +31,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+/**
+ * 単一 Activity。危険環境ブロック、バックグラウンド時の自動ロック、[NofyNavHost] による Navigation3 を束ねる。
+ */
 class MainActivity : FragmentActivity() {
     private val uiSettingsRepository: UiSettingsRepository by inject()
     private val authRepository: AuthRepository by inject()

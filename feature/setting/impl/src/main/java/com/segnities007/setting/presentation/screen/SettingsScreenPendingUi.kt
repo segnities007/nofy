@@ -11,6 +11,9 @@ import com.segnities007.setting.presentation.contract.SettingNavigationRequest
 import com.segnities007.setting.presentation.contract.SettingState
 import com.segnities007.setting.presentation.contract.SettingUserMessage
 
+/**
+ * [SettingState] の Toast と一方向ナビを消費し、表示後に [SettingIntent] でクリアする。
+ */
 @Composable
 internal fun ObservePendingSettingUi(
     uiState: SettingState,
@@ -37,6 +40,9 @@ internal fun ObservePendingSettingUi(
     }
 }
 
+/**
+ * 設定の生体登録フローでマスターパスワード検証に失敗したときの Toast 用文字列リソースを返す。
+ */
 internal fun resolveBiometricPasswordFailureMessage(result: Result<Unit>): Int {
     val error = result.exceptionOrNull()
     if (error is AuthException.InvalidPassword) return R.string.settings_toast_current_password_invalid

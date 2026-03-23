@@ -9,10 +9,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.segnities007.designsystem.atom.surface.NofySurface
-import com.segnities007.designsystem.theme.NofyTheme
+import com.segnities007.designsystem.theme.NofyPreview
+import com.segnities007.designsystem.theme.NofyPreviewSurface
+import com.segnities007.designsystem.theme.NofySpacing
 
 @Composable
 fun NofyIcon(
@@ -29,15 +29,15 @@ fun NofyIcon(
     )
 }
 
-@Preview
+@NofyPreview
 @Composable
 private fun NofyIconPreview() {
-    NofyTheme {
+    NofyPreviewSurface {
         NofySurface {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(24.dp),
+                    .padding(NofySpacing.previewCanvasPadding),
                 contentAlignment = Alignment.Center
             ) {
                 NofyIcon(

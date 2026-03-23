@@ -2,37 +2,41 @@ package com.segnities007.designsystem.atom.markdown
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ProvideTextStyle
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.Modifier
 import com.mikepenz.markdown.m3.Markdown
+import com.segnities007.designsystem.theme.NofyEditorTypography
 import com.segnities007.designsystem.atom.surface.NofySurface
-import com.segnities007.designsystem.theme.NofyTheme
+import com.segnities007.designsystem.theme.NofyPreview
+import com.segnities007.designsystem.theme.NofyPreviewSurface
+import com.segnities007.designsystem.theme.NofySpacing
 
 @Composable
 fun NofyMarkdown(
     content: String,
     modifier: Modifier = Modifier
 ) {
-    Markdown(
-        content = content,
-        modifier = modifier
-    )
+    ProvideTextStyle(NofyEditorTypography.bodyStyle()) {
+        Markdown(
+            content = content,
+            modifier = modifier
+        )
+    }
 }
 
-@Preview(showBackground = true)
+@NofyPreview
 @Composable
 private fun NofyMarkdownPreview() {
-    NofyTheme {
+    NofyPreviewSurface {
         NofySurface {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(24.dp),
+                    .padding(NofySpacing.previewCanvasPadding),
                 contentAlignment = Alignment.TopStart
             ) {
                 NofyMarkdown(

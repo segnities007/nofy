@@ -9,6 +9,7 @@ import com.segnities007.navigation.AppNavigator
 import com.segnities007.navigation.NavigationEntryInstaller
 import com.segnities007.note.api.NoteRoute
 
+/** ログイン・新規登録ルートを Navigation3 に登録する。 */
 internal class LoginNavigationEntryInstaller : NavigationEntryInstaller {
     override fun install(
         scope: EntryProviderScope<NavKey>,
