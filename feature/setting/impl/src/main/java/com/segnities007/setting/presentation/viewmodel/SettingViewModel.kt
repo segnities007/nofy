@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.segnities007.auth.domain.error.AuthException
 import com.segnities007.auth.domain.repository.AuthRepository
+import com.segnities007.auth.domain.usecase.LockApplicationUseCase
+import com.segnities007.settings.IdleLockTimeoutOption
 import com.segnities007.settings.ThemeMode
 import com.segnities007.settings.UiSettings
 import com.segnities007.settings.UiSettingsRepository
@@ -13,6 +15,9 @@ import com.segnities007.setting.presentation.contract.SettingIntent
 import com.segnities007.setting.presentation.contract.SettingNavigationRequest
 import com.segnities007.setting.presentation.contract.SettingState
 import com.segnities007.setting.presentation.contract.SettingUserMessage
+import com.segnities007.setting.domain.usecase.ChangeMasterPasswordUseCase
+import com.segnities007.setting.domain.usecase.ResetVaultAndUiSettingsUseCase
+import com.segnities007.setting.domain.usecase.SetBiometricLoginEnabledUseCase
 import com.segnities007.setting.presentation.contract.SettingsSection
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -22,9 +27,13 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /** 設定画面の [SettingState] を集約し、[SettingIntent] を処理する。 */
-class SettingViewModel(
+internal class SettingViewModel(
     private val authRepository: AuthRepository,
-    private val uiSettingsRepository: UiSettingsRepository
+    private val uiSettingsRepository: UiSettingsRepository,
+    private val changeMasterPasswordUseCase: ChangeMasterPasswordUseCase,
+    private val resetVaultAndUiSettingsUseCase: ResetVaultAndUiSettingsUseCase,
+    private val setBiometricLoginEnabledUseCase: SetBiometricLoginEnabledUseCase,
+    private val lockApplicationUseCase: LockApplicationUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(SettingState())
 
@@ -55,6 +64,7 @@ class SettingViewModel(
             is SettingIntent.SelectSection -> updateCurrentSection(intent.section)
             is SettingIntent.SelectThemeMode -> updateThemeMode(intent.themeMode)
             is SettingIntent.ChangeFontScale -> updateFontScale(intent.fontScale)
+            is SettingIntent.SelectIdleLockTimeout -> updateIdleLockTimeout(intent.option)
             is SettingIntent.SavePassword -> changePassword(
                 currentPassword = intent.currentPassword,
                 newPassword = intent.newPassword,
@@ -86,7 +96,7 @@ class SettingViewModel(
     private fun disableBiometric() {
         viewModelScope.launch {
             _uiState.update { it.copy(isDisablingBiometric = true) }
-            val result = authRepository.setBiometricEnabled(false)
+            val result = setBiometricLoginEnabledUseCase(false)
             _uiState.update { it.copy(isDisablingBiometric = false) }
             val messageRes =
                 if (result.isSuccess) {
@@ -118,6 +128,12 @@ class SettingViewModel(
         }
     }
 
+    private fun updateIdleLockTimeout(option: IdleLockTimeoutOption) {
+        viewModelScope.launch {
+            uiSettingsRepository.setIdleLockTimeout(option)
+        }
+    }
+
     private fun changePassword(
         currentPassword: String,
         newPassword: String,
@@ -134,7 +150,7 @@ class SettingViewModel(
     private fun submitPasswordChange(request: PasswordChangeRequest) {
         viewModelScope.launch {
             startPasswordChange()
-            val result = authRepository.changePassword(
+            val result = changeMasterPasswordUseCase(
                 currentPassword = request.currentPassword,
                 newPassword = request.newPassword
             )
@@ -157,7 +173,7 @@ class SettingViewModel(
 
     private fun lock() {
         viewModelScope.launch {
-            val result = authRepository.lock()
+            val result = lockApplicationUseCase()
             reduceLock(result)
         }
     }
@@ -167,6 +183,7 @@ class SettingViewModel(
             it.copy(
                 themeMode = observed.uiSettings.themeMode,
                 fontScale = observed.uiSettings.fontScale,
+                idleLockTimeout = observed.uiSettings.idleLockTimeout,
                 isBiometricEnabled = observed.isBiometricEnabled
             )
         }
@@ -232,14 +249,7 @@ class SettingViewModel(
     }
 
     private suspend fun executeReset(currentPassword: String): Result<Unit> {
-        val authResetResult = authRepository.reset(currentPassword)
-        if (authResetResult.isFailure) {
-            return authResetResult
-        }
-
-        return runCatching {
-            uiSettingsRepository.reset()
-        }
+        return resetVaultAndUiSettingsUseCase(currentPassword)
     }
 
     private suspend fun reduceReset(result: Result<Unit>) {

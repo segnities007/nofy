@@ -6,11 +6,19 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.segnities007.localtransfer.LocalTransferKeyMaterial
 import com.segnities007.localtransfer.LocalTransferQrPayload
+import com.segnities007.localtransfer.SESSION_VERIFIER_BYTES
+import com.segnities007.localtransfer.PAIRING_CODE_DIGIT_COUNT
 import com.segnities007.localtransfer.LocalVaultTransfer
 import com.segnities007.localtransfer.preferredLocalIpv4Address
 import com.segnities007.note.api.NoteVaultTransferPort
+import com.segnities007.setting.R
 import com.segnities007.setting.presentation.vault.QrBitmapGenerator
+import com.segnities007.setting.presentation.vault.messageForVaultTransferFailure
 import java.io.File
+import java.nio.charset.StandardCharsets
+import java.security.SecureRandom
+import java.util.Locale
+import java.net.InetAddress
 import java.net.InetSocketAddress
 import java.net.ServerSocket
 import kotlinx.coroutines.Dispatchers
@@ -29,7 +37,9 @@ internal sealed class VaultReceiveUiState {
      * ローカルで待受中。表示用の [qrBitmap] と、バックグラウンドで受信処理が進む。
      */
     data class Listening(
-        val qrBitmap: Bitmap
+        val qrBitmap: Bitmap,
+        /** QR に含めない 8 桁。送信側が手入力する。 */
+        val pairingCode: String
     ) : VaultReceiveUiState()
 
     /** パックファイルの受信完了。ユーザー入力のボルトパスワードで取り込む。 */
@@ -63,33 +73,60 @@ internal class VaultTransferReceiveViewModel(
         if (_uiState.value !is VaultReceiveUiState.Starting) return
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val ss = ServerSocket()
-                ss.reuseAddress = true
-                ss.bind(InetSocketAddress("0.0.0.0", 0))
-                serverSocket = ss
-                val serverKey = LocalTransferKeyMaterial.generate()
                 val ip = preferredLocalIpv4Address()
                 if (ip == null) {
-                    _uiState.value = VaultReceiveUiState.Failed("No Wi‑Fi IPv4 address found")
-                    ss.close()
+                    _uiState.value = VaultReceiveUiState.Failed(
+                        getApplication<Application>().getString(R.string.settings_vault_error_no_ipv4)
+                    )
                     return@launch
                 }
-                val qr = LocalTransferQrPayload(ip, ss.localPort, serverKey.publicKeyEncoded)
+                val bindAddress = InetAddress.getByName(ip)
+                val ss = ServerSocket()
+                ss.reuseAddress = true
+                ss.bind(InetSocketAddress(bindAddress, 0))
+                serverSocket = ss
+                val serverKey = LocalTransferKeyMaterial.generate()
+                val sessionVerifier = ByteArray(SESSION_VERIFIER_BYTES).also {
+                    SecureRandom().nextBytes(it)
+                }
+                val pairingNumeric = SecureRandom().nextInt(100_000_000)
+                val pairingCode = String.format(
+                    Locale.US,
+                    "%0${PAIRING_CODE_DIGIT_COUNT}d",
+                    pairingNumeric
+                )
+                val pairingUtf8 = pairingCode.toByteArray(StandardCharsets.UTF_8)
+                val qr = LocalTransferQrPayload(
+                    ip,
+                    ss.localPort,
+                    serverKey.publicKeyEncoded,
+                    sessionVerifier
+                )
                 val json = qr.toJsonString()
                 val bmp = withContext(Dispatchers.Default) { QrBitmapGenerator.encode(json) }
-                _uiState.value = VaultReceiveUiState.Listening(qrBitmap = bmp)
+                _uiState.value = VaultReceiveUiState.Listening(qrBitmap = bmp, pairingCode = pairingCode)
                 val temp = File(getApplication<Application>().cacheDir, "vault-in-${System.nanoTime()}.packed")
-                val result = LocalVaultTransfer.receiveOnce(ss, serverKey, temp, TRANSFER_TIMEOUT_MS)
+                val result = LocalVaultTransfer.receiveOnce(
+                    ss,
+                    serverKey,
+                    temp,
+                    TRANSFER_TIMEOUT_MS,
+                    sessionVerifier,
+                    pairingUtf8
+                )
                 if (result.isFailure) {
                     temp.delete()
+                    val app = getApplication<Application>()
                     _uiState.value = VaultReceiveUiState.Failed(
-                        result.exceptionOrNull()?.message ?: "Transfer failed"
+                        result.exceptionOrNull()?.let { app.messageForVaultTransferFailure(it) }
+                            ?: app.getString(R.string.settings_vault_error_receive)
                     )
                     return@launch
                 }
                 _uiState.value = VaultReceiveUiState.AwaitingPassword(temp)
             } catch (e: Exception) {
-                _uiState.value = VaultReceiveUiState.Failed(e.message ?: "Error")
+                val app = getApplication<Application>()
+                _uiState.value = VaultReceiveUiState.Failed(app.messageForVaultTransferFailure(e))
             }
         }
     }
@@ -103,7 +140,9 @@ internal class VaultTransferReceiveViewModel(
             _uiState.value = if (r.isSuccess) {
                 VaultReceiveUiState.Done
             } else {
-                VaultReceiveUiState.Failed(r.exceptionOrNull()?.message ?: "Import failed")
+                VaultReceiveUiState.Failed(
+                    getApplication<Application>().getString(R.string.settings_vault_error_import)
+                )
             }
         }
     }

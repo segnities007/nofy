@@ -15,7 +15,16 @@ Kotlin / Android の公式方針と、このリポジトリ（`AGENTS.md`・`doc
 | pending メッセージ・ナビの consume、`LaunchedEffect` などの UI 副作用オーケストレーション | 同パッケージの別ファイル（例: `*PendingUi.kt`、`*DialogHost.kt`）。screen は **購読・配線・セクション組み立て** に寄せる |
 | `ViewModel` | `.../presentation/viewmodel/`。肥大化したら **責務ごと** に `*Reducer.kt`、`*Load.kt`、extension / internal helper ファイルへ分割（Kotlin に partial がないため） |
 | `UseCase` / `Operation` | `docs/tech.md` の 3 層ルールに従う（domain に Android / Compose を持ち込まない） |
+| 認証ドメイン契約 | `:shared:auth` の `com.segnities007.auth.domain.*`（フレームワークを持ち込まない）。実装・DI は同モジュールの `data` / `di` |
 | design system の atom / molecule | `:platform:designsystem` のみ（feature から Material 直参照は禁止） |
+| スイッチ・スライダ等の TalkBack 向け説明 | feature 側の `strings`（例 `settings_a11y_*`）に置き、atom（例 `NofySwitch` / `NofySlider`）のオプション `contentDescription` で渡す |
+| ログイン系ヒーロー見出し | `NofyLogoTitleBlock` のタイトル行に `heading()` セマンティクス（ログイン／登録で TalkBack の見出しナビに載る） |
+| ノート本文の `BasicTextField` | `note_a11y_*` などの文字列を `Modifier.semantics { contentDescription = … }` で付与（プレースホルダーだけでは足りない端末向け） |
+| Markdown プレビュー（`NofyMarkdown`） | 呼び出し側（例 `NotePreviewPage`）で `note_a11y_markdown_preview` を `contentDescription` として付与 |
+
+### feature モジュール同士の `api` 依存
+
+別 feature の **ナビキー（`NavKey`）や転送用ポート**だけが必要なときは `implementation(project(":feature:other:api"))` に留め、impl 同士に依存しない。ルート定義は各 feature の `*NavigationEntryInstaller` に閉じ、app は Koin でインストーラ一覧を束ねる。
 
 ## いつファイルを分けるか（目安）
 

@@ -6,6 +6,8 @@
     <string name="settings_cd_back_to_notes">ノートへ戻る</string>
     <string name="settings_cd_lock_app">アプリをロック</string>
     <string name="settings_cd_go_back">戻る</string>
+    <string name="settings_a11y_font_size_slider">文字サイズを調整</string>
+    <string name="settings_a11y_biometric_switch">生体認証ログイン</string>
     <string name="settings_theme_heading">テーマ</string>
     <string name="settings_theme_light">ライト</string>
     <string name="settings_theme_dark">ダーク</string>
@@ -15,6 +17,12 @@
     <string name="settings_font_size_value">文字サイズ %1$d%%</string>
     <string name="settings_language_heading">言語</string>
     <string name="settings_language_body">英語と日本語に対応しています。表示言語は端末の設定、またはアプリごとの言語設定に従います。</string>
+    <string name="settings_idle_lock_heading">無操作時の自動ロック（フォアグラウンド）</string>
+    <string name="settings_idle_lock_body">画面を開いたまま操作しないと、ここで選んだ時間が経過したらロックします。端末を他人から見られやすい場合は短めが安全です。危険環境ブロック画面表示中は対象外です。</string>
+    <string name="settings_idle_lock_30s">30 秒</string>
+    <string name="settings_idle_lock_1m">1 分</string>
+    <string name="settings_idle_lock_2m">2 分</string>
+    <string name="settings_idle_lock_5m">5 分</string>
     <string name="settings_security_biometric">生体認証ログインを有効化</string>
     <string name="settings_security_password_heading">パスワード変更</string>
     <string name="settings_security_current_password">現在のパスワード</string>
@@ -63,7 +71,7 @@
     <string name="settings_toast_reset_failed">リセットに失敗しました</string>
     <string name="settings_toast_lock_failed">アプリをロックできませんでした</string>
     <string name="settings_vault_transfer_heading">別端末へボルトを移す</string>
-    <string name="settings_vault_transfer_body">同じ Wi‑Fi に接続してください。QR には一時鍵と IPv4 が含まれ、ペア後の転送は暗号化されます。新端末では元と同じボルトのパスワードが必要です。</string>
+    <string name="settings_vault_transfer_body">同じ Wi‑Fi に接続してください。QR にはセッション用の秘密・一時鍵・IPv4 が含まれ、QR を読み取った端末だけがハンドシェイクを開始できます。さらに受信側画面にだけ表示される 8 桁のコードの入力が必要です。ペア後の転送は暗号化されます。新端末では元と同じボルトのパスワードが必要です。</string>
     <string name="settings_vault_send_title">ボルトを送る（この端末）</string>
     <string name="settings_vault_receive_title">ボルトを受け取る（この端末）</string>
     <string name="settings_vault_back">戻る</string>
@@ -78,7 +86,22 @@
     <string name="settings_vault_send_intro">送信用にパックするにはボルトのパスワードを入力してください。その後、受信側に表示された QR を読み取ります。</string>
     <string name="settings_vault_send_prepare">準備して受信側の QR を読む</string>
     <string name="settings_vault_exporting">暗号化パッケージを準備中…</string>
-    <string name="settings_vault_send_scan_hint">受信側の QR コードにカメラを向けてください。</string>
+    <string name="settings_vault_send_scan_hint">受信側の QR コードにカメラを向けてください。続いてもう一方の端末に表示される 8 桁のコードを入力します。</string>
+    <string name="settings_vault_send_pairing_intro">受信側の画面に表示されている 8 桁のコードを入力してから、暗号化ボルトを送信してください。</string>
+    <string name="settings_vault_pairing_label">8 桁のペアリングコード</string>
+    <string name="settings_vault_send_encrypted">暗号化ボルトを送信</string>
+    <string name="settings_vault_pairing_on_receiver">%1$s</string>
+    <string name="settings_vault_pairing_receiver_hint">送信側にこのコードを伝えてください（QR には含まれません）。誤りがあると接続は拒否されます。</string>
     <string name="settings_vault_camera_denied">QR を読むにはカメラの許可が必要です。</string>
     <string name="settings_vault_sending">暗号化ボルトを送信中…</string>
+    <string name="settings_vault_error_generic">問題が発生しました。もう一度お試しください。</string>
+    <string name="settings_vault_error_connection">接続できないか、転送が中断されました。</string>
+    <string name="settings_vault_error_transfer_corrupt">受信データが不正か破損しています。</string>
+    <string name="settings_vault_error_qr">この QR コードはボルト転送用ではありません。</string>
+    <string name="settings_vault_error_no_ipv4">Wi‑Fi の IPv4 アドレスが見つかりません。Wi‑Fi に接続してから再試行してください。</string>
+    <string name="settings_vault_error_receive">ボルトのパッケージを受信できませんでした。</string>
+    <string name="settings_vault_error_import">ボルトを取り込めませんでした。以前のボルトがあれば復元済みです。</string>
+    <string name="settings_vault_error_export">送信用の準備に失敗しました。パスワードを確認して再試行してください。</string>
+    <string name="settings_vault_error_pairing">ペアリングコードが一致しませんでした。受信側の表示を確認して再試行してください。</string>
+    <string name="settings_vault_error_pairing_format">数字 8 桁ちょうどで入力してください。</string>
 </resources>

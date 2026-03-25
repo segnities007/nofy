@@ -1,1 +1,0 @@
-com.segnities007.note.api

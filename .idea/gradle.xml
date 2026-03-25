@@ -40,6 +40,7 @@
             <option value="$PROJECT_DIR$/platform/crypto" />
             <option value="$PROJECT_DIR$/platform/database" />
             <option value="$PROJECT_DIR$/platform/designsystem" />
+            <option value="$PROJECT_DIR$/platform/localtransfer" />
             <option value="$PROJECT_DIR$/platform/navigation" />
             <option value="$PROJECT_DIR$/platform/storage" />
             <option value="$PROJECT_DIR$/shared" />

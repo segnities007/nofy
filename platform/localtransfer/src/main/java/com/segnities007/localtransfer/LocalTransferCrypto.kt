@@ -58,6 +58,9 @@ sealed class LocalTransferException(message: String) : Exception(message) {
     /** マジックバージョン不一致などプロトコル上の不一致。 */
     class HandshakeFailed(message: String) : LocalTransferException(message)
 
+    /** 画面表示のペアリングコード不一致（QR のみでは完結しない）。 */
+    class PairingFailed : LocalTransferException("Pairing code mismatch")
+
     /** 復号・長さ・チャンク形式が不正。 */
     class InvalidPayload(message: String) : LocalTransferException(message)
 

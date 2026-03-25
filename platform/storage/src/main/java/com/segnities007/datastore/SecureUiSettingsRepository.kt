@@ -2,6 +2,7 @@ package com.segnities007.datastore
 
 import com.segnities007.settings.MaxFontScale
 import com.segnities007.settings.MinFontScale
+import com.segnities007.settings.IdleLockTimeoutOption
 import com.segnities007.settings.ThemeMode
 import com.segnities007.settings.UiSettings
 import com.segnities007.settings.UiSettingsRepository
@@ -33,6 +34,11 @@ class SecureUiSettingsRepository(
         _settings.update { it.copy(fontScale = sanitizedScale) }
     }
 
+    override suspend fun setIdleLockTimeout(option: IdleLockTimeoutOption) {
+        settingsLocalDataSource.saveIdleLockTimeoutSeconds(option.storageValue)
+        _settings.update { it.copy(idleLockTimeout = option) }
+    }
+
     override suspend fun reset() {
         settingsLocalDataSource.clearSettings()
         _settings.value = loadSettings()
@@ -41,7 +47,10 @@ class SecureUiSettingsRepository(
     private fun loadSettings(): UiSettings {
         return UiSettings(
             themeMode = ThemeMode.fromStorage(settingsLocalDataSource.getThemeMode()),
-            fontScale = settingsLocalDataSource.getFontScale()
+            fontScale = settingsLocalDataSource.getFontScale(),
+            idleLockTimeout = IdleLockTimeoutOption.fromStorage(
+                settingsLocalDataSource.getIdleLockTimeoutSeconds()
+            )
         ).sanitized()
     }
 }

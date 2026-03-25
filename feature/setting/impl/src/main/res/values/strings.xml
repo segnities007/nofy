@@ -6,6 +6,8 @@
     <string name="settings_cd_back_to_notes">Back to notes</string>
     <string name="settings_cd_lock_app">Lock app</string>
     <string name="settings_cd_go_back">Go back</string>
+    <string name="settings_a11y_font_size_slider">Adjust text size</string>
+    <string name="settings_a11y_biometric_switch">Biometric login</string>
     <string name="settings_theme_heading">Theme</string>
     <string name="settings_theme_light">Light</string>
     <string name="settings_theme_dark">Dark</string>
@@ -15,6 +17,12 @@
     <string name="settings_font_size_value">Font Size %1$d%%</string>
     <string name="settings_language_heading">Language</string>
     <string name="settings_language_body">English and Japanese are available. The app follows your device or per-app language setting.</string>
+    <string name="settings_idle_lock_heading">Auto-lock when idle (foreground)</string>
+    <string name="settings_idle_lock_body">If you stay on screen without touching the app, it locks after this time. Shorter is safer if others can see your device. Does not apply while the risky-environment block screen is shown.</string>
+    <string name="settings_idle_lock_30s">30 seconds</string>
+    <string name="settings_idle_lock_1m">1 minute</string>
+    <string name="settings_idle_lock_2m">2 minutes</string>
+    <string name="settings_idle_lock_5m">5 minutes</string>
     <string name="settings_security_biometric">Enable Biometric Login</string>
     <string name="settings_security_password_heading">Change Password</string>
     <string name="settings_security_current_password">Current Password</string>
@@ -63,7 +71,7 @@
     <string name="settings_toast_reset_failed">Reset failed</string>
     <string name="settings_toast_lock_failed">Failed to lock app</string>
     <string name="settings_vault_transfer_heading">Move vault to another device</string>
-    <string name="settings_vault_transfer_body">Use the same Wi‑Fi network. QR encodes a one-time key and your IPv4 address; transfer is encrypted after pairing. Your vault password on the new device must match the old one.</string>
+    <string name="settings_vault_transfer_body">Use the same Wi‑Fi network. The QR encodes a session secret, a one-time key, and your IPv4 address; only a device that scans the QR can start the handshake. You must also enter an 8-digit code shown only on the receiver screen. Transfer payloads are encrypted after pairing. Your vault password on the new device must match the old one.</string>
     <string name="settings_vault_send_title">Send vault (this device)</string>
     <string name="settings_vault_receive_title">Receive vault (this device)</string>
     <string name="settings_vault_back">Back</string>
@@ -78,7 +86,22 @@
     <string name="settings_vault_send_intro">Enter your vault password to pack the database for sending. Then scan the QR shown on the receiving device.</string>
     <string name="settings_vault_send_prepare">Prepare and scan receiver QR</string>
     <string name="settings_vault_exporting">Preparing encrypted package…</string>
-    <string name="settings_vault_send_scan_hint">Point the camera at the receiver QR code.</string>
+    <string name="settings_vault_send_scan_hint">Point the camera at the receiver QR code. You will enter an 8-digit code from the other device next.</string>
+    <string name="settings_vault_send_pairing_intro">Enter the 8-digit code shown on the receiving device, then send the encrypted vault.</string>
+    <string name="settings_vault_pairing_label">8-digit pairing code</string>
+    <string name="settings_vault_send_encrypted">Send encrypted vault</string>
+    <string name="settings_vault_pairing_on_receiver">%1$s</string>
+    <string name="settings_vault_pairing_receiver_hint">Tell the sender this code (it is not in the QR). Wrong code rejects the connection.</string>
     <string name="settings_vault_camera_denied">Camera permission is required to scan the QR code.</string>
     <string name="settings_vault_sending">Sending encrypted vault…</string>
+    <string name="settings_vault_error_generic">Something went wrong. Please try again.</string>
+    <string name="settings_vault_error_connection">Could not connect or the transfer was interrupted.</string>
+    <string name="settings_vault_error_transfer_corrupt">Received data was invalid or corrupted.</string>
+    <string name="settings_vault_error_qr">This QR code is not valid for vault transfer.</string>
+    <string name="settings_vault_error_no_ipv4">No Wi‑Fi IPv4 address found. Connect to Wi‑Fi and try again.</string>
+    <string name="settings_vault_error_receive">Could not receive the vault package.</string>
+    <string name="settings_vault_error_import">Could not import the vault. Your previous vault was restored if it existed.</string>
+    <string name="settings_vault_error_export">Could not prepare the vault for sending. Check your password and try again.</string>
+    <string name="settings_vault_error_pairing">The pairing code did not match. Check the code on the receiving device and try again.</string>
+    <string name="settings_vault_error_pairing_format">Enter exactly 8 digits (numbers only).</string>
 </resources>

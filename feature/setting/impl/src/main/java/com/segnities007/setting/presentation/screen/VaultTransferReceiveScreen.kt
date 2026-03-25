@@ -60,6 +60,16 @@ internal fun VaultTransferReceiveScreen(
             is VaultReceiveUiState.Listening -> {
                 NofySupportingText(text = stringResource(R.string.settings_vault_receive_scan_hint))
                 Spacer(Modifier.height(NofySpacing.md))
+                NofyText(
+                    text = stringResource(R.string.settings_vault_pairing_on_receiver, s.pairingCode),
+                    style = NofyThemeTokens.typography.titleLarge
+                )
+                Spacer(Modifier.height(NofySpacing.sm))
+                NofySupportingText(
+                    text = stringResource(R.string.settings_vault_pairing_receiver_hint),
+                    style = NofyThemeTokens.typography.bodyMedium
+                )
+                Spacer(Modifier.height(NofySpacing.md))
                 Image(
                     bitmap = s.qrBitmap.asImageBitmap(),
                     contentDescription = stringResource(R.string.settings_vault_receive_qr_cd),

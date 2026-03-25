@@ -1,8 +1,0 @@
-com.segnities007.settings-pngs-0 /home/segnities007/AndroidStudioProjects/nofy/shared/settings/build/generated/res/pngs/debug
-com.segnities007.settings-updated_navigation_xml-1 /home/segnities007/AndroidStudioProjects/nofy/shared/settings/build/generated/updated_navigation_xml/debug
-com.segnities007.settings-mergeDebugResources-2 /home/segnities007/AndroidStudioProjects/nofy/shared/settings/build/intermediates/incremental/debug/mergeDebugResources/merged.dir
-com.segnities007.settings-mergeDebugResources-3 /home/segnities007/AndroidStudioProjects/nofy/shared/settings/build/intermediates/incremental/debug/mergeDebugResources/stripped.dir
-com.segnities007.settings-debug-4 /home/segnities007/AndroidStudioProjects/nofy/shared/settings/build/intermediates/merged_res/debug/mergeDebugResources
-com.segnities007.settings-debug-5 /home/segnities007/AndroidStudioProjects/nofy/shared/settings/build/intermediates/packaged_res/debug/packageDebugResources
-com.segnities007.settings-debug-6 /home/segnities007/AndroidStudioProjects/nofy/shared/settings/src/debug/res
-com.segnities007.settings-main-7 /home/segnities007/AndroidStudioProjects/nofy/shared/settings/src/main/res

@@ -4,10 +4,13 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.segnities007.auth.domain.repository.AuthRepository
+import com.segnities007.auth.domain.usecase.LockApplicationUseCase
 import com.segnities007.note.R
+import com.segnities007.note.domain.usecase.DeleteNoteUseCase
+import com.segnities007.note.domain.usecase.LoadNotesSnapshotUseCase
+import com.segnities007.note.domain.usecase.SaveNoteUseCase
 import com.segnities007.note.domain.error.NoteRepositoryException
 import com.segnities007.note.domain.model.Note
-import com.segnities007.note.domain.repository.NoteRepository
 import com.segnities007.note.presentation.contract.NoteIntent
 import com.segnities007.note.presentation.contract.NoteNavigationRequest
 import com.segnities007.note.presentation.contract.NoteState
@@ -25,14 +28,16 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /** ノート一覧・ページ編集・ロック／ナビ要求を [NoteState] に集約する。 */
-class NoteViewModel(
-    private val noteRepository: NoteRepository,
-    private val authRepository: AuthRepository
+internal class NoteViewModel(
+    private val authRepository: AuthRepository,
+    private val loadNotesSnapshotUseCase: LoadNotesSnapshotUseCase,
+    private val saveNoteUseCase: SaveNoteUseCase,
+    private val deleteNoteUseCase: DeleteNoteUseCase,
+    private val lockApplicationUseCase: LockApplicationUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(NoteState())
@@ -131,13 +136,13 @@ class NoteViewModel(
 
     private fun lock() {
         viewModelScope.launch {
-            val result = authRepository.lock()
+            val result = lockApplicationUseCase()
             reduceLock(result)
         }
     }
 
     private suspend fun fetchNotePages(): Result<List<NotePageUiState>> {
-        return runCatching { noteRepository.getNotes().first() }
+        return loadNotesSnapshotUseCase()
             .mapCatching { notes -> notes.toNotePages() }
     }
 
@@ -211,7 +216,7 @@ class NoteViewModel(
         pageId: String,
         page: NotePageUiState
     ) {
-        val result = noteRepository.saveNote(page.toDomain())
+        val result = saveNoteUseCase(page.toDomain())
         reducePageSave(pageId, result)
     }
 
@@ -271,7 +276,7 @@ class NoteViewModel(
 
     private suspend fun deletePersistedPage(page: NotePageUiState): Result<Unit> {
         val noteId = page.noteId ?: return Result.success(Unit)
-        return noteRepository.deleteNote(noteId)
+        return deleteNoteUseCase(noteId)
     }
 
     private fun reduceDeletion(
@@ -346,7 +351,7 @@ class NoteViewModel(
 
     private fun handleUntrustedEnvironment() {
         viewModelScope.launch {
-            authRepository.lock()
+            lockApplicationUseCase()
             wipeInMemoryNotes()
             setPendingUserMessage(NoteUserMessage.ToastRes(R.string.note_toast_untrusted_environment))
         }

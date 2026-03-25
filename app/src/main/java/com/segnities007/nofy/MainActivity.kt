@@ -12,11 +12,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.segnities007.auth.domain.repository.AuthRepository
+import com.segnities007.auth.domain.usecase.LockApplicationUseCase
 import com.segnities007.designsystem.theme.NofyTheme
 import com.segnities007.nofy.navigation.NofyNavHost
 import com.segnities007.nofy.security.RiskyEnvironment
@@ -37,6 +39,7 @@ import kotlinx.coroutines.launch
 class MainActivity : FragmentActivity() {
     private val uiSettingsRepository: UiSettingsRepository by inject()
     private val authRepository: AuthRepository by inject()
+    private val lockApplicationUseCase: LockApplicationUseCase by inject()
     private val riskyEnvironmentDetector: RiskyEnvironmentDetector by inject()
     private val riskyEnvironmentSnapshotHolder: RiskyEnvironmentSnapshotHolder by inject()
     private var riskyEnvironment by mutableStateOf<RiskyEnvironment?>(null)
@@ -48,7 +51,7 @@ class MainActivity : FragmentActivity() {
     private val appLockObserver = object : DefaultLifecycleObserver {
         override fun onStop(owner: LifecycleOwner) {
             lifecycleScope.launch {
-                authRepository.lock()
+                lockApplicationUseCase()
             }
         }
     }
@@ -66,6 +69,13 @@ class MainActivity : FragmentActivity() {
         enableEdgeToEdge()
         ProcessLifecycleOwner.get().lifecycle.addObserver(appLockObserver)
         refreshRiskyEnvironment()
+        lifecycleScope.launch {
+            uiSettingsRepository.settings.collect {
+                if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
+                    restartIdleLockTimer()
+                }
+            }
+        }
         setContent {
             val uiSettings by uiSettingsRepository.settings.collectAsStateWithLifecycle()
             val currentRiskyEnvironment = riskyEnvironment
@@ -122,7 +132,7 @@ class MainActivity : FragmentActivity() {
         if (becameRisky) {
             cancelIdleLockTimer()
             lifecycleScope.launch {
-                authRepository.lock()
+                lockApplicationUseCase()
             }
             return
         }
@@ -138,9 +148,10 @@ class MainActivity : FragmentActivity() {
             return
         }
 
+        val millis = uiSettingsRepository.settings.value.idleLockTimeout.timeoutMillis
         idleLockJob = lifecycleScope.launch {
-            delay(IdleLockTimeoutMillis)
-            authRepository.lock()
+            delay(millis)
+            lockApplicationUseCase()
         }
     }
 
@@ -165,7 +176,6 @@ class MainActivity : FragmentActivity() {
     }
 
     private companion object {
-        const val IdleLockTimeoutMillis = 2 * 60 * 1000L
         const val RiskyEnvironmentCheckIntervalMillis = 1_000L
     }
 }

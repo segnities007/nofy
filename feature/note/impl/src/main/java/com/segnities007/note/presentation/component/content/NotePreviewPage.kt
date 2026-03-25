@@ -10,6 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import com.segnities007.designsystem.atom.markdown.NofyMarkdown
 import com.segnities007.designsystem.atom.text.NofySupportingText
 import com.segnities007.designsystem.theme.NofyPreview
@@ -50,6 +52,7 @@ internal fun NotePreviewPage(
         onBarsVisibilityChange = onBarsVisibilityChange
     )
 
+    val previewContentDescription = stringResource(R.string.note_a11y_markdown_preview)
     NoteUnderFloatingBars.LazyMainColumn(
         state = listState,
         modifier = Modifier
@@ -61,6 +64,7 @@ internal fun NotePreviewPage(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = NoteUnderFloatingBars.topContentPadding())
+                .semantics { contentDescription = previewContentDescription }
         )
     }
 }

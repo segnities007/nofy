@@ -13,6 +13,8 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
@@ -90,6 +92,7 @@ private fun NoteEditorBodyField(
     minHeight: Dp,
     onContentChange: (String) -> Unit
 ) {
+    val editorContentDescription = stringResource(R.string.note_a11y_note_editor)
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -104,6 +107,7 @@ private fun NoteEditorBodyField(
             modifier = Modifier
                 .fillMaxWidth()
                 .heightIn(min = minHeight)
+                .semantics { contentDescription = editorContentDescription }
                 .bringIntoViewRequester(fieldState.bringIntoViewRequester)
                 .onFocusChanged { focusState ->
                     fieldState.isFocused = focusState.isFocused

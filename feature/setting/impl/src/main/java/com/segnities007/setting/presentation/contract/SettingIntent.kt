@@ -1,5 +1,6 @@
 package com.segnities007.setting.presentation.contract
 
+import com.segnities007.settings.IdleLockTimeoutOption
 import com.segnities007.settings.ThemeMode
 
 /**
@@ -14,6 +15,9 @@ sealed interface SettingIntent {
 
     /** 本文フォントのスケールを変更する。 */
     data class ChangeFontScale(val fontScale: Float) : SettingIntent
+
+    /** フォアグラウンド無操作ロックまでの時間を変更する。 */
+    data class SelectIdleLockTimeout(val option: IdleLockTimeoutOption) : SettingIntent
 
     /** マスターパスワード変更を試みる（確認一致・検証は VM 側）。 */
     data class SavePassword(

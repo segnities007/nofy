@@ -7,6 +7,7 @@ android {
 }
 
 dependencies {
+    api(libs.kotlinx.coroutines.core)
     implementation(platform(libs.koin.bom))
     implementation(project(":platform:crypto"))
     implementation(project(":platform:database"))

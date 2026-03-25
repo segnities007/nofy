@@ -15,6 +15,9 @@ interface UiSettingsRepository {
     /** フォントスケールを永続化する。 */
     suspend fun setFontScale(fontScale: Float)
 
+    /** フォアグラウンド無操作ロックまでの時間を永続化する。 */
+    suspend fun setIdleLockTimeout(option: IdleLockTimeoutOption)
+
     /** UI 設定を既定値へ戻す。 */
     suspend fun reset()
 }

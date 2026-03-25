@@ -29,7 +29,7 @@
   
 ## アーキテクチャ
 
-ソースを **いつ・どこに** 分割するかの実務ルールは [source-layout.md](source-layout.md) にまとめています。
+ソースを **いつ・どこに** 分割するかの実務ルールは [source-layout.md](source-layout.md) にまとめています。モジュールとナビの俯瞰用の Mermaid は [architecture-overview.md](architecture-overview.md) を参照してください（手動メンテ）。
 
 以下の３つを組み合わせる
 
@@ -45,11 +45,15 @@
 
 結果、保守性を高く維持しつつ、拡張性を高めた物にしています。
 
-認証まわりは `shared:auth` を単一の契約/実装モジュールとして扱い、`feature:login` や `feature:setting` はその API のみを利用します。これにより feature 側で認証ロジックを重複させず、依存方向を shared domain に統一します。
+認証の **ドメイン契約**（`AuthRepository`、`AuthException`、`PasswordPolicy`、`SensitiveOperationGuard`、共有ユースケース `LockApplicationUseCase` など）は **`shared:auth` モジュール内のパッケージ `com.segnities007.auth.domain.*`** に置きます（Android ライブラリだが、ドメイン層は `Context` 等を持ち込まない）。`AuthRepositoryImpl`・Keystore 連携・Koin は同モジュールの `data` / `di` に置きます。各 feature は原則 `implementation(project(":shared:auth"))` だけでドメイン型にアクセスでき、feature 間で認証ロジックを重複させません。
 
 app module では依存生成を `NofyApplication` の `startKoin { modules(...) }` に集約します。依存定義は module ごとの Koin module として宣言し、`MainActivity` は theme state の購読、`NofyNavHost` は navigation 配線に責務を限定します。repository / cipher / storage / `ViewModel` を composable や Activity で `new` しません。
 
-秘密データを扱う都合上、app root では `FLAG_SECURE` と process lifecycle による auto-lock を必須とします。window の secure 化は `MainActivity` で 1 回だけ行い、app が background に入ったら `shared:auth` を通して DB を lock し、navigation も login へ戻します。Android 12+ では `HIDE_OVERLAY_WINDOWS` と `setHideOverlayWindows(true)`、Android 13+ では `setRecentsScreenshotEnabled(false)` も併用し、overlay 攻撃や recents screenshot 露出の成立条件を下げます。foreground に留まる場合でも機密画面は一定時間の無操作で auto-lock します。
+クラウド Auto Backup とデバイス間転送でアプリデータが既定で複製されないよう、`app` の `AndroidManifest.xml` では `android:allowBackup="false"` とし、`res/xml/backup_rules.xml`（full backup）および `res/xml/data_extraction_rules.xml`（cloud-backup / device-transfer）では主要ドメインをすべて `exclude` しています。将来 `allowBackup` を true に戻す変更は vault の脅威モデルとセットでレビュー必須です。
+
+秘密データを扱う都合上、app root では `FLAG_SECURE` と process lifecycle による auto-lock を必須とします。window の secure 化は `MainActivity` で 1 回だけ行い、app が background に入ったら `LockApplicationUseCase`（Koin 注入）でロックし、navigation も login へ戻ります。Android 12+ では `HIDE_OVERLAY_WINDOWS` と `setHideOverlayWindows(true)`、Android 13+ では `setRecentsScreenshotEnabled(false)` も併用し、overlay 攻撃や recents screenshot 露出の成立条件を下げます。foreground に留まる場合の無操作 auto-lock は **`UiSettingsRepository` の `idleLockTimeout`（既定 1 分、30 秒〜5 分から設定画面で変更）** とし、`MainActivity` が `StateFlow` を購読してタイマーを張り直します。
+
+同一 LAN 上のボルトファイル転送（`platform:localtransfer`）は、QR にホスト・ポート・一時公開鍵・セッション検証バイトを載せ、**受信側画面にのみ表示する 8 桁のペアリングコード**をバイナリ握手（プロトコル version 3）で検証する。待受 `ServerSocket` は `preferredLocalIpv4Address()` で選んだ **その IPv4 アドレスにのみ bind** し、他インターフェースへの非指定待受を避ける。`feature:note` の取り込みは失敗時に既存 SQLCipher DB と `DataCipher` の永続状態を可能な限り復元し、ロールバック各段の失敗は主例外へ `addSuppressed` する。
 
 パスワード認証には local brute-force 対策を入れます。失敗回数と lockout deadline は `platform:storage` に保持し、`shared:auth` が owner として段階的な lockout を適用します。biometric unlock 成功時と password unlock 成功時は失敗回数を必ず clear します。
 
@@ -75,7 +79,7 @@ app module では依存生成を `NofyApplication` の `startKoin { modules(...)
 
 `ViewModel` は screen 単位の宣言的オーケストレーションだけを持ちます。責務は `Intent` の受付、guard clause による入力の絞り込み、`viewModelScope.launch` の開始、`start... / execute... / reduce...` の順で上位フローを並べること、`UiState` と `Effect` の公開に限定します。`ViewModel` の上位関数は 3〜6 行程度を目安にし、repository 呼び出し、callback 処理、暗号化、Android API 呼び出しを直接書きません。
 
-`UseCase` はビジネス上意味のある 1 操作を表します。複数 repository の協調、domain validation、永続化、typed result への変換を担当します。`UseCase` は `feature/*/domain/usecase` または `shared/*/domain/usecase` に置き、`Context`、`stringResource`、navigation、Toast、`BiometricPrompt`、`CryptoObject`、Compose state を持ち込みません。戻り値は `Result<Unit>` のような曖昧な形より、`sealed interface` や専用 result model を優先します。
+`UseCase` はビジネス上意味のある 1 操作を表します。複数 repository の協調、domain validation、永続化、typed result への変換を担当します。`UseCase` は `feature/*/domain/usecase`、`shared:auth` 内の `com.segnities007.auth.domain.usecase`（例: `LockApplicationUseCase`）、または将来の `shared/*/domain/usecase` に置き、`Context`、`stringResource`、navigation、Toast、`BiometricPrompt`、`CryptoObject`、Compose state を持ち込みません。戻り値は `Result<Unit>` のような曖昧な形より、`sealed interface` や専用 result model を優先します。
 
 `Operation` は presentation/integration 寄りの命令的処理を隔離するための helper です。Android framework、callback API、biometric prompt、cipher 準備、`Flow.first()` のような「実行手順が目立つ処理」をここへ閉じ込めます。`Operation` は `feature/*/presentation/operation` または近接 file の private top-level helper として置き、`ViewModel` からは `execute...()` として呼びます。これにより、命令的コードは深掘りしない限り見えません。
 

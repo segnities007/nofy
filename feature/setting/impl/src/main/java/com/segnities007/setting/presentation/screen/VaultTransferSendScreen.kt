@@ -14,10 +14,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.segnities007.designsystem.atom.button.NofyButton
 import com.segnities007.designsystem.atom.text.NofySupportingText
 import com.segnities007.designsystem.atom.text.NofyText
+import com.segnities007.designsystem.atom.textfield.NofyTextField
 import com.segnities007.designsystem.molecule.textfield.NofyPasswordField
 import com.segnities007.designsystem.template.NofyBrushedStackScreen
 import com.segnities007.designsystem.theme.NofySpacing
@@ -35,7 +38,9 @@ internal fun VaultTransferSendScreen(
     viewModel: VaultTransferSendViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val pairingValidationError by viewModel.pairingValidationError.collectAsStateWithLifecycle()
     var exportPassword by remember { mutableStateOf("") }
+    var pairingCodeInput by remember { mutableStateOf("") }
     var cameraGranted by remember { mutableStateOf(false) }
 
     val permissionLauncher = rememberLauncherForActivityResult(
@@ -51,6 +56,13 @@ internal fun VaultTransferSendScreen(
     LaunchedEffect(uiState) {
         if (uiState is VaultSendUiState.Done) {
             onNavigateBack()
+        }
+    }
+
+    val pendingPairing = uiState as? VaultSendUiState.PendingPairing
+    LaunchedEffect(pendingPairing?.qr) {
+        if (pendingPairing != null) {
+            pairingCodeInput = ""
         }
     }
 
@@ -107,6 +119,38 @@ internal fun VaultTransferSendScreen(
                         style = NofyThemeTokens.typography.bodyMedium
                     )
                 }
+            }
+
+            is VaultSendUiState.PendingPairing -> {
+                NofySupportingText(
+                    text = stringResource(R.string.settings_vault_send_pairing_intro),
+                    style = NofyThemeTokens.typography.bodyMedium
+                )
+                Spacer(Modifier.height(NofySpacing.md))
+                NofyTextField(
+                    value = pairingCodeInput,
+                    onValueChange = { pairingCodeInput = it },
+                    label = stringResource(R.string.settings_vault_pairing_label),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
+                    rejectObscuredTouches = true,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                pairingValidationError?.let { err ->
+                    Spacer(Modifier.height(NofySpacing.sm))
+                    NofyText(
+                        text = err,
+                        color = NofyThemeTokens.colorScheme.error,
+                        style = NofyThemeTokens.typography.bodyMedium
+                    )
+                }
+                Spacer(Modifier.height(NofySpacing.md))
+                NofyButton(
+                    text = stringResource(R.string.settings_vault_send_encrypted),
+                    onClick = { viewModel.confirmSendWithPairing(pairingCodeInput) },
+                    enabled = pairingCodeInput.isNotBlank(),
+                    modifier = Modifier.fillMaxWidth(),
+                    rejectObscuredTouches = true
+                )
             }
 
             VaultSendUiState.Sending -> NofySupportingText(

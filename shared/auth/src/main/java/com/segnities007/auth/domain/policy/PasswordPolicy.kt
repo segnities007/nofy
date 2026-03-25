@@ -1,7 +1,7 @@
 package com.segnities007.auth.domain.policy
 
-import java.util.Locale
 import java.text.Normalizer
+import java.util.Locale
 
 /** マスターパスワードの最小長・禁止パターンを判定するドメインポリシー。 */
 object PasswordPolicy {

@@ -1,5 +1,8 @@
 package com.segnities007.setting.presentation.component.section
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -7,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import com.segnities007.designsystem.atom.chip.NofyChoiceChip
 import com.segnities007.designsystem.atom.button.NofyButton
 import com.segnities007.designsystem.atom.divider.NofyDivider
 import com.segnities007.designsystem.atom.surface.NofyCardSurface
@@ -27,6 +31,8 @@ import com.segnities007.setting.presentation.contract.SettingIntent
 import com.segnities007.setting.presentation.contract.SettingState
 import com.segnities007.setting.presentation.contract.SettingsSection
 import com.segnities007.setting.presentation.preview.previewSettingState
+import com.segnities007.settings.IdleLockTimeoutOption
+import com.segnities007.settings.IdleLockTimeoutPresets
 
 @Composable
 internal fun SecuritySection(
@@ -40,6 +46,38 @@ internal fun SecuritySection(
     val draft = passwordDraft
     val canUpdatePassword = draft.canSubmit(uiState.isPasswordUpdating)
     SettingsSectionList {
+        item {
+            NofyCardSurface {
+                NofyCardSectionHeader(
+                    title = stringResource(R.string.settings_idle_lock_heading),
+                    supporting = stringResource(R.string.settings_idle_lock_body),
+                )
+                Spacer(modifier = Modifier.height(NofySpacing.md))
+                Column(verticalArrangement = Arrangement.spacedBy(NofySpacing.md)) {
+                    IdleLockTimeoutPresets.chunked(2).forEach { row ->
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(NofySpacing.md)
+                        ) {
+                            row.forEach { option ->
+                                NofyChoiceChip(
+                                    label = option.idleLockLabel(),
+                                    selected = uiState.idleLockTimeout == option,
+                                    onClick = {
+                                        onIntent(SettingIntent.SelectIdleLockTimeout(option))
+                                    },
+                                    modifier = Modifier.weight(1f)
+                                )
+                            }
+                            if (row.size == 1) {
+                                Spacer(modifier = Modifier.weight(1f))
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         item {
             NofyCardSurface {
                 NofyCardSectionHeader(
@@ -79,7 +117,8 @@ internal fun SecuritySection(
                                 }
                             },
                             enabled = !uiState.isBiometricSwitchBusy,
-                            rejectObscuredTouches = true
+                            rejectObscuredTouches = true,
+                            contentDescription = stringResource(R.string.settings_a11y_biometric_switch)
                         )
                     }
                 )
@@ -126,6 +165,16 @@ internal fun SecuritySection(
                 )
             }
         }
+    }
+}
+
+@Composable
+private fun IdleLockTimeoutOption.idleLockLabel(): String {
+    return when (this) {
+        IdleLockTimeoutOption.ThirtySeconds -> stringResource(R.string.settings_idle_lock_30s)
+        IdleLockTimeoutOption.OneMinute -> stringResource(R.string.settings_idle_lock_1m)
+        IdleLockTimeoutOption.TwoMinutes -> stringResource(R.string.settings_idle_lock_2m)
+        IdleLockTimeoutOption.FiveMinutes -> stringResource(R.string.settings_idle_lock_5m)
     }
 }
 

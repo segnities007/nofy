@@ -162,10 +162,11 @@
 
 ### 4.2 ViewModel 取得
 
-- **抽象**: Factory は**名前付きヘルパ**に閉じ、Screen は宣言だけにする（`AGENTS.md` §4.4）。
+- **抽象**: 依存解決と Factory は **DI（Koin）とモジュール**に閉じ、Screen は取得宣言だけにする（`AGENTS.md` §4.4、`docs/tech.md`）。
 - **テンプレート**:
-  1. `viewModel(factory = FooViewModel.factory(deps))` の形に揃える。
-  2. `object : ViewModelProvider.Factory` を composable 内に書かない。
+  1. 本プロジェクトでは `koinViewModel()`（または `koinViewModel(parameters = { parametersOf(...) })`）を標準とする。
+  2. `ViewModel` のコンストラクタ引数は各 feature の `*FeatureModule` で `viewModel { ... }` に列挙し、composable 内に `object : ViewModelProvider.Factory` を書かない。
+  3. AndroidViewModel が必要な場合も Koin の `viewModel { }` で `Application` を `get()` する。
 
 ### 4.3 Navigation 配線
 

@@ -73,6 +73,43 @@ See **[`platform/README.md`](platform/README.md)** and **[`shared/README.md`](sh
 | [`platform/README.md`](platform/README.md) | `:platform:*` libraries (navigation, DB, crypto, design system, …). |
 | [`shared/README.md`](shared/README.md) | `:shared:*` libraries (`auth`, `settings`). |
 | [`build-logic/README.md`](build-logic/README.md) | Convention plugins. |
+| [`docs/macro-mermaid.md`](docs/macro-mermaid.md) | **Macro views & flows** (Mermaid): repo/architecture plus **§16+** product features (index §25; lock/risky §30–§31; domain UC §32–§34). |
+| [`docs/architecture-overview.md`](docs/architecture-overview.md) | Compact Mermaid: Gradle groups, Koin order, NavKey, auth gate. |
+
+---
+
+## Visual map (Mermaid)
+
+リポジトリと依存のマクロ像（詳細・フローは **[`docs/macro-mermaid.md`](docs/macro-mermaid.md)**）。
+
+```mermaid
+flowchart TB
+  subgraph app[":app"]
+    Shell["MainActivity + NavHost + Koin"]
+  end
+  subgraph features["features"]
+    L["login"]
+    N["note"]
+    S["setting"]
+  end
+  subgraph plat[":platform:*"]
+    DS["designsystem · navigation · crypto · DB · …"]
+  end
+  subgraph shr[":shared:*"]
+    AU["auth"]
+    ST["settings"]
+  end
+  Shell --> L
+  Shell --> N
+  Shell --> S
+  L --> DS
+  N --> DS
+  S --> DS
+  L --> AU
+  N --> AU
+  S --> AU
+  S --> ST
+```
 
 ---
 
@@ -94,6 +131,8 @@ Versions are centralized in [`gradle/libs.versions.toml`](gradle/libs.versions.t
 - **Clean / layered / modular**: features own `presentation` → `domain` → `data`; dependencies point inward.
 - **UDF-style UI**: `UiState`, `Intent`, and effects (see feature READMEs).
 - **Design system**: `platform/designsystem` exposes atoms/molecules; feature modules must not depend on Compose Material 3 directly (enforced by convention plugin).
+
+レイヤーと Intent の流れ（概念図）は [`docs/macro-mermaid.md` §5（UDF レイヤー）](docs/macro-mermaid.md#udf-arch) を参照。
 
 ---
 

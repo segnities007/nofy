@@ -70,7 +70,8 @@ internal fun AppearanceSection(
                         onIntent(SettingIntent.ChangeFontScale(FontScalePresets[presetIndex]))
                     },
                     valueRange = 0f..FontScalePresets.lastIndex.toFloat(),
-                    steps = (FontScalePresets.size - 2).coerceAtLeast(0)
+                    steps = (FontScalePresets.size - 2).coerceAtLeast(0),
+                    contentDescription = stringResource(R.string.settings_a11y_font_size_slider)
                 )
             }
         }

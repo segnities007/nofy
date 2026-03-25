@@ -1,6 +1,7 @@
 package com.segnities007.setting.presentation.contract
 
 import androidx.annotation.StringRes
+import com.segnities007.settings.IdleLockTimeoutOption
 import com.segnities007.settings.ThemeMode
 
 /**
@@ -32,6 +33,9 @@ data class SettingState(
 
     /** 本文フォントのスケール（1.0 が既定）。 */
     val fontScale: Float = 1f,
+
+    /** フォアグラウンド無操作でロックするまでの時間。 */
+    val idleLockTimeout: IdleLockTimeoutOption = IdleLockTimeoutOption.OneMinute,
 
     /** 生体ログインが有効か（リポジトリ由来）。 */
     val isBiometricEnabled: Boolean = false,

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.segnities007.note.presentation.state.NoteBarStateTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-03-22T07:32:08.449Z" hostname="archlinux" time="0.037">
-  <properties/>
-  <testcase name="toBarState_enablesDeleteForSavedPage" classname="com.segnities007.note.presentation.state.NoteBarStateTest" time="0.032"/>
-  <testcase name="toBarState_usesUntitledFallbackAndHidesBarsWhileLoading" classname="com.segnities007.note.presentation.state.NoteBarStateTest" time="0.001"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

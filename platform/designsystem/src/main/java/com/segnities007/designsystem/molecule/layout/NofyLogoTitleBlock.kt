@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import com.segnities007.designsystem.atom.logo.NofyLogo
@@ -33,7 +35,11 @@ fun NofyLogoTitleBlock(
         verticalArrangement = Arrangement.spacedBy(verticalSpacing),
     ) {
         NofyLogo()
-        NofyText(text = title, style = resolvedTitle)
+        NofyText(
+            text = title,
+            style = resolvedTitle,
+            modifier = Modifier.semantics { heading() }
+        )
         if (!subtitle.isNullOrBlank()) {
             NofySupportingText(
                 text = subtitle,

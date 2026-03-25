@@ -1,8 +1,0 @@
-com.segnities007.note.impl-pngs-0 /home/segnities007/AndroidStudioProjects/nofy/feature/note/build/generated/res/pngs/release
-com.segnities007.note.impl-updated_navigation_xml-1 /home/segnities007/AndroidStudioProjects/nofy/feature/note/build/generated/updated_navigation_xml/release
-com.segnities007.note.impl-mergeReleaseResources-2 /home/segnities007/AndroidStudioProjects/nofy/feature/note/build/intermediates/incremental/release/mergeReleaseResources/merged.dir
-com.segnities007.note.impl-mergeReleaseResources-3 /home/segnities007/AndroidStudioProjects/nofy/feature/note/build/intermediates/incremental/release/mergeReleaseResources/stripped.dir
-com.segnities007.note.impl-release-4 /home/segnities007/AndroidStudioProjects/nofy/feature/note/build/intermediates/merged_res/release/mergeReleaseResources
-com.segnities007.note.impl-release-5 /home/segnities007/AndroidStudioProjects/nofy/feature/note/build/intermediates/packaged_res/release/packageReleaseResources
-com.segnities007.note.impl-main-6 /home/segnities007/AndroidStudioProjects/nofy/feature/note/src/main/res
-com.segnities007.note.impl-release-7 /home/segnities007/AndroidStudioProjects/nofy/feature/note/src/release/res

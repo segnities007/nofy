@@ -7,6 +7,9 @@ import com.segnities007.note.data.local.NoteDatabaseProvider
 import com.segnities007.note.data.repository.NoteRepositoryImpl
 import com.segnities007.note.data.transfer.NoteVaultTransferPortImpl
 import com.segnities007.note.domain.repository.NoteRepository
+import com.segnities007.note.domain.usecase.DeleteNoteUseCase
+import com.segnities007.note.domain.usecase.LoadNotesSnapshotUseCase
+import com.segnities007.note.domain.usecase.SaveNoteUseCase
 import com.segnities007.note.presentation.navigation.NoteNavigationEntryInstaller
 import com.segnities007.note.presentation.viewmodel.NoteViewModel
 import com.segnities007.navigation.NavigationEntryInstaller
@@ -30,5 +33,8 @@ val noteFeatureModule = module {
             sensitiveOperationGuard = get()
         )
     }
-    viewModel { NoteViewModel(get(), get()) }
+    singleOf(::LoadNotesSnapshotUseCase)
+    singleOf(::SaveNoteUseCase)
+    singleOf(::DeleteNoteUseCase)
+    viewModel { NoteViewModel(get(), get(), get(), get(), get()) }
 }

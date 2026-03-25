@@ -11,6 +11,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import com.segnities007.designsystem.atom.surface.NofySurface
 import com.segnities007.designsystem.input.consumeObscuredTouches
 import com.segnities007.designsystem.theme.NofyPreview
@@ -24,15 +26,23 @@ fun NofySwitch(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     rejectObscuredTouches: Boolean = false,
-    onObscuredTouch: (() -> Unit)? = null
+    onObscuredTouch: (() -> Unit)? = null,
+    contentDescription: String? = null
 ) {
+    val semanticsModifier = if (contentDescription != null) {
+        Modifier.semantics { this.contentDescription = contentDescription }
+    } else {
+        Modifier
+    }
     Switch(
         checked = checked,
         onCheckedChange = onCheckedChange,
-        modifier = modifier.consumeObscuredTouches(
-            enabled = rejectObscuredTouches,
-            onBlocked = onObscuredTouch
-        ),
+        modifier = semanticsModifier
+            .then(modifier)
+            .consumeObscuredTouches(
+                enabled = rejectObscuredTouches,
+                onBlocked = onObscuredTouch
+            ),
         enabled = enabled
     )
 }
