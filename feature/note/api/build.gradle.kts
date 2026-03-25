@@ -17,6 +17,4 @@ dependencies {
     implementation(project(":platform:navigation"))
 
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }

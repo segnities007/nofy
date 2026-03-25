@@ -10,6 +10,7 @@ import androidx.navigationevent.NavigationEvent
 
 private const val NavigationTransitionDurationMillis = 220
 
+/** Navigation3 シーン切替のフェードイン／アウト（約 220ms）。 */
 internal fun <T : Any> nofyTransitionSpec():
     AnimatedContentTransitionScope<Scene<T>>.() -> ContentTransform = {
     ContentTransform(
@@ -22,6 +23,7 @@ internal fun <T : Any> nofyTransitionSpec():
     )
 }
 
+/** 予測バック（スワイス）時も通常遷移と同じトランジションを使う。 */
 internal fun <T : Any> nofyPredictivePopTransitionSpec():
     AnimatedContentTransitionScope<Scene<T>>.(
         @NavigationEvent.SwipeEdge Int

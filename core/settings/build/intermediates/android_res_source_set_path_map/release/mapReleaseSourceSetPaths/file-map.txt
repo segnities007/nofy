@@ -1,8 +1,0 @@
-com.segnities007.settings-pngs-0 /home/segnities007/AndroidStudioProjects/nofy/core/settings/build/generated/res/pngs/release
-com.segnities007.settings-updated_navigation_xml-1 /home/segnities007/AndroidStudioProjects/nofy/core/settings/build/generated/updated_navigation_xml/release
-com.segnities007.settings-mergeReleaseResources-2 /home/segnities007/AndroidStudioProjects/nofy/core/settings/build/intermediates/incremental/release/mergeReleaseResources/merged.dir
-com.segnities007.settings-mergeReleaseResources-3 /home/segnities007/AndroidStudioProjects/nofy/core/settings/build/intermediates/incremental/release/mergeReleaseResources/stripped.dir
-com.segnities007.settings-release-4 /home/segnities007/AndroidStudioProjects/nofy/core/settings/build/intermediates/merged_res/release/mergeReleaseResources
-com.segnities007.settings-release-5 /home/segnities007/AndroidStudioProjects/nofy/core/settings/build/intermediates/packaged_res/release/packageReleaseResources
-com.segnities007.settings-main-6 /home/segnities007/AndroidStudioProjects/nofy/core/settings/src/main/res
-com.segnities007.settings-release-7 /home/segnities007/AndroidStudioProjects/nofy/core/settings/src/release/res

@@ -1,0 +1,2 @@
+# Google Play package name (must match applicationId).
+package_name("com.segnities007.nofy")

@@ -1,0 +1,28 @@
+# frozen_string_literal: true
+
+default_platform(:android)
+
+platform :android do
+  # Service account JSON path (CI writes this from GitHub Secret).
+  PLAY_JSON = ENV.fetch("PLAY_STORE_JSON_KEY_FILE", File.expand_path("../play-store-credentials.json", __dir__))
+
+  desc "Upload the release AAB to Play Console (internal testing track)"
+  lane :upload_internal do
+    upload_to_play_store(
+      json_key: PLAY_JSON,
+      aab: File.expand_path("../app/build/outputs/bundle/release/app-release.aab", __dir__),
+      track: "internal",
+      skip_upload_apk: true,
+      skip_upload_metadata: true,
+      skip_upload_changelogs: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true
+    )
+  end
+
+  desc "Build release AAB with Gradle, then upload to internal track"
+  lane :deploy_internal do
+    gradle(task: ":app:bundleRelease")
+    upload_internal
+  end
+end

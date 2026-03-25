@@ -1,25 +1,22 @@
 package com.segnities007.nofy.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.segnities007.auth.domain.repository.AuthRepository
-import com.segnities007.designsystem.atom.surface.NofySurface
-import com.segnities007.designsystem.atom.text.NofyText
-import com.segnities007.designsystem.theme.NofyPreview
-import com.segnities007.designsystem.theme.NofyPreviewSurface
 import com.segnities007.login.api.LoginRoute
+import com.segnities007.note.api.NoteRoute
 import com.segnities007.navigation.AppNavigator
 import com.segnities007.navigation.NavigationEntryInstaller
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun NofyNavHost(
@@ -28,11 +25,20 @@ fun NofyNavHost(
     modifier: Modifier = Modifier
 ) {
     val initialRoute by rememberInitialRoute(authRepository)
-    val currentRoute = initialRoute ?: return // Wait for initialization
+    val authNavigationState by rememberAuthNavigationState(authRepository)
+    val currentRoute = initialRoute ?: return
 
     val backStack = rememberNavBackStack(currentRoute)
     val navigator = remember(backStack) { BackStackNavigator(backStack) }
-    
+
+    LaunchedEffect(authNavigationState) {
+        val state = authNavigationState ?: return@LaunchedEffect
+        resolveForcedRoute(
+            isRegistered = state.isRegistered,
+            isLocked = state.isLocked
+        )?.let(backStack::replaceWith)
+    }
+
     NavDisplay(
         backStack = backStack,
         modifier = modifier,
@@ -48,14 +54,31 @@ fun NofyNavHost(
     )
 }
 
+/**
+ * 起動時の登録／ロック状態から最初の [NavKey] を 1 回確定する（[produceState]）。
+ */
 @Composable
 private fun rememberInitialRoute(
     authRepository: AuthRepository
 ) = produceState<NavKey?>(initialValue = null, authRepository) {
-    val isRegistered = authRepository.isRegistered().first()
-    value = if (isRegistered) LoginRoute.Login else LoginRoute.SignUp
+    val state = authRepository.observeAuthNavigationState().first()
+    value = resolveInitialRoute(
+        isRegistered = state.isRegistered,
+        isLocked = state.isLocked
+    )
 }
 
+/**
+ * 認証状態の変化を購読し、バックスタックの強制置換に使う最新の [AuthNavigationState] を保持する。
+ */
+@Composable
+private fun rememberAuthNavigationState(
+    authRepository: AuthRepository
+) = produceState<AuthNavigationState?>(initialValue = null, authRepository) {
+    authRepository.observeAuthNavigationState().collect { value = it }
+}
+
+/** [MutableList] ベースの [AppNavigator] 実装（Navigation3 のバックスタックと同期）。 */
 private class BackStackNavigator(
     private val backStack: MutableList<NavKey>
 ) : AppNavigator {
@@ -89,55 +112,27 @@ private fun MutableList<NavKey>.popIfPossible() {
     }
 }
 
-@NofyPreview
-@Composable
-private fun NofyNavHostPreview() {
-    NofyPreviewSurface {
-        NofyNavHost(
-            authRepository = PreviewAuthRepository,
-            entryInstallers = listOf(previewNavigationEntryInstaller())
-        )
-    }
+private fun authGateRouteOrNull(
+    isRegistered: Boolean,
+    isLocked: Boolean
+): NavKey? {
+    if (!isRegistered) return LoginRoute.SignUp
+    if (isLocked) return LoginRoute.Login
+    return null
 }
 
-private fun previewNavigationEntryInstaller(): NavigationEntryInstaller {
-    return NavigationEntryInstaller { scope, _ ->
-        with(scope) {
-            entry<LoginRoute.Login> {
-                NofySurface {
-                    NofyText(text = "Navigation preview")
-                }
-            }
-        }
-    }
+/** 初回表示用: 未登録・ロック時は認証ルート、それ以外はノート一覧。 */
+internal fun resolveInitialRoute(
+    isRegistered: Boolean,
+    isLocked: Boolean
+): NavKey {
+    return authGateRouteOrNull(isRegistered, isLocked) ?: NoteRoute.NoteList
 }
 
-private object PreviewAuthRepository : AuthRepository {
-    override fun isRegistered(): Flow<Boolean> = flowOf(true)
-
-    override fun isBiometricEnabled(): Flow<Boolean> = flowOf(false)
-
-    override suspend fun lock(): Result<Unit> = Result.success(Unit)
-
-    override suspend fun unlock(password: String): Result<Unit> = Result.success(Unit)
-
-    override suspend fun unlockWithBiometric(decryptedPassword: String): Result<Unit> = Result.success(Unit)
-
-    override suspend fun registerPassword(password: String): Result<Unit> = Result.success(Unit)
-
-    override suspend fun saveBiometricSecret(
-        encryptedSecret: ByteArray,
-        iv: ByteArray
-    ): Result<Unit> = Result.success(Unit)
-
-    override suspend fun getBiometricSecret(): Pair<ByteArray, ByteArray>? = null
-
-    override suspend fun reset(): Result<Unit> = Result.success(Unit)
-
-    override suspend fun setBiometricEnabled(enabled: Boolean): Result<Unit> = Result.success(Unit)
-
-    override suspend fun changePassword(
-        currentPassword: String,
-        newPassword: String
-    ): Result<Unit> = Result.success(Unit)
+/** 状態変化時: 認証ゲートが必要ならそのルート、不要なら `null`（置換しない）。 */
+internal fun resolveForcedRoute(
+    isRegistered: Boolean,
+    isLocked: Boolean
+): NavKey? {
+    return authGateRouteOrNull(isRegistered, isLocked)
 }

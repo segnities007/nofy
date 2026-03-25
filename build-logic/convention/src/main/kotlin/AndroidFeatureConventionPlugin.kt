@@ -7,6 +7,7 @@ import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 
+/** `:feature:*` 向け: Compose・feature UI バンドル・Navigation3 等を一括適用する Gradle コンベンション。 */
 class AndroidFeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
@@ -51,7 +52,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                         throw GradleException(
                             buildString {
                                 appendLine("Direct Compose Material usage is forbidden in feature modules.")
-                                appendLine("Use components exposed from :core:designsystem instead.")
+                                appendLine("Use components exposed from :platform:designsystem instead.")
                                 append(violations.joinToString(separator = "\n"))
                             }
                         )

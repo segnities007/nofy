@@ -8,8 +8,39 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 .DS_Store
-/build
+# Gradle / Android: every module’s build/ (root-only /build is not enough)
+**/build/
+
+# Kotlin compiler / tooling caches (e.g. under build-logic)
+**/.kotlin/
+
+# Gradle / IDE output under convention plugin (source of truth is src/main/kotlin)
+build-logic/convention/bin/
+
+# Android / JVM artifacts that sometimes land outside **/build/ (e.g. mistaken `git add .`)
+*.hprof
+*.apk
+*.aab
+*.ap_
+
+# Captures, NDK, CMake (often under module roots)
 /captures
+**/captures/
 .externalNativeBuild
+**/.externalNativeBuild/
 .cxx
-local.properties
+**/.cxx/
+
+# Release signing (local)
+keystore.properties
+*.jks
+*.keystore
+
+# Play API (never commit)
+play-store-credentials.json
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
