@@ -25,7 +25,7 @@ markdownRenderer = "0.39.1"
 koinBom = "4.2.0"
 googlePlayServicesOssLicenses = "17.4.0"
 bouncycastle = "1.78.1"
-zxing = "3.5.3"
+zxing = "3.5.4"
 mlkitBarcode = "17.3.0"
 camerax = "1.4.1"
 
